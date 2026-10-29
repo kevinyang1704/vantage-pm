@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "pairs": [
+    { "assets": "phase0-v1", "schema": "1.0.0", "status": "supported", "readSchemas": ["1.0.0", "2.0.0"], "writeSchemas": ["1.0.0", "2.0.0"], "targetSchema": "1.0.0" },
+    { "assets": "phase0-v2-candidate", "schema": "2.0.0", "status": "candidate", "readSchemas": ["1.0.0", "2.0.0"], "writeSchemas": ["1.0.0", "2.0.0"], "targetSchema": "2.0.0" }
+  ],
+  "fixture": {
+    "name": "known-project-v1",
+    "initialRevision": 7,
+    "actualFileSha256": "fc5e5f1fff6b0a7e3c39a9d86bf6651af83b3f510f6bcc185e65b00f7fcf742d",
+    "semanticStateSha256": "c51ce410c124a10e0db5e4b97fc2af39fc2c090e0a8ba27d3e5fc20c1d0e3ec0"
+  },
+  "candidate": {
+    "name": "candidate-v2",
+    "migrationId": "0198a000-0000-7000-8000-000000000003",
+    "sourceSchemaVersion": "1.0.0",
+    "targetSchemaVersion": "2.0.0",
+    "actualFileSha256": "9c934fe69f047ebffb2ddf1db802168f6fc4d44d7c0d1cfd4f703049441be846"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "registryVersion": 1,
+  "protocolVersion": "1.0.0",
+  "supportWindowDays": 30,
+  "note": "Coordinated browser/native schema releases served by the collaboration service (Story 27.9, R10). introducedAtIso is when the schema landed on the integration branch (source commit); replace with the public release instant when a release ships. Rule: the newest two releases never retire; any older release retires supportWindowDays after the release two newer than it was introduced, unless an explicit retiresAtIso records an earlier promised policy decision. Every new schema version MUST be appended here (a test fails otherwise).",
+  "releases": [
+    {
+      "schemaVersion": 15,
+      "introducedAtIso": "2026-09-24T00:00:00Z",
+      "source": "c8e0fc6",
+      "retiresAtIso": "2026-10-31T00:00:00Z"
+    },
+    {
+      "schemaVersion": 16,
+      "introducedAtIso": "2026-09-28T00:00:00Z",
+      "source": "f430d88",
+      "retiresAtIso": "2026-10-31T00:00:00Z"
+    },
+    {
+      "schemaVersion": 17,
+      "introducedAtIso": "2026-09-30T00:00:00Z",
+      "source": "3ab7612"
+    },
+    {
+      "schemaVersion": 18,
+      "introducedAtIso": "2026-10-05T00:00:00Z",
+      "source": "3adefff"
+    },
+    {
+      "schemaVersion": 19,
+      "introducedAtIso": "2026-10-06T00:00:00Z",
+      "source": "03abaa4"
+    },
+    {
+      "schemaVersion": 20,
+      "introducedAtIso": "2026-10-28T00:00:00Z",
+      "source": "vantage-local-file-collaboration"
+    }
+  ]
+}

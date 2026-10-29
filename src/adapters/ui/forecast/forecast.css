@@ -1,0 +1,2888 @@
+/**
+ * Forecast Workspace CSS (Epic 18, Story 18.5, UX-DR1..UX-DR3, UX-DR6..UX-DR9).
+ *
+ * Meridian applied to commitment math: compact, sober, inspectable. The
+ * completion value is the only enlarged type moment. Blue is the sole
+ * action/focus accent; teal marks parallel relationships; amber marks
+ * incomplete/conditional states; red marks rejected inputs; green marks a
+ * valid computed state — never delivery certainty.
+ *
+ * At >=1200px the planning list owns the flexible column and the forecast
+ * rail is 280-320px sticky. At 900-1199px the rail becomes a right drawer.
+ * Below 900px everything reflows to one readable column. No shadows; tonal
+ * depth only; tight Meridian radii; hairline borders.
+ */
+
+.pm-forecast {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--pm-canvas);
+}
+
+.pm-forecast__list {
+  flex: 1;
+  min-width: 520px;
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--pm-space-5) var(--pm-space-6);
+}
+
+.pm-forecast__rail {
+  width: 320px;
+  min-width: 280px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--pm-surface);
+  border-left: 1px solid var(--pm-border-strong);
+  padding: var(--pm-space-5) var(--pm-space-5) var(--pm-space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-5);
+}
+
+/* ── Empty / no-plan state ─────────────────────────────────────────── */
+
+.pm-forecast__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pm-space-4);
+  padding: var(--pm-space-7);
+  border: 1px dashed var(--pm-border-strong);
+  border-radius: var(--pm-radius-md);
+  max-width: 420px;
+}
+
+.pm-forecast__empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__empty-copy {
+  font-size: 13px;
+  color: var(--pm-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Completion card ─────────────────────────────────────────────── */
+
+.pm-forecast__completion {
+  background-color: var(--pm-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--pm-accent) 55%, transparent);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__completion-label {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__completion-value {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__completion-date {
+  font-family: var(--pm-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__completion-note {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__completion-note--warning {
+  color: var(--pm-warning);
+}
+
+.pm-forecast__completion-note--error {
+  color: var(--pm-danger);
+}
+
+/* ── Reasons (Story 26.1, AC 26.1-2) ─────────────────────────────── */
+
+.pm-forecast__reasons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__reason {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--pm-text-secondary);
+  padding-left: 12px;
+  position: relative;
+}
+
+.pm-forecast__reason::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--pm-text-muted);
+}
+
+/* ── "Show the math" disclosure (Story 26.1, AC 26.1-3) ──────────── */
+
+.pm-forecast__disclosure {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--pm-border);
+  border-bottom: 1px solid var(--pm-border);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.pm-forecast__disclosure:focus-visible {
+  outline: 2px solid var(--pm-accent);
+  outline-offset: -2px;
+}
+
+.pm-forecast__disclosure-summary {
+  margin-left: auto;
+  font-family: var(--pm-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__disclosure-indicator {
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__math {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-4);
+  padding-top: var(--pm-space-3);
+}
+
+.pm-forecast__math[hidden] {
+  display: none;
+}
+
+/* ── Rail sections ───────────────────────────────────────────────── */
+
+.pm-forecast__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__section-title {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+}
+
+/* ── Arithmetic block ─────────────────────────────────────────────── */
+
+.pm-forecast__arithmetic {
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  font-family: var(--pm-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__arithmetic-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__arithmetic-value {
+  color: var(--pm-text-primary);
+  text-align: right;
+}
+
+/* ── Issues / coverage ───────────────────────────────────────────── */
+
+.pm-forecast__issue {
+  border-left: 2px solid var(--pm-warning);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  background-color: var(--pm-elevated);
+  border-radius: 0 var(--pm-radius-xs) var(--pm-radius-xs) 0;
+}
+
+.pm-forecast__issue--error {
+  border-left-color: var(--pm-danger);
+  color: var(--pm-danger);
+}
+
+.pm-forecast__issue-action {
+  display: inline-block;
+  margin-top: var(--pm-space-1);
+  font-size: 12px;
+  color: var(--pm-accent);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ── Configuration panel ─────────────────────────────────────────── */
+
+.pm-forecast__config {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__config-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+}
+
+.pm-forecast__config-label {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__config-input {
+  font-family: var(--pm-font-mono);
+  font-size: 12px;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xs);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  width: 100%;
+}
+
+.pm-forecast__config-input:focus {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__config-input[aria-invalid='true'] {
+  border-color: var(--pm-danger);
+}
+
+.pm-forecast__config-actions {
+  display: flex;
+  gap: var(--pm-space-3);
+  margin-top: var(--pm-space-2);
+}
+
+.pm-forecast__button {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xs);
+  padding: var(--pm-space-2) var(--pm-space-4);
+  cursor: pointer;
+}
+
+.pm-forecast__button:hover {
+  background-color: var(--pm-accent-soft);
+}
+
+.pm-forecast__button:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__button--primary {
+  background-color: var(--pm-accent-strong);
+  border-color: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+}
+
+.pm-forecast__button--primary:hover {
+  background-color: var(--pm-accent-strong-hover);
+}
+
+/* ── Planning list rows (Story 18.6) ─────────────────────────────── */
+
+.pm-forecast__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+/* ── Virtualized rows (Story 23.11 AC 23.11-2) ────────────────────────
+   The slot list is absolutely positioned inside a tall inner container so a
+   bounded window of slots can be transformed to their offsets; the DOM count
+   stays independent of the scope size. */
+
+.pm-forecast__rows-inner {
+  position: relative;
+  width: 100%;
+}
+
+.pm-forecast__slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* ── Planning List Header ─────────────────────────────────────────── */
+
+.pm-forecast__table-header {
+  display: grid;
+  grid-template-columns: 44px minmax(170px, 1.2fr) 140px 48px minmax(280px, 2fr);
+  gap: var(--pm-space-3);
+  padding: 0 var(--pm-space-3) var(--pm-space-2);
+  align-items: end;
+  font-family: var(--pm-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pm-text-muted);
+  border-bottom: 1px solid var(--pm-border);
+  margin-bottom: var(--pm-space-1);
+}
+
+.pm-forecast__th--rank {
+  width: 44px;
+}
+
+.pm-forecast__th--title {
+  min-width: 0;
+}
+
+.pm-forecast__th--actions {
+  text-align: right;
+  margin-right: var(--pm-space-2);
+}
+
+.pm-forecast__th--points {
+  width: 48px;
+  text-align: right;
+}
+
+/* ── Sprint timeline axis in Header (Story 26.2) ─────────────────── */
+
+.pm-forecast__axis {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+}
+
+.pm-forecast__axis-track {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+}
+
+.pm-forecast__axis-column {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 var(--pm-space-1);
+}
+
+.pm-forecast__axis-workdone,
+.pm-forecast__axis-forecast {
+  white-space: nowrap;
+}
+
+.pm-forecast__axis-asof {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  color: var(--pm-warning);
+  white-space: nowrap;
+}
+
+.pm-forecast__axis-today {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 14px;
+  background-color: var(--pm-warning);
+}
+
+.pm-forecast__axis-forecast {
+  color: var(--pm-accent);
+}
+
+/* ── Row timeline column (Story 26.2) ────────────────────────────── */
+
+.pm-forecast__row-timeline {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.pm-forecast__row-timeline-track {
+  position: relative;
+  height: 38px;
+  border-left: 1px solid var(--pm-border);
+  border-right: 1px solid var(--pm-border);
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  /* Sprint divider lines are drawn as a repeating background rather than one
+     element per sprint: at 5,000 items a ~500-sprint axis would otherwise add
+     ~90k DOM nodes across the window and break the AC 23.11-2 bounded DOM.
+     `--pm-axis-sprints` (set per row) spaces one 1px line per sprint. */
+  background-image: linear-gradient(to right, var(--pm-grid) 0 1px, transparent 1px);
+  background-size: calc(100% / var(--pm-axis-sprints, 1)) 100%;
+  background-repeat: repeat-x;
+}
+
+.pm-forecast__row-timeline-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--pm-grid);
+}
+
+.pm-forecast__row-timeline-connector {
+  position: absolute;
+  left: 0;
+  top: 19px;
+  height: 2px;
+  background-color: var(--pm-border-strong);
+}
+
+.pm-forecast__row-timeline-waits-label {
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  font-size: 10px;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__row-timeline-bar {
+  position: absolute;
+  top: 6px;
+  height: 26px;
+  box-sizing: border-box;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--pm-accent-strong);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.pm-forecast__row-timeline-duration {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pm-text-on-focus);
+  white-space: nowrap;
+}
+
+.pm-forecast__row--member .pm-forecast__row-timeline-duration {
+  color: var(--pm-workstream-ink);
+}
+
+@media (prefers-color-scheme: light) {
+  .pm-forecast__row--member .pm-forecast__row-timeline-duration {
+    color: var(--pm-text-on-focus);
+  }
+}
+
+:root[data-theme="light"] .pm-forecast__row--member .pm-forecast__row-timeline-duration {
+  color: var(--pm-text-on-focus);
+}
+
+.pm-forecast__row-timeline-marker {
+  position: absolute;
+  top: 11px;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(45deg);
+  background-color: var(--pm-flag-effort);
+  border-radius: 2px;
+}
+
+.pm-forecast__row-timeline-workdone {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 38px;
+  transform: translateX(-1px);
+  background-color: var(--pm-text-primary);
+}
+
+.pm-forecast__row-timeline-done {
+  position: absolute;
+  top: 6px;
+  height: 26px;
+  background-color: var(--pm-flag-effort);
+  opacity: 0.7;
+  border-radius: 4px 0 0 4px;
+}
+
+.pm-forecast__row-timeline-note {
+  font-size: 10px;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__row-pace {
+  font-family: var(--pm-font-mono);
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Summary Finish Markers (under rows) ─────────────────────────── */
+
+.pm-forecast__summary-markers {
+  display: grid;
+  grid-template-columns: 44px minmax(170px, 1.2fr) 140px 48px minmax(280px, 2fr);
+  gap: var(--pm-space-3);
+  padding: 0 var(--pm-space-3);
+  margin-top: var(--pm-space-1);
+}
+
+.pm-forecast__summary-markers-timeline {
+  position: relative;
+  height: 54px;
+}
+
+.pm-forecast__summary-tick {
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+
+.pm-forecast__summary-tick--workdone {
+  height: 18px;
+  background-color: var(--pm-text-primary);
+}
+
+.pm-forecast__summary-label--workdone {
+  position: absolute;
+  top: 20px;
+  font-size: 11px;
+  color: var(--pm-text-primary);
+  white-space: nowrap;
+  transform: translateX(-100%);
+  padding-right: 6px;
+}
+
+.pm-forecast__summary-tick--forecast {
+  height: 36px;
+  background-color: var(--pm-bar);
+}
+
+.pm-forecast__summary-label--forecast {
+  position: absolute;
+  top: 36px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pm-bar);
+  white-space: nowrap;
+  transform: translateX(-100%);
+  padding-right: 6px;
+}
+
+.pm-forecast__summary-tick--today {
+  height: 12px;
+  background-color: var(--pm-warning);
+}
+
+.pm-forecast__summary-label--today {
+  position: absolute;
+  top: 14px;
+  font-size: 10px;
+  color: var(--pm-warning);
+  white-space: nowrap;
+  padding-left: 6px;
+}
+
+/* ── Person lanes (Story 26.3) ────────────────────────────────────── */
+
+.pm-forecast__lanes {
+  margin-top: var(--pm-space-4);
+  padding: var(--pm-space-4);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__lanes-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__lanes-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__lanes-idle-summary {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__lanes-pager {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__lanes-page-label {
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__lanes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__lane {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__lane-name {
+  width: 120px;
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm-forecast__lane-track {
+  position: relative;
+  height: 14px;
+  background-color: var(--pm-canvas);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pm-forecast__lane-segment {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pm-forecast__lane-segment--busy {
+  background-color: var(--pm-bar);
+  border: 0;
+}
+
+.pm-forecast__lane-segment--idle {
+  background-color: transparent;
+  border: 1px dashed var(--pm-border-strong);
+}
+
+.pm-forecast__lane-segment-label {
+  font-size: 9px;
+  color: var(--pm-text-on-focus);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+}
+
+.pm-forecast__lane-busy-names {
+  display: none;
+}
+
+/* ── Levers and preview (Story 26.4) ──────────────────────────────── */
+
+.pm-forecast__levers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__preview-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  padding: var(--pm-space-4);
+  background-color: var(--pm-elevated);
+  border: 1px dashed var(--pm-accent);
+  border-radius: var(--pm-radius-md);
+}
+
+.pm-forecast__preview-label {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__preview-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__preview-date {
+  font-family: var(--pm-font-mono);
+  font-size: 10.5px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__preview-delta {
+  font-family: var(--pm-font-mono);
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__preview-delta--later {
+  color: var(--pm-warning);
+}
+
+.pm-forecast__levers-group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__pacing {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__pacing-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 44px;
+  padding: var(--pm-space-2) var(--pm-space-3);
+  text-align: left;
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  color: var(--pm-text-primary);
+  cursor: pointer;
+}
+
+.pm-forecast__pacing-option--on {
+  border-color: var(--pm-accent);
+  background-color: var(--pm-accent-soft);
+}
+
+.pm-forecast__pacing-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pm-forecast__pacing-hint {
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__lever-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__stepper-btn {
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-sm);
+  cursor: pointer;
+}
+
+.pm-forecast__stepper-input {
+  width: 72px;
+  text-align: right;
+}
+
+.pm-forecast__lever-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  min-height: 44px;
+  font-size: 12px;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__levers-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+}
+
+/* ── Jump-the-line what-if (Story 26.7) ───────────────────────────── */
+
+.pm-forecast__whatif {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__whatif-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  min-height: 32px;
+  font-size: 12px;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__whatif-new {
+  display: flex;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__whatif-people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  margin-top: var(--pm-space-2);
+}
+
+.pm-forecast__whatif-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__whatif-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+}
+
+.pm-forecast__slip-badge {
+  display: inline-block;
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: var(--pm-radius-xs);
+  border: 1px solid var(--pm-border-strong);
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__whatif-summary {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--pm-text-secondary);
+}
+
+
+.pm-forecast__row {
+  display: grid;
+  grid-template-columns: 44px minmax(170px, 1.2fr) 140px 48px minmax(280px, 2fr);
+  gap: var(--pm-space-3);
+  align-items: center;
+  min-height: 48px;
+  padding: 8px var(--pm-space-3);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-md);
+  background-color: var(--pm-surface);
+  box-sizing: border-box;
+}
+
+.pm-forecast__row:hover {
+  background-color: var(--pm-elevated);
+}
+
+.pm-forecast__row-feature-col {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-2);
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Story 26.5: points-done control beside the points field (AC 26.5-4). */
+.pm-forecast__row-done {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+  flex-shrink: 0;
+}
+
+.pm-forecast__row-done-label {
+  font-family: var(--pm-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__row-done-input {
+  width: 44px;
+  padding: 2px 4px;
+  font-size: 12px;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  background-color: transparent;
+  color: inherit;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.pm-forecast__row-done-input:focus {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__row-done-hint {
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+  flex-shrink: 0;
+}
+
+.pm-forecast__row:focus-within {
+  background-color: var(--pm-accent-soft);
+  box-shadow: inset 2px 0 0 var(--pm-focus);
+}
+
+/* Visible remove control on Priority rows and bucket members (UX-DR9) */
+.pm-forecast__row-remove {
+  font-size: 10px;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pm-text-muted);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--pm-radius-xs);
+  cursor: pointer;
+  padding: 0;
+}
+
+.pm-forecast__row-remove:hover {
+  color: var(--pm-danger);
+  background-color: var(--pm-danger-bg);
+  border-color: color-mix(in srgb, var(--pm-danger) 45%, transparent);
+}
+
+.pm-forecast__row-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.pm-forecast__row-points-col {
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+}
+
+.pm-forecast__row-points {
+  font-family: var(--pm-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+  width: 48px;
+  text-align: right;
+}
+
+.pm-forecast__row-points-input {
+  font-family: var(--pm-font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xs);
+  padding: 2px 4px;
+  width: 48px;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.pm-forecast__row-points-input:focus {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__row-window {
+  font-family: var(--pm-font-mono);
+  font-size: 9.5px;
+  color: var(--pm-text-muted);
+  white-space: nowrap;
+}
+
+.pm-forecast__row-invalid {
+  font-size: 11px;
+  color: var(--pm-danger);
+}
+
+.pm-forecast__row-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-forecast__row--selected {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+}
+
+.pm-forecast__row--member {
+  border-left: 3px solid var(--pm-flag-effort);
+}
+
+/* Keyboard grab-and-drop (Story 21.4, AC 21.4-1): a grabbed row shows a
+   visible inset focus ring with the Meridian accent glow — never a cast
+   shadow (check:design-tokens permits inset depth devices only). */
+.pm-forecast__row--grabbed {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+  box-shadow: inset 0 0 0 2px var(--pm-focus);
+}
+
+.pm-forecast__group-header[aria-grabbed="true"] {
+  background-color: var(--pm-accent-soft);
+  box-shadow: inset 0 0 0 2px var(--pm-focus);
+}
+
+.pm-forecast__group-header:focus {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__row-select-check {
+  width: 14px;
+  height: 14px;
+  margin-right: -2px;
+  accent-color: var(--pm-accent);
+  cursor: pointer;
+}
+
+
+/* ── Priority / Rank & Reorder Controls ───────────────────────────── */
+
+.pm-forecast__row-priority {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.pm-forecast__row-select-placeholder {
+  width: 14px;
+  height: 14px;
+  margin-right: -2px;
+}
+
+.pm-forecast__row-rank {
+  font-family: var(--pm-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pm-accent);
+  background-color: transparent;
+  padding: 0;
+  min-width: 18px;
+  line-height: 1.2;
+}
+
+.pm-forecast__row-rank--unselected {
+  color: var(--pm-text-muted);
+  background-color: transparent;
+  font-weight: 400;
+}
+
+.pm-forecast__row-inclusion {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.pm-forecast__row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pm-forecast__row-btn {
+  font-size: 9px;
+  line-height: 1;
+  padding: 4px 6px;
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xs);
+  color: var(--pm-text-secondary);
+  cursor: pointer;
+}
+
+.pm-forecast__row-btn:hover:not(:disabled) {
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__row-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Story 20.1: forecast-owned blocker marker. Amber per DESIGN.md — a
+   conditional assumption, not an error. Two channels: colour + the
+   "· blocked (no delay assumed)" text on the row title. */
+.pm-forecast__row-btn--blocked {
+  border-color: var(--pm-warning);
+  color: var(--pm-warning);
+}
+
+.pm-forecast__row-flag {
+  font-size: 11px;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__row-flag--blocked {
+  color: var(--pm-warning);
+}
+
+/* Story 20.2: "What changed" — typed change causes, one per line, no colour
+   coding (each carries its before/after values as text). */
+.pm-forecast__cause-list {
+  list-style: none;
+  margin: var(--pm-space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__cause {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  border-left: 2px solid var(--pm-border-strong);
+  padding-left: var(--pm-space-3);
+}
+
+/* Story 20.5: scenario comparison rows. */
+.pm-forecast__scenario-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pm-space-2);
+  flex-wrap: wrap;
+}
+
+.pm-forecast__scenario-timing {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin-top: var(--pm-space-2);
+}
+
+.pm-forecast__scenario-timing th,
+.pm-forecast__scenario-timing td {
+  text-align: left;
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-bottom: 1px solid var(--pm-border);
+  color: var(--pm-text-secondary);
+}
+
+.pm-forecast__row-expand {
+  font-size: 10px;
+  padding: 3px 6px;
+  background: transparent;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xs);
+  color: var(--pm-text-secondary);
+  cursor: pointer;
+}
+
+.pm-forecast__row-expand:hover {
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+/* ── Parallel group boundary (Story 19.4, UX-DR2, UX-DR17, UX-DR19) ──── */
+
+.pm-forecast__group {
+  border: 1px solid color-mix(in srgb, var(--pm-flag-effort) 55%, var(--pm-border));
+  border-radius: var(--pm-radius-md);
+  background-color: color-mix(in srgb, var(--pm-effort-bg) 25%, var(--pm-canvas));
+  padding: var(--pm-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--pm-space-3);
+  padding-bottom: var(--pm-space-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--pm-flag-effort) 25%, transparent);
+}
+
+.pm-forecast__group-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pm-forecast__group-badge {
+  font-family: var(--pm-font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pm-flag-effort);
+}
+
+.pm-forecast__group-explanation {
+  font-size: 11.5px;
+  color: var(--pm-text-secondary);
+  line-height: 1.4;
+}
+
+.pm-forecast__group-members {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__selection-entry {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  margin-bottom: var(--pm-space-2);
+}
+
+.pm-forecast__selection-hint {
+  color: var(--pm-text-muted);
+  font-size: 11px;
+}
+
+.pm-forecast__selection-mode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  background-color: var(--pm-accent-soft);
+  border: 1px solid var(--pm-accent);
+  border-radius: var(--pm-radius-sm);
+  margin-bottom: var(--pm-space-2);
+}
+
+.pm-forecast__selection-mode-copy {
+  display: flex;
+  min-width: min(100%, 260px);
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--pm-text-secondary);
+  font-size: 11px;
+}
+
+.pm-forecast__selection-mode-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__selection-mode-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__selection-count {
+  color: var(--pm-text-secondary);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pm-forecast__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pm-forecast__button--small {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+/* ── Timeline details drawer (Story 19.4, AC 19.4-5) ─────────────────── */
+
+.pm-forecast__timeline-details {
+  padding: var(--pm-space-3);
+  margin-top: -1px;
+  margin-bottom: var(--pm-space-2);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-top: none;
+  border-radius: 0 0 var(--pm-radius-sm) var(--pm-radius-sm);
+}
+
+.pm-forecast__timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__timeline-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-forecast__timeline-label {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__timeline-value {
+  font-family: var(--pm-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+
+.pm-forecast__capacity-event {
+  display: block;
+}
+
+.pm-forecast__capacity-event + .pm-forecast__capacity-event {
+  margin-top: 3px;
+}
+
+.pm-forecast__timeline-note {
+  font-size: 11.5px;
+  color: var(--pm-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Group split rejection banner (Story 19.4, AC 19.4-3) ────────────── */
+
+.pm-forecast__rejection-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-3) var(--pm-space-4);
+  background-color: color-mix(in srgb, var(--pm-danger) 12%, var(--pm-canvas));
+  border: 1px solid var(--pm-danger);
+  border-radius: var(--pm-radius-sm);
+  margin-bottom: var(--pm-space-3);
+}
+
+.pm-forecast__rejection-text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--pm-danger);
+}
+
+.pm-forecast__rejection-dismiss {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pm-danger);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--pm-danger) 50%, transparent);
+  border-radius: var(--pm-radius-xs);
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+/* Historical level badge on saved scenarios (Story 21.9, AC 21.9-6). */
+.pm-forecast__scenario-level-badge {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xs);
+  padding: 1px 5px;
+}
+
+/* ── Responsive reflow (UX-DR7) ────────────────────────────────────
+   ≥1280px    three columns: Backlog ≈280px + Priority list + sticky rail.
+   1100-1279  Backlog collapses to a `＋ Add work` drawer over the list.
+   900-1099   the rail also becomes a 300px right drawer opened by the
+              persistent `Completion summary` toggle.
+   <900px     single column: completion, Priority list, then rail sections
+              in flow; Backlog remains a drawer.
+   Drawers toggle instantly — visibility/class swaps only; no CSS
+   transition or keyframe motion anywhere (motion budget). */
+
+/* 1100-1279px: Backlog collapses to the ＋ Add work drawer. The selectors are
+   prefixed with `.pm-forecast` so they out-rank the later single-class base
+   rules (`.pm-forecast__backlog { display: flex }`) — source order alone would
+   lose the cascade. */
+@media (max-width: 1279px) {
+  .pm-forecast .pm-forecast__drawer-toggle--add-work {
+    display: inline-flex;
+  }
+
+  .pm-forecast .pm-forecast__backlog {
+    display: none;
+  }
+
+  .pm-forecast .pm-forecast__backlog.pm-forecast__backlog--drawer-open {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 40;
+    display: flex;
+    width: 280px;
+    max-width: 85vw;
+    border-right: 1px solid var(--pm-border-strong);
+  }
+}
+
+/* 900-1099px: the rail becomes a 300px right drawer. */
+@media (max-width: 1099px) {
+  .pm-forecast .pm-forecast__drawer-toggle--rail {
+    display: inline-flex;
+  }
+
+  .pm-forecast__rail {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    max-width: 85vw;
+    z-index: 41;
+    border-left: 1px solid var(--pm-border-strong);
+    box-shadow: none;
+  }
+
+  .pm-forecast__rail:not(.pm-forecast__rail--open) {
+    display: none;
+  }
+
+  .pm-forecast__rail--open {
+    display: flex;
+  }
+
+  .pm-forecast__rail--open .pm-forecast__rail-head {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .pm-forecast__rail--open .pm-forecast__rail-close {
+    display: inline-flex;
+  }
+}
+
+/* <900px: single column — rail sections back in flow; Backlog stays a drawer. */
+@media (max-width: 899px) {
+  .pm-forecast {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .pm-forecast__list {
+    min-width: 0;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  /* The rail is in flow again — its drawer toggle and head no longer apply. */
+  .pm-forecast .pm-forecast__drawer-toggle--rail {
+    display: none;
+  }
+
+  .pm-forecast__rail-head,
+  .pm-forecast__rail--open .pm-forecast__rail-head,
+  .pm-forecast__rail-close,
+  .pm-forecast__rail--open .pm-forecast__rail-close {
+    display: none;
+  }
+
+  .pm-forecast__rail,
+  .pm-forecast__rail:not(.pm-forecast__rail--open),
+  .pm-forecast__rail--open {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    border-left: none;
+    border-top: 1px solid var(--pm-border-strong);
+    height: auto;
+    overflow-y: visible;
+    display: flex;
+  }
+
+  .pm-forecast__selection-mode,
+  .pm-forecast__selection-mode-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pm-forecast__selection-mode-copy,
+  .pm-forecast__selection-mode-actions,
+  .pm-forecast__selection-mode .pm-forecast__button {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .pm-forecast__selection-mode .pm-forecast__button {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .pm-forecast__selection-count,
+  .pm-forecast__selection-mode-copy {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ── Planning surface (2026-09-07): Backlog + Priority list + level step ── */
+
+.pm-forecast__list {
+  min-width: 380px;
+}
+
+.pm-forecast--resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+
+/* Backlog pane (left) */
+.pm-forecast__backlog {
+  width: 280px;
+  min-width: 180px;
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--pm-surface);
+  border-right: 1px solid var(--pm-border);
+}
+
+/* Drag-to-resize separator between Backlog pane and planning list.
+   A 9px hit target straddling the border; a 1px rule that lifts to accent
+   on hover / focus / active. */
+.pm-forecast__resizer {
+  width: 9px;
+  margin-left: -5px;
+  margin-right: -4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 20;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.pm-forecast__resizer::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--pm-border-strong);
+  opacity: 0;
+  transition: opacity 110ms ease-out;
+}
+
+.pm-forecast__resizer:hover::before,
+.pm-forecast__resizer:focus-visible::before,
+.pm-forecast__resizer--resizing::before {
+  opacity: 1;
+}
+
+.pm-forecast__resizer--resizing::before,
+.pm-forecast__resizer:focus-visible::before {
+  background: var(--pm-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-forecast__resizer::before {
+    transition: opacity 0ms;
+  }
+}
+
+.pm-forecast__resizer:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: -1px;
+}
+
+@media (max-width: 1279px) {
+  .pm-forecast__resizer {
+    display: none;
+  }
+}
+
+.pm-forecast__backlog-head {
+  padding: var(--pm-space-4) var(--pm-space-5);
+  border-bottom: 1px solid var(--pm-border);
+}
+.pm-forecast__backlog-title {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  font-family: var(--pm-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+  margin-bottom: var(--pm-space-3);
+}
+.pm-forecast__backlog-count {
+  margin-left: auto;
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__backlog-search {
+  width: 100%;
+  font: inherit;
+  font-size: 11px;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-2) var(--pm-space-3);
+}
+.pm-forecast__backlog-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--pm-space-2);
+  margin: 0;
+  list-style: none;
+}
+
+/* Virtualized Backlog list (Story 23.11 AC 23.11-2): the scroller is the
+   `.pm-forecast__backlog-list` itself; slots are absolutely positioned inside
+   the tall inner container, so the DOM holds a bounded window of rows. */
+.pm-forecast__backlog-list-inner {
+  position: relative;
+  width: 100%;
+}
+
+.pm-forecast__backlog-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.pm-forecast__backlog-empty {
+  padding: var(--pm-space-4);
+  font-size: 11px;
+  color: var(--pm-text-muted);
+}
+.pm-forecast__backlog-row {
+  display: grid;
+  /* caret · grip · title · points · add-or-reason. Nesting is padding, not a
+     grid column, so the title keeps the full remaining width.
+     The last column is FIXED, sized to the widest occupant (the 'in parent'
+     tag, ~49px): a content-sized column made each row its own grid, so a
+     tagged row's points field sat left of a ＋ row's and nothing lined up. */
+  grid-template-columns: 11px 14px minmax(0, 1fr) 44px 4.5em;
+  align-items: center;
+  gap: var(--pm-space-2);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  /* One nesting step is exactly one caret column plus its gap, so a child's
+     caret slot sits directly under its parent's grip and every depth lands
+     on the same 17px rhythm. A 12px step left a child's title only barely
+     right of its parent's — it read as misaligned, not nested. */
+  /* After the shorthand, which would otherwise reset it. */
+  padding-inline-start: calc(
+    var(--pm-space-3) + (11px + var(--pm-space-2)) * var(--pm-backlog-depth, 0)
+  );
+  border-radius: var(--pm-radius-sm);
+  font-size: 12px;
+}
+
+.pm-forecast__backlog-row:focus {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-forecast__backlog-row--active,
+.pm-forecast__backlog-row--active:hover {
+  background-color: var(--pm-accent-soft);
+}
+
+.pm-forecast__backlog-row:hover {
+  background-color: var(--pm-elevated);
+}
+.pm-forecast__backlog-row--in-plan .pm-forecast__backlog-grip,
+.pm-forecast__backlog-row--in-plan .pm-forecast__backlog-name,
+.pm-forecast__backlog-row--in-plan .pm-forecast__backlog-tag {
+  /* "in plan" is conveyed by color, never by row-level opacity: an
+     opacity blend would sink the text below the 4.5:1 AA floor in dark
+     mode (Story 21.13 D2 — surfaced by the first Forecast axe scan).
+     Secondary text also clears the light-mode active-row background. */
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__backlog-caret {
+  width: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--pm-text-muted);
+  font-size: 8.5px;
+  line-height: 1;
+}
+button.pm-forecast__backlog-caret {
+  cursor: pointer;
+}
+button.pm-forecast__backlog-caret:hover {
+  color: var(--pm-text-primary);
+}
+.pm-forecast__backlog-grip {
+  color: var(--pm-text-muted);
+  font-size: 12px;
+  letter-spacing: -2px;
+  user-select: none;
+}
+/* The whole row is the drag source, so the grab cursor covers it; a row
+   that cannot be dragged (overlap) never advertises one. */
+.pm-forecast__backlog-row[draggable="true"] {
+  cursor: grab;
+}
+.pm-forecast__backlog-row[draggable="true"]:active {
+  cursor: grabbing;
+}
+.pm-forecast__backlog-row[draggable="false"] .pm-forecast__backlog-grip {
+  visibility: hidden;
+}
+.pm-forecast__backlog-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pm-forecast__backlog-points {
+  width: 44px;
+  font-family: var(--pm-font-mono);
+  font-size: 11px;
+  text-align: right;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xs);
+  padding: 2px 4px;
+}
+.pm-forecast__backlog-tag {
+  /* The `in plan` marker replaces the points + add columns (the last two). */
+  grid-column: 4 / span 2;
+  justify-self: end;
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+}
+/* Declared after the base tag so its single-column placement wins: a blocked
+   row keeps its points field, so the reason sits in the add-button column
+   only. A stated reason, not an error — never an alarm color, and secondary
+   (not muted) so 9px text clears the 4.5:1 AA floor (Story 21.13 D2). */
+.pm-forecast__backlog-tag--blocked {
+  grid-column: 5;
+  white-space: nowrap;
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__backlog-add {
+  /* Keeps its 24px size at the end of the fixed-width last column. */
+  justify-self: end;
+  width: 24px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--pm-accent);
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--pm-accent) 45%, transparent);
+  border-radius: var(--pm-radius-xs);
+  padding: 2px 0;
+  cursor: pointer;
+}
+.pm-forecast__backlog-add:disabled {
+  color: var(--pm-text-muted);
+  border-color: var(--pm-border);
+  cursor: not-allowed;
+}
+.pm-forecast__backlog-add:hover:not(:disabled) {
+  background-color: var(--pm-accent-soft);
+}
+
+/* Level chip in the Priority list header */
+.pm-forecast__level-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  margin-bottom: var(--pm-space-3);
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-full);
+  width: fit-content;
+}
+.pm-forecast__level-chip b {
+  color: var(--pm-text-primary);
+  font-weight: 600;
+}
+.pm-forecast__level-chip-change {
+  font: inherit;
+  font-size: 11px;
+  /* The resting --pm-accent measures 4.43:1 on the elevated chip in dark
+     mode — under the 4.5:1 AA floor (surfaced by the first Forecast axe
+     scan, Story 21.13 D2). Mix toward the theme's text color so contrast
+     improves on both dark and light chip backgrounds. */
+  color: color-mix(in srgb, var(--pm-accent) 72%, var(--pm-text-primary));
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+.pm-forecast__level-chip-change:hover {
+  color: color-mix(in srgb, var(--pm-accent) 60%, var(--pm-text-primary));
+}
+
+/* Drop line — free-placement drag indicator */
+.pm-forecast__dropline {
+  height: 2px;
+  background-color: var(--pm-accent);
+  border-radius: 2px;
+  margin: 1px var(--pm-space-3);
+}
+
+/* ── Responsive drawers (Story 21.2, UX-DR7) ─────────────────────── */
+
+/* Drawer toggles: present only at the widths where their drawer exists,
+   and hidden when the pane is permanently in flow (≥1280px). */
+.pm-forecast__drawer-toggles {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--pm-space-3);
+}
+
+.pm-forecast__drawer-toggle {
+  display: none;
+  font: inherit;
+  font-size: 11px;
+  color: var(--pm-accent);
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  cursor: pointer;
+}
+
+.pm-forecast__drawer-toggle[aria-expanded="true"] {
+  background-color: var(--pm-accent-soft);
+  border-color: color-mix(in srgb, var(--pm-accent) 55%, transparent);
+}
+
+/* Click-outside scrims, only rendered (and only interactive) while open. */
+.pm-forecast__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  border: 0;
+  background-color: transparent;
+}
+
+.pm-forecast__backdrop--rail {
+  z-index: 40;
+}
+
+/* Backlog drawer close button (drawer mode only). */
+.pm-forecast__backlog-close {
+  display: none;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  margin-left: var(--pm-space-2);
+  color: var(--pm-text-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.pm-forecast__backlog--drawer-open .pm-forecast__backlog-close {
+  display: inline-flex;
+}
+
+/* Rail drawer header strip (drawer mode only). */
+.pm-forecast__rail-head {
+  display: none;
+}
+
+.pm-forecast__rail-close {
+  display: none;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--pm-text-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: var(--pm-space-2);
+}
+
+/* Bucket header is a block drag handle */
+.pm-forecast__group-header[draggable="true"] {
+  cursor: grab;
+}
+.pm-forecast__group-header[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+/* Level step */
+.pm-forecast__level-step {
+  max-width: 520px;
+  margin: var(--pm-space-8) auto;
+}
+.pm-forecast__level-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 var(--pm-space-1);
+  color: var(--pm-text-primary);
+}
+.pm-forecast__level-copy {
+  font-size: 12.5px;
+  color: var(--pm-text-muted);
+  margin: 0 0 var(--pm-space-6);
+}
+.pm-forecast__level-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+.pm-forecast__level-option {
+  display: flex;
+  gap: var(--pm-space-4);
+  padding: var(--pm-space-4);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-lg);
+  background-color: var(--pm-surface);
+  cursor: pointer;
+}
+.pm-forecast__level-option input {
+  margin-top: 2px;
+  accent-color: var(--pm-accent);
+}
+.pm-forecast__level-option--on {
+  border-color: color-mix(in srgb, var(--pm-accent) 55%, transparent);
+  background-color: var(--pm-accent-soft);
+}
+.pm-forecast__level-option--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.pm-forecast__level-option-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pm-forecast__level-option-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pm-space-2);
+  font-size: 13px;
+  color: var(--pm-text-primary);
+}
+.pm-forecast__level-option-count {
+  font-family: var(--pm-font-mono);
+  font-size: 10px;
+  color: var(--pm-text-muted);
+}
+.pm-forecast__level-option-soon {
+  font-family: var(--pm-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm-flag-effort);
+}
+.pm-forecast__level-option-blurb {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__level-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-4);
+  margin-top: var(--pm-space-6);
+}
+.pm-forecast__level-hint {
+  font-size: 11px;
+  color: var(--pm-text-muted);
+}
+
+/* Level-change confirmation dialog (Story 21.10 AC 3) — a real focus-trapped
+   dialog with an accessible name, never window.confirm. */
+.pm-forecast__level-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--pm-canvas) 60%, transparent);
+}
+
+.pm-forecast__level-dialog-card {
+  width: 360px;
+  max-width: 90vw;
+  /* At 200% zoom a confirmation can be taller than the viewport; scroll
+     inside the card so its actions stay reachable (Story 22.12 AC 6). */
+  max-height: calc(100vh - 2 * var(--pm-space-5));
+  overflow-y: auto;
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__level-dialog-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  margin: 0;
+}
+
+.pm-forecast__level-dialog-copy {
+  font-size: 12.5px;
+  color: var(--pm-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pm-forecast__level-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-3);
+  margin-top: var(--pm-space-2);
+}
+
+.pm-forecast__level-dialog-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-forecast__level-dialog-option {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  font-size: 12.5px;
+  color: var(--pm-text-primary);
+  cursor: pointer;
+}
+
+.pm-forecast__level-dialog-option input {
+  accent-color: var(--pm-accent);
+}
+
+/* ── People Editor (Epic 22, Story 22.3) ────────────────────────────── */
+
+.pm-forecast__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--pm-canvas) 65%, transparent);
+}
+
+.pm-people-editor {
+  width: 640px;
+  max-width: 94vw;
+  max-height: 88vh;
+  overflow-y: auto;
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-5);
+}
+
+.pm-people-editor__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: var(--pm-space-3);
+  border-bottom: 1px solid var(--pm-border-subtle);
+}
+
+.pm-people-editor__title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  margin: 0;
+}
+
+.pm-people-editor__subtitle {
+  font-size: 12.5px;
+  color: var(--pm-text-secondary);
+  margin: var(--pm-space-1) 0 0;
+}
+
+.pm-people-editor__close-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--pm-text-secondary);
+  cursor: pointer;
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-sm);
+}
+
+.pm-people-editor__close-button:hover {
+  color: var(--pm-text-primary);
+  background-color: var(--pm-surface-hover);
+}
+
+.pm-people-editor__notice-card {
+  background-color: var(--pm-surface-subtle);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-people-editor__notice-headline {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-people-editor__notice-copy {
+  font-size: 12.5px;
+  color: var(--pm-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.pm-people-editor__formula {
+  font-size: 11.5px;
+  color: var(--pm-text-muted);
+  font-family: var(--pm-font-mono);
+  margin-top: var(--pm-space-1);
+}
+
+.pm-people-editor__formula code {
+  color: var(--pm-text-primary);
+  background-color: var(--pm-surface);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--pm-border-subtle);
+}
+
+.pm-people-editor__error-banner {
+  background-color: color-mix(in srgb, var(--pm-danger) 15%, transparent);
+  border: 1px solid var(--pm-danger);
+  color: var(--pm-text-primary);
+  padding: var(--pm-space-3);
+  border-radius: var(--pm-radius-sm);
+  font-size: 12.5px;
+}
+
+.pm-people-editor__section-heading {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  margin: 0 0 var(--pm-space-3);
+}
+
+.pm-people-editor__empty-text {
+  font-size: 12.5px;
+  color: var(--pm-text-muted);
+  font-style: italic;
+  margin: var(--pm-space-2) 0;
+}
+
+.pm-people-editor__table-wrap {
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-sm);
+  overflow: hidden;
+}
+
+.pm-people-editor__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  text-align: left;
+}
+
+.pm-people-editor__table th {
+  background-color: var(--pm-surface-subtle);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-weight: 600;
+  color: var(--pm-text-secondary);
+  border-bottom: 1px solid var(--pm-border-subtle);
+}
+
+.pm-people-editor__th-actions {
+  text-align: right;
+  width: 130px;
+}
+
+.pm-people-editor__table td {
+  padding: var(--pm-space-2) var(--pm-space-3);
+  border-bottom: 1px solid var(--pm-border-subtle);
+  vertical-align: middle;
+}
+
+.pm-people-editor__row:last-child td {
+  border-bottom: none;
+}
+
+.pm-people-editor__person-name {
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+
+.pm-people-editor__person-weight {
+  font-family: var(--pm-font-mono);
+  color: var(--pm-text-secondary);
+}
+
+.pm-people-editor__share-exact {
+  font-family: var(--pm-font-mono);
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-people-editor__share-rounded {
+  font-family: var(--pm-font-mono);
+  font-size: 11.5px;
+  color: var(--pm-text-muted);
+}
+
+.pm-people-editor__cell-actions {
+  text-align: right;
+}
+
+.pm-people-editor__actions-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-2);
+}
+
+.pm-people-editor__action-link {
+  background: none;
+  border: none;
+  color: var(--pm-accent);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.pm-people-editor__action-link:hover {
+  text-decoration: underline;
+}
+
+.pm-people-editor__action-link--danger {
+  color: var(--pm-danger);
+}
+
+.pm-people-editor__btn-small {
+  padding: 3px 8px;
+  font-size: 11.5px;
+}
+
+.pm-people-editor__input {
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-sm);
+  background-color: var(--pm-canvas);
+  color: var(--pm-text-primary);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-size: 12.5px;
+}
+
+.pm-people-editor__input--inline {
+  width: 140px;
+}
+
+.pm-people-editor__input--weight {
+  width: 70px;
+}
+
+.pm-people-editor__field-error {
+  color: var(--pm-danger);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.pm-people-editor__add-section {
+  background-color: var(--pm-surface-subtle);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-people-editor__form-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--pm-space-3);
+}
+
+.pm-people-editor__form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  flex: 1;
+}
+
+.pm-people-editor__form-field--weight {
+  flex: 0 0 110px;
+}
+
+.pm-people-editor__label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+}
+
+.pm-people-editor__preview-card {
+  margin-top: var(--pm-space-2);
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-sm);
+  padding: var(--pm-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-people-editor__preview-title {
+  font-family: var(--pm-font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pm-people-editor__preview-desc {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  margin: 0;
+}
+
+.pm-people-editor__preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  margin: var(--pm-space-1) 0;
+}
+
+.pm-people-editor__preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 3px 0;
+  border-bottom: 1px dashed var(--pm-border-subtle);
+}
+
+.pm-people-editor__preview-name {
+  color: var(--pm-text-primary);
+  font-weight: 500;
+}
+
+.pm-people-editor__tag {
+  background-color: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  font-size: 10px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-left: 4px;
+}
+
+.pm-people-editor__prior-share {
+  color: var(--pm-text-muted);
+  text-decoration: line-through;
+}
+
+.pm-people-editor__arrow {
+  color: var(--pm-text-secondary);
+}
+
+.pm-people-editor__preview-footer {
+  font-size: 11.5px;
+  color: var(--pm-accent);
+  font-weight: 500;
+}
+
+.pm-people-editor__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--pm-space-2);
+  border-top: 1px solid var(--pm-border-subtle);
+}
+
+/* ── Staffing Header & Mode Selector (Epic 22 Story 22.5) ───────────── */
+.pm-forecast__header-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  margin-bottom: var(--pm-space-3);
+  flex-wrap: wrap;
+}
+.pm-forecast__header-meta .pm-forecast__level-chip {
+  margin-bottom: 0;
+}
+.pm-forecast__mode-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-full);
+  width: fit-content;
+}
+.pm-forecast__mode-label {
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__mode-select {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* The select is transparent so it sits flush in the pill, but its options
+   inherit the near-white dark-mode text while the browser draws the native
+   list on its own light ground, leaving them unreadable. Give the list the
+   same elevated surface and text tokens as the app's own menus. */
+.pm-forecast__mode-select option {
+  color: var(--pm-text-primary);
+  background-color: var(--pm-elevated);
+}
+
+/* ── Item Assignment Controls & Badges (Story 22.5) ─────────────────── */
+.pm-forecast__th--assign {
+  width: 140px;
+  flex-shrink: 0;
+}
+.pm-forecast__row-assignment-cell {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+.pm-forecast__assignment-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pm-forecast__row-assign {
+  font: inherit;
+  font-size: 13px;
+  padding: 0;
+  border-radius: var(--pm-radius-xs);
+  border: 0;
+  background-color: transparent;
+  color: var(--pm-text-primary);
+  cursor: pointer;
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.pm-forecast__row-assign:hover {
+  color: var(--pm-accent);
+}
+.pm-forecast__row-assign--assigned {
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+.pm-forecast__row-assign--missing {
+  color: var(--pm-warn);
+  font-weight: 600;
+}
+.pm-forecast__row-assign--unassigned {
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__row-milestone-tag {
+  font-size: 11px;
+  color: var(--pm-text-muted);
+  font-style: italic;
+}
+.pm-forecast__row-bottleneck-tag {
+  font-size: 10px;
+  font-family: var(--pm-font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 4px;
+  border-radius: var(--pm-radius-xs);
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-accent);
+}
+
+/* ── Scenario Unavailable Notice (Story 22.5 AC 22.5-7) ─────────────── */
+.pm-forecast__scenario-unavailable-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+.pm-forecast__scenario-unavailable-note {
+  font-size: 12px;
+  color: var(--pm-text-muted);
+  font-style: italic;
+}
+
+/* ── Staffing Scenario Draft & Preview (Story 23.4, SF-UX8, SF-UX9) ── */
+.pm-forecast__scenario-draft-context {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  margin-bottom: var(--pm-space-2);
+}
+
+.pm-forecast__scenario-draft-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  padding: var(--pm-space-2) 0;
+  border-bottom: 1px solid var(--pm-border);
+}
+
+.pm-forecast__scenario-assignments {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  flex-wrap: wrap;
+  font-size: 12px;
+  padding-left: var(--pm-space-4);
+}
+
+.pm-forecast__scenario-assignments-label {
+  font-weight: 500;
+  color: var(--pm-text-muted);
+}
+
+.pm-forecast__scenario-person-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  cursor: pointer;
+}
+
+.pm-forecast__scenario-preview-card {
+  margin-top: var(--pm-space-3);
+  padding: var(--pm-space-3);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  background-color: var(--pm-surface-subtle);
+}
+
+.pm-forecast__save-conflict-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  margin-top: var(--pm-space-2);
+}
+
+/* Draft notices and errors (Story 23.7): a focus target for the conflict,
+   refresh and revalidation messages, which wrap rather than scroll. */
+.pm-forecast__scenario-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  overflow-wrap: anywhere;
+}
+.pm-forecast__scenario-alerts:empty {
+  display: none;
+}
+.pm-forecast__scenario-alerts:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 2px;
+}
+/* Scenario comparison (Story 23.8): captured baseline and variant side by
+   side as labelled rows, exact item timing as wrapping prose — no table, so
+   narrow rails, 200% zoom and text spacing never scroll horizontally. */
+.pm-forecast__scenario-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  overflow-wrap: anywhere;
+}
+.pm-forecast__scenario-outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  margin: 0;
+  font-size: 12px;
+}
+/* Label and value share a line when they fit and wrap when they do not. */
+.pm-forecast__scenario-outcomes > div {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--pm-space-3);
+  min-width: 0;
+}
+.pm-forecast__scenario-outcomes dt {
+  color: var(--pm-text-secondary);
+  font-weight: 500;
+}
+.pm-forecast__scenario-outcomes dd {
+  margin: 0;
+  color: var(--pm-text-primary);
+}
+.pm-forecast__scenario-timing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  font-size: 12px;
+}
+.pm-forecast__scenario-timing-list p {
+  margin: var(--pm-space-1) 0 0;
+  color: var(--pm-text-secondary);
+}
+.pm-forecast__scenario-side {
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+.pm-forecast__scenario-discard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+  padding: var(--pm-space-3);
+  margin-bottom: var(--pm-space-2);
+  border: 1px solid var(--pm-warn);
+  border-radius: var(--pm-radius-sm);
+  background-color: var(--pm-warn-bg);
+}
+.pm-forecast__scenario-discard p {
+  margin: 0;
+}
+/* The draft lives in a narrow rail (130px at a 390px viewport): nothing in
+   it may impose a minimum width. Fieldsets default to min-content and text
+   inputs to ~20 characters, which pushed the editor sideways (Story 23.8). */
+.pm-forecast__scenario-draft fieldset {
+  min-width: 0;
+}
+.pm-forecast__scenario-draft label,
+.pm-forecast__scenario-draft input:not([type='checkbox']) {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.pm-forecast__scenario-draft .pm-forecast__arithmetic-row,
+.pm-forecast__scenario-draft .pm-forecast__group-bar {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pm-forecast__scenario-draft-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-forecast__scenario-changes {
+  margin: var(--pm-space-1) 0 0;
+  padding-left: var(--pm-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+}
+
+/* ── Item People Editor Modal (Story 22.5) ───────────────────────────── */
+.pm-item-people-editor {
+  max-width: 440px;
+}
+.pm-item-people-editor__search-box {
+  padding: 0 var(--pm-space-6) var(--pm-space-3);
+}
+.pm-item-people-editor__search {
+  width: 100%;
+}
+.pm-item-people-editor__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+  padding: 0 var(--pm-space-6);
+  max-height: 280px;
+  overflow-y: auto;
+}
+.pm-item-people-editor__empty {
+  padding: var(--pm-space-4) 0;
+  text-align: center;
+  color: var(--pm-text-secondary);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pm-space-2);
+}
+.pm-item-people-editor__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  border: 1px solid var(--pm-border-subtle);
+  border-radius: var(--pm-radius-sm);
+  cursor: pointer;
+}
+.pm-item-people-editor__item:hover {
+  background-color: var(--pm-accent-soft);
+}
+.pm-item-people-editor__item--selected {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+}
+.pm-item-people-editor__item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pm-item-people-editor__item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+.pm-item-people-editor__item-weight {
+  font-size: 11px;
+  color: var(--pm-text-secondary);
+}
+.pm-item-people-editor__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--pm-space-4) var(--pm-space-6);
+  border-top: 1px solid var(--pm-border-subtle);
+  margin-top: var(--pm-space-3);
+}
+.pm-item-people-editor__selection-summary {
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+}
+
+

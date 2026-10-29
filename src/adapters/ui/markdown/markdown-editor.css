@@ -1,0 +1,33 @@
+/* Markdown editor styles (Story 16.2, E16-FR8).
+   Meridian tokens only — no raw hex, no cast shadows (design-token guard). */
+
+.pm-md-editor {
+  display: block;
+  width: 100%;
+  min-height: 5.5rem;
+  resize: vertical;
+  font-family: var(--pm-font-sans);
+  font-size: var(--pm-font-body-size);
+  line-height: var(--pm-font-body-line-height);
+  color: var(--pm-text-primary);
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 4px;
+  padding: 0.5em 0.625em;
+  outline: none;
+}
+
+.pm-md-editor:focus {
+  border-color: var(--pm-focus);
+  background: var(--pm-focus-bg);
+}
+
+.pm-md-editor::placeholder {
+  color: var(--pm-text-muted);
+}
+
+.pm-md-editor[data-inspector-primary] {
+  flex: 1;
+  min-height: 480px;
+  height: 100%;
+}

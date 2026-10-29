@@ -1,0 +1,39 @@
+/* Acceptance Indicator Styles (Story 6.7) */
+
+.pm-ac-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.pm-ac-pips {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pm-ac-pip {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--pm-connector-rail);
+  box-sizing: border-box;
+}
+
+.pm-ac-pip--met {
+  background-color: var(--pm-success);
+  border-color: var(--pm-success);
+}
+
+.pm-ac-pip--unmet {
+  background-color: transparent;
+  border-color: var(--pm-connector-rail);
+}
+
+.pm-ac-ratio-text {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}

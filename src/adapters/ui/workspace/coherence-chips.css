@@ -1,0 +1,39 @@
+.pm-coherence-chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pm-coherence-clear {
+  font-family: var(--pm-font-mono-pill-family);
+  font-size: var(--pm-font-mono-pill-size);
+  font-weight: var(--pm-font-mono-pill-weight);
+  color: var(--pm-success);
+}
+
+.pm-coherence-chip {
+  font-family: var(--pm-font-mono-pill-family);
+  font-size: var(--pm-font-mono-pill-size);
+  font-weight: var(--pm-font-mono-pill-weight);
+  border-radius: var(--pm-radius-sm);
+  padding: 2px 6px;
+}
+
+.pm-coherence-chip--attention {
+  color: var(--pm-warn);
+  background-color: var(--pm-warn-bg);
+  border: 1px solid color-mix(in srgb, var(--pm-warn) 80%, transparent);
+}
+
+.pm-coherence-chip--effort {
+  color: var(--pm-flag-effort);
+  background-color: var(--pm-effort-bg);
+  border-bottom: 2px solid var(--pm-flag-effort);
+  border-radius: var(--pm-radius-sm) var(--pm-radius-sm) 0 0;
+}
+
+.pm-coherence-chip--generic {
+  color: var(--pm-text-secondary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+}

@@ -1,0 +1,209 @@
+/**
+ * Coherence Review Panel Styles (Story 4.7).
+ * 360px docked inspection panel with Meridian design tokens.
+ */
+
+.pm-coherence-panel {
+  width: 360px;
+  height: 100%;
+  background: var(--pm-surface);
+  border-left: 1px solid var(--pm-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 100;
+  font-family: var(--pm-font-sans);
+  color: var(--pm-text-primary);
+}
+
+.pm-coherence-panel__header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--pm-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pm-elevated);
+}
+
+.pm-coherence-panel__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pm-coherence-panel__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pm-text-primary);
+}
+
+.pm-coherence-panel__badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--pm-orphan-bg);
+  color: var(--pm-warning);
+  border: 1px solid var(--pm-warning);
+}
+
+.pm-coherence-panel__close-btn {
+  background: transparent;
+  border: none;
+  color: var(--pm-text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.pm-coherence-panel__close-btn:hover {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-coherence-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.pm-coherence-panel__empty {
+  padding: 48px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pm-coherence-panel__empty-icon {
+  font-size: 28px;
+  color: var(--pm-success);
+  margin-bottom: 8px;
+}
+
+.pm-coherence-panel__empty-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+  margin: 0 0 4px 0;
+  font-family: var(--pm-font-sans);
+  letter-spacing: 0.05em;
+}
+
+.pm-coherence-panel__empty-sub {
+  font-size: 12px;
+  color: var(--pm-text-muted);
+  margin: 0;
+}
+
+.pm-coherence-panel__group {
+  margin-bottom: 20px;
+}
+
+.pm-coherence-panel__group-title {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--pm-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pm-coherence-panel__group-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--pm-font-sans);
+}
+
+.pm-coherence-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pm-coherence-panel__item {
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pm-coherence-panel__node-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pm-accent);
+  text-align: left;
+  cursor: pointer;
+}
+
+.pm-coherence-panel__node-link:hover {
+  text-decoration: underline;
+}
+
+.pm-coherence-panel__narrative {
+  margin: 0;
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  line-height: 1.4;
+}
+
+.pm-coherence-panel__action-hint {
+  margin: 4px 0 0 0;
+  font-size: 11px;
+  color: var(--pm-warning);
+  line-height: 1.3;
+}
+
+.pm-coherence-panel__shares {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--pm-text-muted);
+  margin-top: 4px;
+}
+
+.pm-coherence-panel__shares strong {
+  color: var(--pm-text-primary);
+}
+
+.pm-coherence-panel__dismiss-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid var(--pm-border-strong);
+  color: var(--pm-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pm-coherence-panel__dismiss-btn:hover {
+  background: var(--pm-surface);
+  color: var(--pm-text-primary);
+}

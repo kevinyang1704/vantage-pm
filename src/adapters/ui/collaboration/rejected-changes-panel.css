@@ -1,0 +1,82 @@
+/**
+ * RejectedChangesPanel CSS (Story 27.7, TC-UX3). Design tokens only.
+ */
+
+.pm-rejected {
+  border: 1px solid var(--pm-warning);
+  border-radius: var(--pm-radius-md);
+  background: var(--pm-orphan-bg);
+  padding: var(--pm-space-4);
+}
+
+.pm-rejected__title {
+  margin: 0 0 var(--pm-space-3);
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+}
+
+.pm-rejected__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.pm-rejected__item {
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-elevated);
+  padding: var(--pm-space-3);
+}
+
+.pm-rejected__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-2);
+}
+
+.pm-rejected__label {
+  color: var(--pm-text-primary);
+  font-weight: 600;
+}
+
+.pm-rejected__badge {
+  font-family: var(--pm-font-mono);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-warning);
+}
+
+.pm-rejected__value,
+.pm-rejected__reason {
+  margin: var(--pm-space-1) 0 0;
+  color: var(--pm-text-secondary);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-rejected__actions {
+  display: flex;
+  gap: var(--pm-space-2);
+  margin-top: var(--pm-space-3);
+}
+
+.pm-rejected__button {
+  border: 1px solid var(--pm-accent-strong);
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-1) var(--pm-space-3);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-rejected__button--ghost {
+  background: transparent;
+  color: var(--pm-text-primary);
+  border-color: var(--pm-border-strong);
+}

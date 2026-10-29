@@ -1,0 +1,150 @@
+/**
+ * Workspace create/rename dialog (Epic 17).
+ *
+ * Deliberately mirrors delete-project-dialog.css rather than inventing a
+ * second modal language — same scrim, same panel geometry, same control
+ * sizing. Only the confirm button differs: accent, not danger.
+ */
+
+.pm-ws-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--pm-canvas) 70%, transparent);
+  z-index: 1000;
+}
+
+.pm-ws-dialog-inner {
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xl);
+  padding: var(--pm-space-6);
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-ws-dialog-title {
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+  margin: 0 0 var(--pm-space-3) 0;
+}
+
+.pm-ws-dialog-copy {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  line-height: 1.55;
+  color: var(--pm-text-secondary);
+  margin: 0 0 var(--pm-space-4) 0;
+}
+
+.pm-ws-dialog-label {
+  display: block;
+  font-family: var(--pm-font-section-label-family);
+  font-size: var(--pm-font-section-label-size);
+  font-weight: var(--pm-font-section-label-weight);
+  letter-spacing: var(--pm-font-section-label-letter-spacing);
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+  margin: 0 0 var(--pm-space-2) 0;
+}
+
+.pm-ws-dialog-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 9px;
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+}
+
+.pm-ws-dialog-input::placeholder {
+  color: var(--pm-text-muted);
+  opacity: 0.7;
+}
+
+.pm-ws-dialog-input:focus-visible {
+  outline: none;
+  border-color: var(--pm-focus);
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-ws-dialog-hint {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-chip-size);
+  color: var(--pm-text-muted);
+  margin: var(--pm-space-3) 0 0 0;
+}
+
+/* Validation failure. Uses the warn role, not danger: a name that is empty or
+   too long is a correctable input problem, not a destructive outcome. */
+.pm-ws-dialog-error {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-chip-size);
+  color: var(--pm-warn);
+  margin: var(--pm-space-3) 0 0 0;
+}
+
+.pm-ws-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-3);
+  margin-top: var(--pm-space-5);
+}
+
+.pm-ws-dialog-cancel {
+  padding: 5px 11px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-ws-dialog-cancel:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-ws-dialog-cancel:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-ws-dialog-confirm {
+  padding: 5px 11px;
+  background-color: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  border: 1px solid var(--pm-accent);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pm-ws-dialog-confirm:hover:not(:disabled) {
+  background-color: var(--pm-accent-strong-hover);
+  border-color: var(--pm-accent-strong-hover);
+}
+
+.pm-ws-dialog-confirm:disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-muted);
+  border-color: var(--pm-border);
+}
+
+.pm-ws-dialog-confirm:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}

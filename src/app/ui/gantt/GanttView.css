@@ -1,0 +1,96 @@
+/* Gantt view container (Story 7.1-7.8) — Meridian tokens only, no literal hex. */
+
+.pm-gantt-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--pm-canvas);
+}
+
+.pm-gantt-view--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--pm-text-muted);
+  padding: 32px;
+  text-align: center;
+  background-color: var(--pm-surface);
+}
+
+.pm-gantt-view__empty-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--pm-text-primary);
+}
+
+.pm-gantt-view__empty-copy {
+  font-size: 13px;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.pm-gantt-view__split {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.pm-gantt-view__split--resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+
+/* Drag-to-resize separator between hierarchy column and timeline canvas.
+   A 9px hit target straddling the border; a 1px rule that lifts to accent
+   on hover / focus / active. */
+.pm-gantt-split__resizer {
+  width: 9px;
+  margin-left: -5px;
+  margin-right: -4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 20;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.pm-gantt-split__resizer::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--pm-border-strong);
+  opacity: 0;
+  transition: opacity 110ms ease-out;
+}
+
+.pm-gantt-split__resizer:hover::before,
+.pm-gantt-split__resizer:focus-visible::before,
+.pm-gantt-split__resizer--resizing::before {
+  opacity: 1;
+}
+
+.pm-gantt-split__resizer--resizing::before,
+.pm-gantt-split__resizer:focus-visible::before {
+  background: var(--pm-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-gantt-split__resizer::before {
+    transition: opacity 0ms;
+  }
+}
+
+.pm-gantt-split__resizer:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: -1px;
+}

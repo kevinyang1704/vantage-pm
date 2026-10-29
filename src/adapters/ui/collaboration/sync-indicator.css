@@ -1,0 +1,55 @@
+/**
+ * SyncIndicator CSS (Story 27.7, TC-UX1).
+ *
+ * Design tokens only; no raw colors. Motion is limited to the shared opacity
+ * budget. The indicator is never color-only — the glyph and text carry meaning.
+ */
+
+.pm-sync-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  padding: var(--pm-space-1) var(--pm-space-3);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-surface);
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-secondary);
+}
+
+.pm-sync-indicator__glyph {
+  font-family: var(--pm-font-mono);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-sync-indicator__text {
+  white-space: nowrap;
+}
+
+.pm-sync-indicator[data-sync-label='synced'] .pm-sync-indicator__glyph {
+  color: var(--pm-success);
+}
+
+.pm-sync-indicator[data-sync-label='n-changes-waiting'] .pm-sync-indicator__glyph,
+.pm-sync-indicator[data-sync-label='update-to-keep-syncing'] .pm-sync-indicator__glyph {
+  color: var(--pm-warning);
+}
+
+.pm-sync-indicator[data-sync-label='offline'] .pm-sync-indicator__glyph {
+  color: var(--pm-text-muted);
+}
+
+/* Visually hidden live-region text (accessible notice). */
+.pm-sync-indicator .pm-sync-indicator__notice {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

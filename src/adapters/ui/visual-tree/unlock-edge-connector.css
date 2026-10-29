@@ -1,0 +1,19 @@
+/* Unlock edge connector layer (Story 6.5) */
+
+.pm-unlock-edges-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pm-unlock-origin-dot {
+  fill: var(--pm-accent);
+}
+
+.pm-unlock-edge-path {
+  stroke: var(--pm-accent);
+  stroke-width: 1.5px;
+  stroke-dasharray: 5 4;
+}

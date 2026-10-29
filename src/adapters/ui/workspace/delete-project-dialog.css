@@ -1,0 +1,112 @@
+.pm-delete-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--pm-canvas) 70%, transparent);
+  z-index: 1000;
+}
+
+.pm-delete-dialog-inner {
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xl);
+  padding: var(--pm-space-6);
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-delete-dialog-title {
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+  margin: 0 0 var(--pm-space-3) 0;
+}
+
+.pm-delete-dialog-copy {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  line-height: 1.55;
+  color: var(--pm-text-secondary);
+  margin: 0 0 var(--pm-space-4) 0;
+}
+
+.pm-delete-dialog-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 9px;
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+}
+
+/* Placeholder must read as a muted hint, never as pre-filled typed text
+   (UAT #4: the placeholder previously echoed the project name in the same
+   high-contrast style as real input, undermining the type-to-confirm guard). */
+.pm-delete-dialog-input::placeholder {
+  color: var(--pm-text-muted);
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.pm-delete-dialog-input:not(:placeholder-shown) {
+  border-color: var(--pm-accent);
+}
+
+.pm-delete-dialog-input:focus-visible {
+  outline: none;
+  border-color: var(--pm-focus);
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-delete-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-3);
+  margin-top: var(--pm-space-4);
+}
+
+.pm-delete-dialog-cancel {
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-delete-dialog-cancel:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-delete-dialog-confirm {
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-danger);
+  border: 1px solid var(--pm-danger);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pm-delete-dialog-confirm:disabled {
+  opacity: 0.5;
+  cursor: default;
+  color: var(--pm-text-muted);
+  border-color: var(--pm-border);
+}
+
+.pm-delete-dialog-confirm:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-danger);
+}

@@ -1,0 +1,68 @@
+/* PMApp composition root chrome (main.tsx toolbar) — Meridian tokens only, no literal hex.
+ * Epic 15: the toolbar now carries only the active view's identity, the
+ * breadcrumb, and view-scoped actions — brand, project switching, view
+ * switching, jump, export, and project actions moved to the persistent
+ * side navigation (src/adapters/ui/shell/side-nav.css). */
+
+.pm-toolbar-view-title {
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.pm-toolbar-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.pm-toolbar-location-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-toolbar-location-separator {
+  color: var(--pm-text-muted);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Screen-reader-only accessible text alternative utility */
+.pm-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pm-compatibility-gate-banner {
+  padding: 16px 24px;
+  margin: 24px;
+  background-color: var(--pm-danger-bg);
+  border: 1px solid var(--pm-danger);
+  border-radius: 6px;
+  color: var(--pm-danger);
+  font-family: var(--pm-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+

@@ -1,0 +1,113 @@
+{
+  "affectedReasons": [],
+  "customFields": [],
+  "dismissals": [],
+  "forecastPlan": {
+    "assignments": {
+      "019ffe00-0000-7000-8000-00000000000a": [
+        "019ffe00-0000-7000-8000-0000000000b1",
+        "019ffe00-0000-7000-8000-0000000000a1"
+      ],
+      "019ffe00-0000-7000-8000-00000000000b": [
+        "019ffe00-0000-7000-8000-0000000000a1"
+      ],
+      "019ffe00-0000-7000-8000-00000000000c": [
+        "019ffe00-0000-7000-8000-0000000000b1"
+      ]
+    },
+    "blockedFeatureIds": [],
+    "cadence": "fixed-contiguous",
+    "parallelGroups": [],
+    "planningLevel": "Feature",
+    "pointsPerSprint": 10,
+    "policyVersion": "staffed-capacity-v1",
+    "roster": [
+      {
+        "id": "019ffe00-0000-7000-8000-0000000000a1",
+        "name": "Ada",
+        "weightUnits": 100
+      },
+      {
+        "id": "019ffe00-0000-7000-8000-0000000000b1",
+        "name": "Ben",
+        "weightUnits": 150
+      },
+      {
+        "id": "019ffe00-0000-7000-8000-0000000000c1",
+        "name": "Cara",
+        "weightUnits": 50
+      }
+    ],
+    "selectedFeatureIds": [
+      "019ffe00-0000-7000-8000-00000000000a",
+      "019ffe00-0000-7000-8000-00000000000b",
+      "019ffe00-0000-7000-8000-00000000000c"
+    ],
+    "sprintLengthDays": 14,
+    "startDate": "2026-09-07",
+    "startSprintOrdinal": 1
+  },
+  "nodes": [
+    {
+      "bodyText": null,
+      "completed": false,
+      "deliveryStatus": "not_started",
+      "durationDays": null,
+      "effortPoints": 20,
+      "effortPointsDone": null,
+      "endDate": null,
+      "id": "019ffe00-0000-7000-8000-00000000000a",
+      "nodeType": "Feature",
+      "parentId": null,
+      "phaseId": null,
+      "position": 1,
+      "scheduleSourceMode": null,
+      "startDate": null,
+      "strategicWeight": null,
+      "title": "Feature a"
+    },
+    {
+      "bodyText": null,
+      "completed": false,
+      "deliveryStatus": "not_started",
+      "durationDays": null,
+      "effortPoints": 10,
+      "effortPointsDone": null,
+      "endDate": null,
+      "id": "019ffe00-0000-7000-8000-00000000000b",
+      "nodeType": "Feature",
+      "parentId": null,
+      "phaseId": null,
+      "position": 2,
+      "scheduleSourceMode": null,
+      "startDate": null,
+      "strategicWeight": null,
+      "title": "Feature b"
+    },
+    {
+      "bodyText": null,
+      "completed": false,
+      "deliveryStatus": "not_started",
+      "durationDays": null,
+      "effortPoints": 15,
+      "effortPointsDone": null,
+      "endDate": null,
+      "id": "019ffe00-0000-7000-8000-00000000000c",
+      "nodeType": "Feature",
+      "parentId": null,
+      "phaseId": null,
+      "position": 3,
+      "scheduleSourceMode": null,
+      "startDate": null,
+      "strategicWeight": null,
+      "title": "Feature c"
+    }
+  ],
+  "openQuestions": [],
+  "phases": [],
+  "projectId": "019ffe00-0000-7000-8000-000000000001",
+  "projectName": "Synthetic staffing",
+  "revision": 4,
+  "typeTemplateFields": [],
+  "unlockEdges": []
+}

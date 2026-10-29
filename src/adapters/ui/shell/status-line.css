@@ -1,0 +1,32 @@
+/**
+ * StatusLine CSS — bottom rail layout.
+ *
+ * The session-state segment is a polite live region.
+ * The counts segment reserves space so counts landing later cause no reflow.
+ */
+
+.pm-status-line-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--pm-space-5);
+}
+
+.pm-status-line-session {
+  flex-shrink: 0;
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-muted);
+}
+
+.pm-status-line-counts {
+  flex: 1 1 auto;
+  text-align: right;
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-muted);
+  /* Reserved space — filled by Stories 2.2/2.3 */
+  min-width: 0;
+}

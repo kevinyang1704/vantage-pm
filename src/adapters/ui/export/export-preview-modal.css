@@ -1,0 +1,129 @@
+/**
+ * ExportPreviewModal styles — Meridian tokens
+ */
+
+.pm-export-preview__backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--pm-canvas);
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pm-export-preview {
+  width: 480px;
+  max-width: 90vw;
+  background: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+  font-size: 13px;
+}
+
+.pm-export-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pm-export-preview__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--pm-text-primary);
+}
+
+.pm-export-preview__close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.pm-export-preview__close-btn:hover {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-export-preview__sentence {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 12px 0 20px;
+  color: var(--pm-text-secondary);
+}
+
+/* ── Format selector (UAT #5) ──────────────────────────────────── */
+
+.pm-export-preview__format {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.pm-export-preview__format-btn {
+  flex: 1;
+  padding: 7px 10px;
+  background: transparent;
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--pm-font-sans);
+}
+
+.pm-export-preview__format-btn:hover {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-export-preview__format-btn--selected {
+  background: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+  color: var(--pm-accent-hover);
+  font-weight: 600;
+}
+
+.pm-export-preview__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.pm-export-preview__btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pm-export-preview__btn--secondary {
+  background: transparent;
+  color: var(--pm-text-muted);
+  border: 1px solid var(--pm-border);
+}
+
+.pm-export-preview__btn--secondary:hover {
+  color: var(--pm-text-primary);
+  background: var(--pm-elevated);
+}
+
+.pm-export-preview__btn--primary {
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+}
+
+.pm-export-preview__btn--primary:hover {
+  background: var(--pm-accent-strong-hover);
+}

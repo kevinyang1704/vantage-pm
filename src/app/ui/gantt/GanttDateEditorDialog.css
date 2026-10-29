@@ -1,0 +1,94 @@
+/* Gantt date editor dialog (Story 7.8) — Meridian tokens only, no literal hex. */
+
+.pm-gantt-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: color-mix(in srgb, var(--pm-canvas) 70%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pm-gantt-dialog {
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 8px;
+  padding: 24px;
+  width: 380px;
+  max-width: 90vw;
+}
+
+.pm-gantt-dialog__title {
+  margin: 0 0 16px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pm-text-primary);
+}
+
+.pm-gantt-dialog__error {
+  padding: 8px 12px;
+  background-color: color-mix(in srgb, var(--pm-flag-seq) 15%, transparent);
+  border: 1px solid var(--pm-flag-seq);
+  border-radius: 4px;
+  color: color-mix(in srgb, var(--pm-flag-seq) 55%, var(--pm-text-primary));
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.pm-gantt-dialog__field {
+  margin-bottom: 14px;
+}
+
+.pm-gantt-dialog__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+  margin-bottom: 6px;
+}
+
+.pm-gantt-dialog__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--pm-border);
+  background-color: var(--pm-surface);
+  color: var(--pm-text-primary);
+  font-size: 13px;
+}
+
+.pm-gantt-dialog__field--last {
+  margin-bottom: 20px;
+}
+
+.pm-gantt-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pm-gantt-dialog__btn {
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pm-gantt-dialog__btn--cancel {
+  border: 1px solid var(--pm-border);
+  background-color: transparent;
+  color: var(--pm-text-secondary);
+}
+
+.pm-gantt-dialog__btn--save {
+  border: none;
+  background-color: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  font-weight: 600;
+}

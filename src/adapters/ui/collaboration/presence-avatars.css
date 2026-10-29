@@ -1,0 +1,48 @@
+/**
+ * PresenceAvatars CSS (Story 27.8). Design tokens only.
+ */
+
+.pm-presence {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-presence__summary {
+  color: var(--pm-text-secondary);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-presence__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+}
+
+.pm-presence__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+}
+
+.pm-presence__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--pm-radius-full);
+  background: var(--pm-accent-soft);
+  color: var(--pm-accent);
+  font-family: var(--pm-font-mono);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  font-weight: 600;
+}
+
+.pm-presence__name {
+  color: var(--pm-text-primary);
+  font-size: var(--pm-font-body-size);
+}

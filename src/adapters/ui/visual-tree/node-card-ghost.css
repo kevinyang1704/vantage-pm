@@ -1,0 +1,48 @@
+/* Node card ghost (Story 6.5) */
+
+.pm-node-card-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: var(--pm-canvas);
+  border: 1px dashed var(--pm-border-strong);
+  border-radius: 6px;
+  color: var(--pm-text-muted);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.85;
+}
+
+.pm-node-card-ghost__header {
+  display: flex;
+  align-items: center;
+}
+
+.pm-node-card-ghost__tag {
+  font-family: var(--pm-font-type-tag-svg-family);
+  font-size: var(--pm-font-type-tag-svg-size);
+  font-weight: var(--pm-font-type-tag-svg-weight);
+  color: var(--pm-accent);
+  letter-spacing: 0.05em;
+}
+
+.pm-node-card-ghost__title {
+  font-family: var(--pm-font-node-title-family);
+  font-size: var(--pm-font-node-title-size);
+  font-weight: var(--pm-font-node-title-weight);
+  color: var(--pm-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-node-card-ghost__theme {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}

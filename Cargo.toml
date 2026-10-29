@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = ["src-tauri", "crates/pmapp-core", "crates/pmapp-server"]
+
+# Release tuning moved to the workspace root: Cargo ignores `[profile.*]` in a
+# non-root workspace member. These values are moved verbatim from the former
+# standalone `src-tauri/Cargo.toml` so the desktop release binary is unchanged.
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+strip = true

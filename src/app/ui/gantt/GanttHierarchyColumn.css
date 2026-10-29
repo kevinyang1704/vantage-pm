@@ -1,0 +1,131 @@
+/* Gantt hierarchy column (Story 7.1-7.4) — Meridian tokens only, no literal hex. */
+
+.pm-gantt-hierarchy {
+  overflow-x: hidden;
+  overflow-y: auto;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  /* The timeline canvas owns the visible vertical scrollbar; this column is
+     kept in lockstep by GanttView and hides its own to avoid a double track. */
+  scrollbar-width: none;
+}
+
+.pm-gantt-hierarchy::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sticky spacers that shadow the timeline canvas's header and phase-footer
+   bands, so row 0 (and the last row) align across both halves whether or not
+   the pane is scrolled. Heights are set inline from the canvas constants. */
+.pm-gantt-hierarchy__header-spacer,
+.pm-gantt-hierarchy__footer-spacer {
+  position: sticky;
+  flex-shrink: 0;
+  z-index: 10;
+  background-color: var(--pm-surface);
+}
+
+.pm-gantt-hierarchy__header-spacer {
+  top: 0;
+  border-bottom: 1px solid var(--pm-border);
+}
+
+.pm-gantt-hierarchy__footer-spacer {
+  bottom: 0;
+  border-top: 1px solid var(--pm-border);
+}
+
+.pm-gantt-hierarchy__row {
+  display: flex;
+  align-items: center;
+  padding-right: 8px;
+  border-bottom: 1px solid var(--pm-grid);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--pm-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.pm-gantt-hierarchy__row--focused {
+  background-color: color-mix(in srgb, var(--pm-accent) 5%, transparent);
+  color: var(--pm-text-primary);
+}
+
+.pm-gantt-hierarchy__caret {
+  background: none;
+  border: none;
+  color: var(--pm-text-muted);
+  cursor: pointer;
+  padding: 0;
+  margin-right: 6px;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.pm-gantt-hierarchy__caret-spacer {
+  width: 14px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.pm-gantt-hierarchy__type {
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.pm-gantt-hierarchy__type--theme {
+  background-color: color-mix(in srgb, var(--pm-accent) 15%, transparent);
+  color: var(--pm-accent);
+}
+
+.pm-gantt-hierarchy__type--feature {
+  background-color: color-mix(in srgb, var(--pm-success) 15%, transparent);
+  color: var(--pm-success);
+}
+
+.pm-gantt-hierarchy__type--other {
+  background-color: color-mix(in srgb, var(--pm-text-secondary) 15%, transparent);
+  color: var(--pm-text-secondary);
+}
+
+.pm-gantt-hierarchy__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.pm-gantt-hierarchy__title--parent {
+  font-weight: 600;
+}
+
+.pm-gantt-hierarchy__flag {
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.pm-gantt-hierarchy__flag--violating {
+  color: var(--pm-flag-seq);
+}
+
+.pm-gantt-hierarchy__flag--orphan {
+  color: var(--pm-flag-orphan);
+  font-size: 10px;
+}

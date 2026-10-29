@@ -1,0 +1,657 @@
+/**
+ * SideNav CSS — persistent left navigation (Epic 15).
+ *
+ * 236px expanded, 56px collapsed. Tonal depth only, no box-shadow.
+ * Active entry: accent-soft ground + 2px accent leading edge (no
+ * filled-accent button in the authoring chrome, per DESIGN.md → Controls).
+ *
+ * Option A hierarchy: workspace control + Overview at the top, Current
+ * Project card below, then a flexible spacer, the Projects shelf and its
+ * New/Import actions near the bottom, and the low-frequency utilities in
+ * the footer.
+ */
+
+.pm-side-nav {
+  display: flex;
+  flex-direction: column;
+  width: 236px;
+  flex-shrink: 0;
+  background-color: var(--pm-surface);
+  border-right: 1px solid var(--pm-border);
+  padding: var(--pm-space-3) var(--pm-space-3) 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pm-side-nav--collapsed {
+  width: 56px;
+}
+
+/* ── Head: brand + collapse toggle ─────────────────────────────── */
+
+.pm-side-nav__head {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-space-2) var(--pm-space-4);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__head {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.pm-side-nav__head .pm-brand-lockup {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__head .pm-brand-wordmark {
+  display: none;
+}
+
+.pm-side-nav__collapse-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--pm-radius-DEFAULT);
+  background: none;
+  color: var(--pm-text-muted);
+  cursor: pointer;
+}
+
+.pm-side-nav__collapse-btn:hover {
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__collapse-btn:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__collapse-btn {
+  margin-left: 0;
+}
+
+/* ── Workspace control + disclosure ────────────────────────────── */
+
+.pm-side-nav__workspace {
+  position: relative;
+  margin-bottom: var(--pm-space-2);
+}
+
+.pm-side-nav__workspace-control {
+  display: grid;
+  grid-template-columns: 27px 1fr 14px;
+  align-items: center;
+  gap: var(--pm-space-2);
+  width: 100%;
+  height: 44px;
+  text-align: left;
+  font: inherit;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-md);
+  padding: 0 9px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pm-side-nav__workspace-control:hover {
+  border-color: var(--pm-accent-hover);
+}
+
+.pm-side-nav__workspace-control:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-side-nav__workspace-icon {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-DEFAULT);
+  display: grid;
+  place-items: center;
+  color: var(--pm-accent-hover);
+  flex-shrink: 0;
+}
+
+.pm-side-nav__workspace-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.pm-side-nav__workspace-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-side-nav__workspace-copy strong {
+  font-size: 12px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-side-nav__workspace-copy span {
+  margin-top: 2px;
+  font: 500 8.5px ui-monospace, Consolas, monospace;
+  color: var(--pm-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-side-nav__workspace-caret {
+  color: var(--pm-text-muted);
+  font-size: 11px;
+  text-align: right;
+}
+
+.pm-side-nav__workspace-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  min-width: 200px;
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-DEFAULT);
+  padding: var(--pm-space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pm-side-nav__workspace-menu-info {
+  font: 500 9px ui-monospace, Consolas, monospace;
+  color: var(--pm-text-muted);
+  padding: var(--pm-space-2) var(--pm-space-2) var(--pm-space-3);
+  border-bottom: 1px solid var(--pm-border);
+  margin-bottom: var(--pm-space-2);
+  white-space: nowrap;
+}
+
+.pm-side-nav__workspace-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--pm-text-secondary);
+  background: none;
+  border: 0;
+  border-radius: var(--pm-radius-sm);
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.pm-side-nav__workspace-menu-item:hover {
+  background-color: var(--pm-surface);
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__workspace-menu-item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+/* ── Workspace switcher rows (Epic 17) ─────────────────────────── */
+
+.pm-side-nav__workspace-menu-item--ws {
+  display: grid;
+  grid-template-columns: 14px 20px 1fr auto;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: 5px 8px;
+}
+
+.pm-side-nav__workspace-menu-item--current {
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__ws-tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  color: var(--pm-accent);
+}
+
+.pm-side-nav__ws-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--pm-radius-DEFAULT);
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-accent-hover);
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pm-side-nav__ws-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.pm-side-nav__ws-count {
+  font-size: 10px;
+  color: var(--pm-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pm-side-nav__workspace-menu-sep {
+  height: 1px;
+  background-color: var(--pm-border);
+  margin: var(--pm-space-2) var(--pm-space-1);
+}
+
+.pm-side-nav__workspace-menu-item--danger:hover {
+  color: var(--pm-danger);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__workspace {
+  margin-bottom: var(--pm-space-4);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__workspace-control {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 0;
+  height: 40px;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__workspace-copy,
+.pm-side-nav--collapsed .pm-side-nav__workspace-caret {
+  display: none;
+}
+
+/* ── Section labels + entries ──────────────────────────────────── */
+
+.pm-side-nav__section-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--pm-text-muted);
+  padding: 0 var(--pm-space-2);
+  margin: var(--pm-space-3) 0 var(--pm-space-2);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__section-label {
+  display: none;
+}
+
+.pm-side-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  color: var(--pm-text-secondary);
+  background: none;
+  border: 0;
+  border-radius: var(--pm-radius-DEFAULT);
+  padding: 0 var(--pm-space-3);
+  height: 32px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.pm-side-nav__item:hover {
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-side-nav__item[aria-current='page'] {
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-accent);
+  font-weight: 500;
+}
+
+.pm-side-nav__item[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: var(--pm-radius-full);
+  background-color: var(--pm-accent);
+}
+
+.pm-side-nav__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.pm-side-nav__item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-side-nav__item-hint {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--pm-text-muted);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__item {
+  justify-content: center;
+  padding: 0;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__item-label,
+.pm-side-nav--collapsed .pm-side-nav__item-hint {
+  display: none;
+}
+
+/* ── Workspace Overview link ───────────────────────────────────── */
+
+.pm-side-nav__overview-link {
+  margin-top: var(--pm-space-2);
+}
+
+/* ── Current Project section ───────────────────────────────────── */
+
+.pm-side-nav__current-card {
+  border: 1px solid var(--pm-border);
+  background-color: var(--pm-focus-bg);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-2);
+}
+
+.pm-side-nav__current-name {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  height: 30px;
+  padding: 0 var(--pm-space-1);
+  color: var(--pm-text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.pm-side-nav__current-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--pm-radius-DEFAULT);
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-accent-hover);
+  display: grid;
+  place-items: center;
+  font: 700 8px ui-monospace, Consolas, monospace;
+  flex-shrink: 0;
+}
+
+.pm-side-nav__current-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.pm-side-nav__current-dot {
+  margin-left: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--pm-success);
+  flex-shrink: 0;
+}
+
+.pm-side-nav__view {
+  padding-left: var(--pm-space-5);
+}
+
+.pm-side-nav--collapsed .pm-side-nav__current-card {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__current-name {
+  display: none;
+}
+
+/* ── Spacer ────────────────────────────────────────────────────── */
+
+.pm-side-nav__spacer {
+  flex: 1;
+  min-height: 26px;
+}
+
+/* ── Projects shelf ────────────────────────────────────────────── */
+
+.pm-side-nav__projects-head {
+  display: flex;
+  align-items: center;
+  margin: 0 var(--pm-space-2) var(--pm-space-2);
+}
+
+.pm-side-nav__projects-head .pm-side-nav__section-label {
+  margin: 0;
+  padding: 0;
+}
+
+.pm-side-nav__projects-count {
+  margin-left: auto;
+  font: 500 9px ui-monospace, Consolas, monospace;
+  color: var(--pm-text-muted);
+}
+
+.pm-side-nav__project-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--pm-space-2) 0 0;
+  border-top: 1px solid var(--pm-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pm-side-nav__project {
+  display: grid;
+  grid-template-columns: 20px 1fr 13px;
+  gap: var(--pm-space-2);
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--pm-text-secondary);
+  border-radius: var(--pm-radius-DEFAULT);
+  padding: 0 7px;
+  text-align: left;
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.pm-side-nav__project:hover {
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__project:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-side-nav__project--current {
+  color: var(--pm-text-primary);
+}
+
+.pm-side-nav__project-mini {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  display: grid;
+  place-items: center;
+  font: 600 7px ui-monospace, Consolas, monospace;
+  color: var(--pm-text-muted);
+  flex-shrink: 0;
+}
+
+.pm-side-nav__project--current .pm-side-nav__project-mini {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+  color: var(--pm-accent-hover);
+}
+
+.pm-side-nav__project-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.pm-side-nav__project-arrow {
+  color: var(--pm-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.pm-side-nav__project--current .pm-side-nav__project-arrow {
+  color: var(--pm-accent-hover);
+}
+
+/* ── Shelf actions: New project, then the Import / Export pair ──── */
+
+.pm-side-nav__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--pm-space-2);
+  margin-top: var(--pm-space-2);
+}
+
+/* New project takes its own row so Import and Export read as the
+   round-trip pair on the row beneath it. */
+.pm-side-nav__action--wide {
+  grid-column: 1 / -1;
+}
+
+.pm-side-nav__action {
+  height: 29px;
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  font: inherit;
+  font-size: 10.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-2);
+  padding: 0 var(--pm-space-2);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pm-side-nav__action:hover {
+  color: var(--pm-text-primary);
+  border-color: var(--pm-accent-hover);
+}
+
+.pm-side-nav__action:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-side-nav__action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.pm-side-nav__action-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pm-side-nav__action-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__projects-shelf {
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__projects-count {
+  display: none;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__project {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 0;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__project-name,
+.pm-side-nav--collapsed .pm-side-nav__project-arrow {
+  display: none;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__actions {
+  grid-template-columns: 1fr;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__action-label {
+  display: none;
+}
+
+.pm-side-nav--collapsed .pm-side-nav__action {
+  padding: 0;
+}
+
+/* ── Footer (utility entries) ──────────────────────────────────── */
+
+.pm-side-nav__foot {
+  margin-top: auto;
+  padding: var(--pm-space-3) 0 var(--pm-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: linear-gradient(to right,
+    transparent, var(--pm-border) 24px,
+    var(--pm-border) calc(100% - 24px), transparent
+  ) no-repeat top / 100% 1px;
+}
+

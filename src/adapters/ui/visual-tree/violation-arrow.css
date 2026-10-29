@@ -1,0 +1,19 @@
+/* Violation Arrow SVG Layer (Story 6.6) */
+
+.pm-violation-arrow-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pm-violation-origin-dot {
+  fill: var(--pm-flag-seq);
+}
+
+.pm-violation-arrow-path {
+  stroke: var(--pm-flag-seq);
+  stroke-width: 1.6px;
+  stroke-dasharray: 6 4;
+}

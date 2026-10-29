@@ -1,0 +1,5 @@
+# The Rust compiler for the desktop app (src-tauri), so every machine builds
+# it with the same version. Scoped to this folder: the server image is unaffected.
+[toolchain]
+channel = "1.98.0"
+profile = "minimal"

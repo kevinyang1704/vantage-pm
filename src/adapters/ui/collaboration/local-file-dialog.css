@@ -1,0 +1,89 @@
+.pm-local-file-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pm-space-4);
+  background: var(--pm-canvas);
+}
+
+.pm-local-file-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(900px, 100%);
+  max-height: 94dvh;
+  overflow: hidden;
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-lg);
+  background: var(--pm-surface);
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-local-file-dialog__header,
+.pm-local-file-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-4) var(--pm-space-5);
+}
+
+.pm-local-file-dialog__header { border-bottom: 1px solid var(--pm-border); }
+.pm-local-file-dialog__footer { border-top: 1px solid var(--pm-border); }
+.pm-local-file-dialog__header h2 { margin: 0; font-size: var(--pm-font-panel-title-size); }
+.pm-local-file-dialog__eyebrow { margin: 0 0 var(--pm-space-1); color: var(--pm-text-secondary); }
+.pm-local-file-dialog__body { min-height: 0; overflow: auto; padding: var(--pm-space-4) var(--pm-space-5); }
+.pm-local-file-dialog__copy { margin: 0 0 var(--pm-space-3); line-height: 1.6; }
+.pm-local-file-dialog__filename { overflow-wrap: anywhere; color: var(--pm-text-secondary); }
+.pm-local-file-dialog__hint { color: var(--pm-text-secondary); line-height: 1.5; font-size: var(--pm-font-mono-meta-sm-size); }
+.pm-local-file-dialog__modes { display: grid; gap: var(--pm-space-3); margin: var(--pm-space-4) 0; padding: var(--pm-space-4); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); }
+.pm-local-file-dialog__modes legend { color: var(--pm-text-secondary); padding: 0 var(--pm-space-1); }
+.pm-local-file-dialog__modes label,
+.pm-local-file-dialog__check { display: flex; align-items: center; gap: var(--pm-space-2); }
+.pm-local-file-dialog__region { margin-top: var(--pm-space-4); }
+.pm-local-file-dialog__region h3 { margin: 0 0 var(--pm-space-3); font-size: var(--pm-font-body-size); }
+.pm-local-file-dialog__field,
+.pm-local-file-dialog__decision { display: flex; flex-direction: column; gap: var(--pm-space-2); color: var(--pm-text-secondary); }
+.pm-local-file-dialog__field { margin-bottom: var(--pm-space-4); }
+.pm-local-file-dialog select { min-height: 36px; border: 1px solid var(--pm-border-strong); border-radius: var(--pm-radius-md); background: var(--pm-elevated); color: var(--pm-text-primary); padding: var(--pm-space-2); font: inherit; }
+.pm-local-file-dialog input { accent-color: var(--pm-accent-strong); }
+.pm-local-file-dialog__button { min-height: 36px; padding: var(--pm-space-2) var(--pm-space-3); border: 1px solid var(--pm-border-strong); border-radius: var(--pm-radius-md); background: var(--pm-elevated); color: var(--pm-text-primary); font-family: var(--pm-font-control-family); font-size: var(--pm-font-control-size); cursor: pointer; }
+.pm-local-file-dialog__button--primary { background: var(--pm-accent-strong); border-color: var(--pm-accent-strong); color: var(--pm-text-on-focus); }
+.pm-local-file-dialog__button--primary:hover:not(:disabled) { background: var(--pm-accent-strong-hover); }
+.pm-local-file-dialog button:disabled,
+.pm-local-file-dialog select:disabled { opacity: 0.6; cursor: default; }
+.pm-local-file-dialog :is(button, select, input, summary):focus-visible { outline: 2px solid var(--pm-focus); outline-offset: 3px; }
+.pm-local-file-dialog__actions,
+.pm-local-file-dialog__tools { display: flex; flex-wrap: wrap; gap: var(--pm-space-2); }
+.pm-local-file-dialog__review { margin-top: var(--pm-space-5); }
+.pm-local-file-dialog__review-header,
+.pm-local-file-dialog__change-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--pm-space-3); flex-wrap: wrap; }
+.pm-local-file-dialog__changes { padding: 0; margin: var(--pm-space-3) 0; list-style: none; display: grid; gap: var(--pm-space-3); }
+.pm-local-file-dialog__change { padding: var(--pm-space-3); border: 1px solid var(--pm-border); border-radius: var(--pm-radius-md); }
+.pm-local-file-dialog__change[data-conflict='true'] { border-inline-start: 3px solid var(--pm-flag-orphan); }
+.pm-local-file-dialog__kind { color: var(--pm-text-secondary); font-size: var(--pm-font-mono-meta-sm-size); }
+.pm-local-file-dialog__change h4 { margin: var(--pm-space-1) 0 0; font-size: var(--pm-font-body-size); overflow-wrap: anywhere; }
+.pm-local-file-dialog__decision { min-width: 180px; }
+.pm-local-file-dialog__values { margin-top: var(--pm-space-3); }
+.pm-local-file-dialog__values summary { cursor: pointer; color: var(--pm-text-secondary); }
+.pm-local-file-dialog__comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--pm-space-3); }
+.pm-local-file-dialog__comparison h5 { font: inherit; color: var(--pm-text-secondary); margin: var(--pm-space-3) 0 var(--pm-space-2); }
+.pm-local-file-dialog__comparison pre { margin: 0; max-height: 260px; overflow: auto; background: var(--pm-elevated); padding: var(--pm-space-3); border-radius: var(--pm-radius-sm); white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--pm-font-mono); font-size: var(--pm-font-mono-meta-sm-size); }
+.pm-local-file-dialog__notice { color: var(--pm-text-secondary); border-inline-start: 3px solid var(--pm-flag-orphan); padding-inline-start: var(--pm-space-3); }
+.pm-local-file-dialog__error { color: var(--pm-text-primary); border: 1px solid var(--pm-flag-seq); border-radius: var(--pm-radius-md); padding: var(--pm-space-3); }
+
+@media (max-width: 600px) {
+  .pm-local-file-backdrop { padding: var(--pm-space-2); }
+  .pm-local-file-dialog__header,
+  .pm-local-file-dialog__footer,
+  .pm-local-file-dialog__body { padding: var(--pm-space-3); }
+  .pm-local-file-dialog__comparison { grid-template-columns: minmax(0, 1fr); }
+  .pm-local-file-dialog__decision { width: 100%; }
+  .pm-local-file-dialog__footer .pm-local-file-dialog__actions { width: 100%; justify-content: flex-end; }
+}
+

@@ -1,0 +1,118 @@
+/* Gantt control bar (Story 7.2) — Meridian tokens only, no literal hex. */
+
+.pm-gantt-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pm-space-3) var(--pm-space-5);
+  background-color: var(--pm-surface);
+  border-bottom: 1px solid var(--pm-border);
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-secondary);
+  flex-wrap: wrap;
+  gap: var(--pm-space-3);
+}
+
+.pm-gantt-control-bar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-gantt-control-bar__scale-label {
+  font-size: var(--pm-font-control-size);
+  font-weight: 600;
+  color: var(--pm-text-muted);
+}
+
+.pm-gantt-control-bar__group {
+  display: inline-flex;
+  border-radius: var(--pm-radius-DEFAULT);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  padding: 2px;
+}
+
+.pm-gantt-control-bar__seg-btn {
+  background: transparent;
+  color: var(--pm-text-secondary);
+  border: none;
+  border-radius: var(--pm-radius-sm);
+  padding: 2px 8px;
+  font-size: var(--pm-font-control-size);
+  font-weight: 400;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.pm-gantt-control-bar__seg-btn--selected {
+  background-color: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  font-weight: 600;
+}
+
+.pm-gantt-control-bar__date-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+  margin-left: var(--pm-space-3);
+}
+
+.pm-gantt-control-bar__date-input {
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-primary);
+  border-radius: var(--pm-radius-sm);
+  padding: 2px 4px;
+  font-size: var(--pm-font-control-size);
+}
+
+.pm-gantt-control-bar__fit-btn {
+  background: none;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  color: var(--pm-text-muted);
+  padding: 2px 6px;
+  font-size: var(--pm-font-chip-size);
+  cursor: pointer;
+  margin-left: var(--pm-space-1);
+}
+
+.pm-gantt-control-bar__fit-btn--active,
+.pm-gantt-control-bar__fit-btn[aria-pressed="true"] {
+  background-color: color-mix(in srgb, var(--pm-accent) 15%, transparent);
+  border-color: var(--pm-accent);
+  color: var(--pm-accent);
+}
+
+.pm-gantt-control-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-gantt-control-bar__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--pm-radius-full);
+  padding: 2px 8px;
+  font-size: var(--pm-font-control-size);
+}
+
+.pm-gantt-control-bar__badge--undated {
+  background-color: color-mix(in srgb, var(--pm-text-muted) 10%, transparent);
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-muted);
+}
+
+.pm-gantt-control-bar__badge--out-of-window {
+  background-color: color-mix(in srgb, var(--pm-accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pm-accent) 20%, transparent);
+  color: var(--pm-accent);
+}
+
+.pm-gantt-control-bar__badge-count {
+  font-weight: 600;
+  color: var(--pm-text-secondary);
+}

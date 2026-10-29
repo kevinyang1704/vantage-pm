@@ -1,0 +1,106 @@
+/**
+ * Command Palette and Surface styling (Story 2.7, Story 2.8).
+ * Adheres strictly to Meridian design tokens and motion budget.
+ */
+
+.pm-command-surface-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--pm-canvas);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  z-index: 1000;
+  transition: opacity 110ms ease-out;
+}
+
+.pm-command-palette {
+  width: 100%;
+  max-width: 38rem;
+  background: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-command-palette__input-wrapper {
+  display: flex;
+  align-items: center;
+  padding: var(--pm-space-5);
+  border-bottom: 1px solid var(--pm-border);
+}
+
+.pm-command-palette__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-primary);
+  outline: none;
+}
+
+.pm-command-palette__input::placeholder {
+  color: var(--pm-text-muted);
+}
+
+.pm-command-palette__results {
+  list-style: none;
+  margin: 0;
+  padding: var(--pm-space-2);
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.pm-command-palette__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pm-space-3) var(--pm-space-5);
+  border-radius: var(--pm-radius-sm);
+  color: var(--pm-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.pm-command-palette__item--selected {
+  background: var(--pm-elevated);
+}
+
+.pm-command-palette__item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pm-command-palette__label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-command-palette__label {
+  font-weight: 500;
+}
+
+.pm-command-palette__reason {
+  font-size: var(--pm-font-control-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-command-palette__binding {
+  font-size: var(--pm-font-control-size);
+  color: var(--pm-text-secondary);
+  padding: 2px 6px;
+  background: var(--pm-elevated);
+  border-radius: var(--pm-radius-sm);
+}
+
+.pm-command-palette__empty {
+  padding: var(--pm-space-8);
+  text-align: center;
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-control-size);
+}

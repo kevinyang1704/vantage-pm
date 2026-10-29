@@ -1,0 +1,508 @@
+/* Workspace overview (Story 5.2) — Meridian tokens only. */
+
+.pm-workspace-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-section-gap, 30px);
+  padding: var(--pm-space-pane-pad, 20px);
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.pm-workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pm-workspace-title {
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  letter-spacing: -0.01em;
+  color: var(--pm-text-primary);
+  margin: 0;
+}
+
+.pm-workspace-new-project {
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-workspace-new-project:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-workspace-new-project:focus-visible {
+  outline: none;
+  background-color: var(--pm-focus-bg);
+  color: var(--pm-text-on-focus);
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-workspace-new-project--empty {
+  margin-top: var(--pm-space-4);
+  width: auto;
+}
+
+.pm-workspace-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--pm-space-6);
+}
+
+.pm-workspace-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-5);
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-lg);
+}
+
+.pm-workspace-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--pm-text-muted);
+  margin-bottom: 2px;
+}
+
+.pm-workspace-stat-label {
+  font-family: var(--pm-font-stat-label-family);
+  font-size: var(--pm-font-stat-label-size);
+  font-weight: var(--pm-font-stat-label-weight);
+  letter-spacing: 0.08em;
+  color: var(--pm-text-muted);
+}
+
+.pm-workspace-stat-value {
+  font-family: var(--pm-font-stat-value-family);
+  font-size: var(--pm-font-stat-value-size);
+  font-weight: var(--pm-font-stat-value-weight);
+  color: var(--pm-text-primary);
+}
+
+.pm-workspace-stat-value--flagged {
+  color: var(--pm-warn);
+}
+
+/* ── Over-limit warning banner ─────────────────────────────────── */
+
+.pm-workspace-limit-warning {
+  padding: var(--pm-space-3) var(--pm-space-4);
+  border: 1px dashed var(--pm-warn);
+  border-radius: var(--pm-radius-sm);
+  color: var(--pm-warn);
+  background-color: var(--pm-warn-bg);
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  line-height: 1.5;
+}
+
+/* ── App status / refusal copy (Epic 17) ────────────────────────── */
+
+/* The overview's counterpart to the project scope's StatusLine. Uses the
+   accent rail rather than the warn treatment above: most messages here are
+   confirmations ("Workspace created"), and a refusal reads clearly enough
+   from its wording without also claiming the visual weight of a warning. */
+.pm-workspace-status {
+  margin: 0;
+  padding: var(--pm-space-3) var(--pm-space-4);
+  border: 1px solid var(--pm-border);
+  border-left: 2px solid var(--pm-accent);
+  border-radius: var(--pm-radius-sm);
+  background-color: var(--pm-surface);
+  color: var(--pm-text-secondary);
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  line-height: 1.5;
+}
+
+/* ── Empty workspace ────────────────────────────────────────────── */
+
+.pm-workspace-empty {
+  padding: var(--pm-space-8) var(--pm-space-5);
+  text-align: center;
+  color: var(--pm-text-muted);
+}
+
+.pm-workspace-empty-copy {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-secondary);
+  margin: 0 0 var(--pm-space-2) 0;
+}
+
+.pm-workspace-empty-action {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  margin: 0;
+}
+
+/* ── Project cards ──────────────────────────────────────────────── */
+
+.pm-workspace-project-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-6);
+}
+
+.pm-project-card {
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xl);
+  overflow: hidden;
+}
+
+.pm-project-card-header {
+  background-color: var(--pm-elevated);
+  border-bottom: none;
+  background: linear-gradient(to right,
+    transparent, var(--pm-border) 48px,
+    var(--pm-border) calc(100% - 48px), transparent
+  ) no-repeat bottom / 100% 1px, var(--pm-elevated);
+  padding: var(--pm-space-4) var(--pm-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.pm-project-card-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-project-card-name {
+  font-family: var(--pm-font-card-title-family);
+  font-size: var(--pm-font-card-title-size);
+  font-weight: var(--pm-font-card-title-weight);
+  letter-spacing: -0.01em;
+  color: var(--pm-text-primary);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-project-card-name:focus-visible {
+  outline: none;
+  color: var(--pm-text-on-focus);
+  background-color: var(--pm-focus-bg);
+  box-shadow: inset 2px 0 0 var(--pm-focus);
+  padding-left: var(--pm-space-2);
+}
+
+.pm-project-card-name-input {
+  flex: 1;
+  font-family: var(--pm-font-card-title-family);
+  font-size: var(--pm-font-card-title-size);
+  font-weight: var(--pm-font-card-title-weight);
+  color: var(--pm-text-primary);
+  background-color: var(--pm-focus-bg);
+  border: none;
+  border-left: 2px solid var(--pm-focus);
+  padding: 0 0 0 var(--pm-space-2);
+  min-width: 0;
+}
+
+.pm-project-card-name-input:focus {
+  outline: none;
+}
+
+.pm-project-card-revision {
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-secondary);
+  background-color: var(--pm-elevated);
+  border-radius: var(--pm-radius-full);
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+.pm-project-card-counts {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+}
+
+.pm-project-card-count {
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-muted);
+}
+
+.pm-flag-count-chip {
+  font-family: var(--pm-font-mono-pill-family);
+  font-size: var(--pm-font-mono-pill-size);
+  font-weight: var(--pm-font-mono-pill-weight);
+  border-radius: var(--pm-radius-sm);
+  padding: 4px 7px;
+}
+
+.pm-flag-count-chip--has-flags {
+  color: var(--pm-warn);
+  background-color: var(--pm-warn-bg);
+  border: 1px solid color-mix(in srgb, var(--pm-warn) 80%, transparent);
+}
+
+.pm-flag-count-chip--no-flags {
+  color: var(--pm-success);
+  background-color: color-mix(in srgb, var(--pm-success) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pm-success) 35%, transparent);
+}
+
+/* ── Project delivery summary (Epic 24) ─────────────────────────── */
+
+.pm-project-card-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  flex-wrap: wrap;
+}
+
+.pm-project-card-count--delivered {
+  color: var(--pm-success);
+}
+
+.pm-project-card-count--unattributed {
+  color: var(--pm-text-muted);
+}
+
+.pm-project-card-details {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-project-card-details__summary {
+  cursor: pointer;
+  color: var(--pm-text-secondary);
+}
+
+.pm-project-card-details__summary:focus-visible {
+  outline: none;
+  color: var(--pm-text-on-focus);
+  background-color: var(--pm-focus-bg);
+  box-shadow: inset 2px 0 0 var(--pm-focus);
+}
+
+.pm-project-card-details__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.pm-project-card-details__row {
+  display: flex;
+  gap: var(--pm-space-3);
+  margin: 0;
+}
+
+.pm-project-card-details__label {
+  flex-shrink: 0;
+  min-width: 62px;
+  color: var(--pm-text-muted);
+}
+
+.pm-project-card-details__value {
+  color: var(--pm-text-secondary);
+}
+
+.pm-project-card-actions {
+  display: flex;
+  gap: var(--pm-space-2);
+  align-items: center;
+}
+
+.pm-project-card-delete {
+  margin-left: auto;
+  padding: 4px 11px;
+  background-color: transparent;
+  color: var(--pm-text-muted);
+  border: none;
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-project-card-delete:hover {
+  color: var(--pm-danger);
+  border-color: var(--pm-danger);
+}
+
+.pm-project-card-delete:focus-visible {
+  outline: none;
+  color: var(--pm-danger);
+  border-color: var(--pm-danger);
+  box-shadow: inset 0 0 0 1px var(--pm-danger);
+}
+
+/* ── Theme table (Epic 24: name · status · shared timeline) ──────── */
+
+.pm-theme-table {
+  padding: 0 var(--pm-space-5);
+}
+
+.pm-theme-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.85fr) minmax(0, 1.55fr);
+  gap: var(--pm-space-6);
+  align-items: start;
+  min-height: var(--pm-space-row-overview);
+  padding: var(--pm-space-3) var(--pm-space-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--pm-border) 55%, transparent);
+}
+
+.pm-theme-row:hover {
+  background-color: var(--pm-elevated);
+}
+
+.pm-theme-row--header {
+  min-height: var(--pm-space-table-header);
+  font-family: var(--pm-font-section-label-family);
+  font-size: var(--pm-font-section-label-size);
+  font-weight: var(--pm-font-section-label-weight);
+  letter-spacing: 0.06em;
+  color: var(--pm-text-muted);
+  align-items: end;
+}
+
+.pm-theme-col {
+  min-width: 0;
+}
+
+.pm-theme-col--name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-theme-name {
+  font-family: var(--pm-font-node-title-family);
+  font-size: var(--pm-font-node-title-size);
+  color: var(--pm-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pm-theme-name:hover {
+  color: var(--pm-accent-hover);
+}
+
+.pm-theme-name:focus-visible {
+  outline: none;
+  color: var(--pm-text-on-focus);
+  background-color: var(--pm-focus-bg);
+  box-shadow: inset 2px 0 0 var(--pm-focus);
+}
+
+.pm-theme-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-theme-col--status {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pm-theme-distribution {
+  display: flex;
+  height: 7px;
+  gap: 3px;
+  width: 100%;
+}
+
+.pm-theme-distribution__seg {
+  border-radius: 2px;
+  min-width: 4px;
+}
+
+.pm-theme-distribution__seg--not-started {
+  background-color: var(--pm-text-muted);
+}
+
+.pm-theme-distribution__seg--in-progress {
+  background-color: var(--pm-warning);
+}
+
+.pm-theme-distribution__seg--delivered {
+  background-color: var(--pm-success);
+}
+
+.pm-theme-status-counts {
+  display: flex;
+  gap: var(--pm-space-3);
+  flex-wrap: wrap;
+}
+
+.pm-theme-status-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-secondary);
+}
+
+.pm-theme-status-empty {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-theme-col--timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pm-theme-row--header .pm-theme-col--timeline {
+  justify-content: flex-end;
+}
+
+.pm-theme-details-region {
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-absence-text {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-theme-absence-note {
+  display: flex;
+  gap: var(--pm-space-4);
+  padding: var(--pm-space-2) var(--pm-space-2) var(--pm-space-3);
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+}
+
+.pm-project-card-empty {
+  padding: var(--pm-space-4) var(--pm-space-5);
+}

@@ -1,0 +1,90 @@
+/**
+ * TreeRegion CSS — state treatments for loading, empty, error, and ready.
+ *
+ * The region reserves its geometry in every state.
+ * Loading: written state, no spinner, no motion (cold-load treatment per UX-CONTRACT.md).
+ * Empty: names the absence in sans, offers one resolving action.
+ * Error: cause + resulting state, in place (NFR-19).
+ */
+
+.pm-tree-region-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  padding: var(--pm-space-7);
+  gap: var(--pm-space-4);
+}
+
+/* ── Loading ─────────────────────────────────────────────────────── */
+
+.pm-tree-region--loading {
+  color: var(--pm-text-muted);
+}
+
+/* ── Empty ───────────────────────────────────────────────────────── */
+
+.pm-tree-region--empty {
+  color: var(--pm-text-secondary);
+}
+
+.pm-tree-region-message {
+  font-family: var(--pm-font-sans);
+  font-size: var(--pm-font-body-size);
+  font-weight: var(--pm-font-body-weight);
+  line-height: var(--pm-font-body-line-height);
+  text-align: center;
+  max-width: 360px;
+  margin: 0;
+}
+
+.pm-tree-region-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  font-weight: var(--pm-font-control-weight);
+  cursor: pointer;
+}
+
+.pm-tree-region-action:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-tree-region-action:focus-visible {
+  outline: none;
+  background-color: var(--pm-focus-bg);
+  color: var(--pm-text-on-focus);
+  border-left: 2px solid var(--pm-focus);
+  padding-left: 7px;
+}
+
+/* ── Error ───────────────────────────────────────────────────────── */
+
+.pm-tree-region--error {
+  color: var(--pm-text-secondary);
+}
+
+.pm-tree-region-resulting-state {
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-muted);
+  margin: 0;
+}
+
+/* ── Ready ───────────────────────────────────────────────────────── */
+
+.pm-tree-region--ready {
+  display: block;
+  padding: 0;
+  overflow-y: auto;
+}

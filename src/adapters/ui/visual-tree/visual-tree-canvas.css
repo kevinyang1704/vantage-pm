@@ -1,0 +1,108 @@
+/* Visual tree canvas (Story 6.2 Task 5, Epic 10 stories 10.5/10.6) —
+   hybrid HTML+SVG surface with a transformed world layer and viewport controls. */
+
+.pm-visual-tree-canvas {
+  position: relative;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--pm-accent) 8%, transparent) 5%, transparent 64%), var(--pm-canvas);
+  background-color: var(--pm-canvas);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  outline: none;
+}
+
+.pm-visual-tree-canvas:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: -2px;
+}
+
+.pm-visual-tree-canvas--grab {
+  cursor: grab;
+}
+
+.pm-visual-tree-canvas--grabbing {
+  cursor: grabbing;
+}
+
+/* The tree role (treeitems only) fills the fixed interaction surface; the
+   world layer is positioned relative to the canvas (E10-AR8 separation). */
+.pm-visual-tree-canvas > [role="tree"] {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  outline: none;
+}
+
+/* One shared world layer carrying every HTML card and SVG connector.
+   Transformed via translate(panX, panY) scale(scale); geometry is never
+   mutated during gestures (E10-AR7). */
+.pm-visual-world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.pm-visual-row-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-tag-dim);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Viewport control group (E10-FR11, E10-UX9) — Meridian tokens, compact,
+   non-modal, keyboard-operable, unaffected by the world transform. */
+.pm-viewport-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background-color: color-mix(in srgb, var(--pm-surface) 92%, transparent);
+  border: 1px solid var(--pm-border);
+  border-radius: 8px;
+  z-index: 20;
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+}
+
+.pm-viewport-control {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--pm-text-secondary);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pm-viewport-control:hover {
+  background-color: color-mix(in srgb, var(--pm-accent) 12%, transparent);
+  color: var(--pm-text-primary);
+}
+
+.pm-viewport-control:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: -1px;
+}
+
+.pm-viewport-percent {
+  min-width: 44px;
+  text-align: center;
+  color: var(--pm-text-primary);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,27 @@
+target/
+**/target/
+node_modules/
+dist/
+.git/
+.github/
+spikes/
+tests/
+coverage/
+playwright-report/
+test-results/
+_bmad-output/
+.agent/
+.agents/
+.claude/
+.tools/
+*.log
+output/
+reports/
+docs/screenshots/
+
+# Marketing site is maintained outside the app repository.
+/marketing/
+/marketing-evidence/
+/landing/
+/landing-page/
+/website/

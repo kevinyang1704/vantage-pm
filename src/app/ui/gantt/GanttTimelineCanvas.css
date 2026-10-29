@@ -1,0 +1,346 @@
+/* Gantt timeline canvas (Story 7.1-7.5, Epic 14 visual polish) — Meridian tokens only, no literal hex. */
+
+.pm-gantt-canvas {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  background-color: var(--pm-canvas);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Band height comes from `--pm-gantt-band-h`, published on `.pm-gantt-view`
+   from GANTT_HEADER_HEIGHT_PX. The hierarchy column's spacers read the same
+   constant, so the two halves cannot drift apart by editing one of them. */
+.pm-gantt-canvas__header {
+  display: flex;
+  height: var(--pm-gantt-band-h, 24px);
+  min-height: var(--pm-gantt-band-h, 24px);
+  background: linear-gradient(to right,
+    transparent, var(--pm-border) 48px,
+    var(--pm-border) calc(100% - 48px), transparent
+  ) no-repeat bottom / 100% 1px, var(--pm-surface);
+  border-bottom: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.pm-gantt-canvas__header-col {
+  border-right: 1px solid var(--pm-border);
+  padding: 2px 0;
+  text-indent: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pm-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* ── Grid (Epic 14, E14-AR1/FR1/FR2) ───────────────────────────────────────
+   Geometry-owned: major columns are cells with a restrained border; minor
+   sub-interval guides are faint positioned hairlines. The former
+   repeating-linear-gradient (hardcoded 100px cadence) is removed — no second
+   interval calculation in CSS. */
+
+.pm-gantt-canvas__grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.pm-gantt-canvas__grid-col {
+  height: 100%;
+  border-right: 1px solid var(--pm-grid);
+  box-sizing: border-box;
+}
+
+.pm-gantt-canvas__grid-minor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: color-mix(in srgb, var(--pm-grid) 55%, transparent);
+}
+
+.pm-gantt-canvas__phase-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: color-mix(in srgb, var(--pm-accent) 2%, transparent);
+  border-left: 1px dashed color-mix(in srgb, var(--pm-accent) 30%, transparent);
+  border-right: 1px dashed color-mix(in srgb, var(--pm-accent) 30%, transparent);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.pm-gantt-canvas__deps {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── Rows (Epic 14, E14-FR5/UX5) ───────────────────────────────────────────
+   Focus is a quiet coordinated row tint shared with the hierarchy column —
+   no competing full-width rule or bright outline. */
+
+.pm-gantt-canvas__row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid var(--pm-grid);
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.pm-gantt-canvas__row--focused {
+  background-color: color-mix(in srgb, var(--pm-accent) 5%, transparent);
+}
+
+/* ── Authored bars (Epic 14, E14-FR4/UX4) ──────────────────────────────────
+   The strongest timeline marks: flat Vantage-blue fill, restrained small
+   radius, even vertical centering, no border/glow/shadow/bevel. The visible
+   bar is slim; the row-sized transparent hit surface keeps drag/resize
+   precision unchanged (E14-AR4). */
+
+.pm-gantt-canvas__bar {
+  position: absolute;
+  top: 6px;
+  height: 16px;
+  background-color: var(--pm-accent-strong);
+  border: none;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--pm-text-on-focus);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: grab;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.pm-gantt-canvas__bar--dragging {
+  background-color: var(--pm-accent-strong-hover);
+  cursor: grabbing;
+}
+
+.pm-gantt-canvas__bar--focused {
+  outline: 1px solid var(--pm-text-on-focus);
+  outline-offset: 1px;
+}
+
+.pm-gantt-canvas__bar--clip-left {
+  border-radius: 0 3px 3px 0;
+  border-left: 2px dashed var(--pm-text-on-focus);
+}
+
+.pm-gantt-canvas__bar--clip-right {
+  border-radius: 3px 0 0 3px;
+  border-right: 2px dashed var(--pm-text-on-focus);
+}
+
+.pm-gantt-canvas__bar--clip-both {
+  border-radius: 0;
+  border-left: 2px dashed var(--pm-text-on-focus);
+  border-right: 2px dashed var(--pm-text-on-focus);
+}
+
+.pm-gantt-canvas__bar-handle {
+  width: 6px;
+  height: 100%;
+  cursor: ew-resize;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.pm-gantt-canvas__bar-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  padding: 0 4px;
+}
+
+/* ── Derived summary rails (Epic 14, E14-FR3/UX3) ───────────────────────────
+   Quiet muted blue/slate treatment — clearly distinct from grid lines and
+   never resembling full-strength task bars, dependency routes, phase
+   boundaries, or error indicators. Short endpoint caps only where the span
+   is not clipped. */
+
+.pm-gantt-canvas__derived {
+  position: absolute;
+  top: 6px;
+  height: 16px;
+  cursor: not-allowed;
+}
+
+/* Authored Vision/Theme spans are real, movable marks — not refused rollups. */
+.pm-gantt-canvas__derived--movable {
+  cursor: grab;
+}
+
+.pm-gantt-canvas__derived--focused .pm-gantt-canvas__derived-rail {
+  outline: 1px solid var(--pm-accent);
+  outline-offset: 1px;
+}
+
+/* Strategic-altitude summary (Vision, Theme): a slim but legible colour bar,
+   vertically centred in the row — distinct from the fainter, thinner rollup
+   rail used for delivery-altitude parents. */
+.pm-gantt-canvas__derived--summary .pm-gantt-canvas__derived-rail {
+  top: 5px;
+  height: 6px;
+  border-radius: 3px;
+}
+
+.pm-gantt-canvas__derived--summary .pm-gantt-canvas__derived-tick {
+  top: 3px;
+  height: 10px;
+}
+
+.pm-gantt-canvas__derived-rail {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: color-mix(in srgb, var(--pm-accent) 22%, var(--pm-border));
+  border-radius: 2px;
+}
+
+.pm-gantt-canvas__derived-tick {
+  position: absolute;
+  top: 2px;
+  width: 2px;
+  height: 11px;
+  background-color: color-mix(in srgb, var(--pm-accent) 30%, var(--pm-border));
+}
+
+/* ── Workstream colour coding (Option A: workstream fill) ───────────────────
+   A row's nearest Theme ancestor defines its workstream; the projection hands
+   each workstream a hue index 1–6 and the row carries `--pm-ws` as one of the
+   `--pm-workstream-N` ramp tokens. Authored bars fill with the hue; derived
+   rollup rails take the same hue, muted, so they still read as summaries.
+   Label ink is near-black on the bright dark-mode fills, except slot 1 (the
+   accent) which keeps white for parity with the un-coded bar. Light-mode ramp
+   peers are deep and take white ink for every slot. */
+
+/* `:not(--dragging)` so the active-drag feedback fill (accent-hover) still wins
+   regardless of source order. */
+.pm-gantt-canvas__bar--ws:not(.pm-gantt-canvas__bar--dragging) {
+  background-color: var(--pm-ws);
+}
+
+.pm-gantt-canvas__bar--ws {
+  color: var(--pm-workstream-ink);
+}
+
+.pm-gantt-canvas__bar--ws.is-ws1 {
+  color: var(--pm-text-on-focus);
+}
+
+.pm-gantt-canvas__derived-rail--ws {
+  background-color: color-mix(in srgb, var(--pm-ws) 55%, var(--pm-border));
+}
+
+.pm-gantt-canvas__derived-tick--ws {
+  background-color: color-mix(in srgb, var(--pm-ws) 75%, var(--pm-border));
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .pm-gantt-canvas__bar--ws {
+    color: var(--pm-text-on-focus);
+  }
+}
+
+:root[data-theme="light"] .pm-gantt-canvas__bar--ws {
+  color: var(--pm-text-on-focus);
+}
+
+.pm-gantt-canvas__popover {
+  position: absolute;
+  z-index: 20;
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--pm-text-primary);
+  max-width: 300px;
+}
+
+.pm-gantt-canvas__popover-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--pm-text-secondary);
+}
+
+.pm-gantt-canvas__popover-body {
+  margin-bottom: 8px;
+  color: var(--pm-text-muted);
+  line-height: 1.4;
+}
+
+.pm-gantt-canvas__popover-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.pm-gantt-canvas__popover-btn {
+  background: none;
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-muted);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.pm-gantt-canvas__popover-btn--primary {
+  background-color: var(--pm-accent-strong);
+  border: none;
+  color: var(--pm-text-on-focus);
+  font-weight: 600;
+}
+
+.pm-gantt-canvas__phase-footer {
+  display: flex;
+  height: var(--pm-gantt-footer-band-h, 24px);
+  min-height: var(--pm-gantt-footer-band-h, 24px);
+  background-color: var(--pm-surface);
+  border-top: 1px solid var(--pm-border);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.pm-gantt-canvas__phase-footer-chip {
+  position: absolute;
+  height: 100%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--pm-accent);
+  background-color: color-mix(in srgb, var(--pm-accent) 8%, transparent);
+  border-left: 2px solid var(--pm-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}

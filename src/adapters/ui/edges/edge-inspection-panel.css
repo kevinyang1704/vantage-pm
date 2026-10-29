@@ -1,0 +1,285 @@
+/**
+ * EdgeInspectionPanel styles — Meridian design tokens
+ */
+
+.pm-edge-inspection-panel {
+  width: 320px;
+  min-width: 320px;
+  max-width: 320px;
+  height: 100%;
+  background: var(--pm-surface);
+  border-left: 1px solid var(--pm-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 16px;
+  gap: 16px;
+  font-family: var(--pm-font-sans);
+  font-size: 13px;
+  color: var(--pm-text-primary);
+  z-index: 10;
+}
+
+.pm-edge-inspection-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--pm-border);
+  padding-bottom: 8px;
+}
+
+.pm-edge-inspection-panel__scope-control {
+  display: flex;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 4px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.pm-edge-inspection-panel__scope-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: var(--pm-font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--pm-text-muted);
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pm-edge-inspection-panel__scope-btn:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-edge-inspection-panel__scope-btn--active,
+.pm-edge-inspection-panel__scope-btn--active:hover {
+  background: var(--pm-accent-soft);
+  border: 1px solid var(--pm-accent);
+  color: var(--pm-accent-hover);
+  font-weight: 600;
+}
+
+.pm-edge-inspection-panel__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pm-edge-inspection-panel__close-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.pm-edge-inspection-panel__close-btn:hover {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-edge-inspection-panel__node-summary {
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pm-edge-inspection-panel__node-type {
+  font-family: var(--pm-font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--pm-accent);
+}
+
+.pm-edge-inspection-panel__node-title {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm-edge-inspection-panel__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pm-edge-inspection-panel__section-title {
+  font-family: var(--pm-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--pm-text-muted);
+  margin: 0;
+}
+
+.pm-edge-inspection-panel__empty {
+  font-size: 12px;
+  color: var(--pm-text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+.pm-edge-inspection-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pm-edge-inspection-panel__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  gap: 6px;
+}
+
+.pm-edge-inspection-panel__item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.pm-edge-inspection-panel__edge-endpoints {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.pm-edge-inspection-panel__arrow {
+  color: var(--pm-text-muted);
+  font-size: 11px;
+}
+
+.pm-edge-inspection-panel__edge-details {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+}
+
+.pm-edge-inspection-panel__node-badge {
+  font-family: var(--pm-font-sans);
+  font-size: 10px;
+  color: var(--pm-text-muted);
+  background: var(--pm-surface);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--pm-border);
+}
+
+.pm-edge-inspection-panel__violation-badge {
+  font-family: var(--pm-font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--pm-flag-seq);
+  background: var(--pm-seq-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--pm-flag-seq);
+}
+
+.pm-edge-inspection-panel__nav-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  color: var(--pm-accent);
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.pm-edge-inspection-panel__nav-link:hover {
+  text-decoration: underline;
+}
+
+.pm-edge-inspection-panel__del-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+  font-size: 14px;
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.pm-edge-inspection-panel__del-btn:hover {
+  color: var(--pm-danger);
+  background: var(--pm-seq-bg);
+}
+
+.pm-edge-inspection-panel__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.pm-edge-inspection-panel__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pm-edge-inspection-panel__select {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid var(--pm-border);
+  border-radius: 4px;
+  background: var(--pm-surface);
+  color: var(--pm-text-primary);
+}
+
+.pm-edge-inspection-panel__submit-btn {
+  padding: 6px 12px;
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pm-edge-inspection-panel__submit-btn:hover:not(:disabled) {
+  background: var(--pm-accent-strong-hover);
+}
+
+.pm-edge-inspection-panel__submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

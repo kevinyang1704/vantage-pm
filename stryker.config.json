@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker-js/master/packages/core/schema/stryker-schema.json",
+  "testRunner": "vitest",
+  "vitest": {
+    "configFile": "vitest.config.ts"
+  },
+  "mutate": [
+    "spikes/phase-0-durability/src/migration-protocol.ts",
+    "spikes/phase-0-durability/src/update-gate.ts",
+    "src/domain/**/*.policy.ts"
+  ],
+  "ignorePatterns": [
+    ".claude",
+    ".agents",
+    ".agent",
+    ".git",
+    "node_modules",
+    "test-results",
+    "playwright-report",
+    "coverage",
+    "dist"
+  ],
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": 60
+  },
+  "reporters": ["html", "clear-text", "progress"],
+  "cleanTempDir": true,
+  "tempDirName": ".stryker-tmp",
+  "concurrency": 4,
+  "timeoutMS": 30000
+}

@@ -1,0 +1,186 @@
+/**
+ * ScheduleEditorModal styles — Meridian tokens
+ */
+
+.pm-schedule-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  /* Translucency lives on the backdrop's own fill, not `opacity` on the
+     element — an opacity < 1 here would also fade the panel and let the
+     outline bleed through it. */
+  background: color-mix(in srgb, var(--pm-canvas) 82%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pm-schedule-modal {
+  width: 460px;
+  max-width: 90vw;
+  background: var(--pm-surface);
+  border-radius: 8px;
+  border: 1px solid var(--pm-border-strong);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+}
+
+.pm-schedule-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--pm-border);
+  background: var(--pm-elevated);
+}
+
+.pm-schedule-modal__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pm-text-primary);
+}
+
+.pm-schedule-modal__close-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+}
+
+.pm-schedule-modal__close-btn:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-schedule-modal__node-summary {
+  padding: 10px 20px;
+  background: var(--pm-elevated);
+  border-bottom: 1px solid var(--pm-border);
+}
+
+.pm-schedule-modal__node-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+
+.pm-schedule-modal__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pm-schedule-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pm-schedule-modal__label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pm-text-secondary);
+}
+
+.pm-schedule-modal__input {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  background: var(--pm-surface);
+  color: var(--pm-text-primary);
+}
+
+.pm-schedule-modal__input:focus {
+  outline: none;
+  border-color: var(--pm-focus);
+}
+
+.pm-schedule-modal__preview {
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pm-schedule-modal__preview-title {
+  font-family: var(--pm-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--pm-text-muted);
+  margin: 0;
+}
+
+.pm-schedule-modal__preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.pm-schedule-modal__preview-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-schedule-modal__preview-label {
+  font-size: 11px;
+  color: var(--pm-text-muted);
+}
+
+.pm-schedule-modal__preview-value {
+  font-family: var(--pm-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pm-text-primary);
+}
+
+.pm-schedule-modal__preview-empty {
+  font-size: 12px;
+  color: var(--pm-text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+.pm-schedule-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pm-schedule-modal__btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.pm-schedule-modal__btn--primary {
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+}
+
+.pm-schedule-modal__btn--primary:hover:not(:disabled) {
+  background: var(--pm-accent-strong-hover);
+}
+
+.pm-schedule-modal__btn--secondary {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+  border: 1px solid var(--pm-border);
+}

@@ -1,0 +1,195 @@
+/**
+ * ShareDialog CSS (Story 27.6, TC-UX4). Design tokens only; no raw colors.
+ */
+
+.pm-share-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--pm-space-7);
+  background: var(--pm-canvas);
+  z-index: 40;
+}
+
+.pm-share-dialog__inner {
+  width: min(640px, 100%);
+  max-height: 80vh;
+  overflow: auto;
+  background: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-lg);
+  padding: var(--pm-space-6);
+}
+
+.pm-share-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-4);
+  margin-bottom: var(--pm-space-5);
+}
+
+.pm-share-dialog__title {
+  margin: 0;
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+}
+
+.pm-share-dialog__close {
+  background: none;
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-sm);
+  color: var(--pm-text-secondary);
+  cursor: pointer;
+  padding: var(--pm-space-1) var(--pm-space-2);
+}
+
+.pm-share-dialog__region {
+  margin-bottom: var(--pm-space-6);
+}
+
+.pm-share-dialog__label {
+  display: block;
+  margin: 0 0 var(--pm-space-2);
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  font-weight: 600;
+  color: var(--pm-text-secondary);
+}
+
+.pm-share-dialog__link-row {
+  display: flex;
+  gap: var(--pm-space-2);
+}
+
+.pm-share-dialog__field {
+  margin-bottom: var(--pm-space-4);
+}
+
+.pm-share-dialog__link {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-mono);
+}
+
+.pm-share-dialog__button {
+  border: 1px solid var(--pm-accent-strong);
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-share-dialog__button--ghost {
+  background: transparent;
+  color: var(--pm-text-primary);
+  border-color: var(--pm-border-strong);
+}
+
+.pm-share-dialog__button--danger {
+  background: transparent;
+  color: var(--pm-danger);
+  border-color: var(--pm-danger);
+}
+
+.pm-share-dialog__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-2);
+  align-items: center;
+  margin: var(--pm-space-3) 0 0;
+  color: var(--pm-text-secondary);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-share-dialog__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-1);
+}
+
+.pm-share-dialog__row {
+  display: flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) var(--pm-space-3);
+  border-radius: var(--pm-radius-md);
+}
+
+.pm-share-dialog__who {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--pm-text-primary);
+}
+
+.pm-share-dialog__this {
+  color: var(--pm-text-muted);
+}
+
+.pm-share-dialog__actions {
+  display: flex;
+  gap: var(--pm-space-2);
+}
+
+.pm-share-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  border-top: 1px solid var(--pm-border);
+  padding-top: var(--pm-space-4);
+}
+
+.pm-share-dialog__hint {
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  font-family: var(--pm-font-mono-meta-sm-family);
+}
+
+/* Role is text, never color alone. */
+.pm-badge {
+  display: inline-block;
+  font-family: var(--pm-font-chip-family);
+  font-size: var(--pm-font-chip-size);
+  font-weight: var(--pm-font-chip-weight);
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-sm);
+  border: 1px solid var(--pm-border-strong);
+  color: var(--pm-text-secondary);
+}
+
+.pm-badge[data-role='owner'] {
+  color: var(--pm-accent);
+  border-color: var(--pm-accent);
+}
+
+.pm-chip {
+  display: inline-block;
+  font-size: var(--pm-font-chip-size);
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-full);
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-secondary);
+}
+
+/* AC 27.4-4: a visible warning while join approval is off. */
+.pm-share-dialog__warning {
+  color: var(--pm-warning);
+  border-inline-start: 3px solid var(--pm-warning);
+  padding-inline-start: var(--pm-space-2);
+}

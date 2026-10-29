@@ -1,0 +1,159 @@
+/**
+ * Outline view styling (Epic 2, Epic 3).
+ */
+
+.pm-outline-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.pm-outline-main {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pm-outline-view {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--pm-canvas);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.pm-outline-view__inner {
+  position: relative;
+  width: 100%;
+}
+
+.pm-outline-view__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.pm-outline-view__item:has(.pm-outline-row__type-dropdown),
+.pm-outline-view__item:has(.pm-outline-row__status-menu) {
+  z-index: 100;
+}
+
+/* ── Empty state (UAT #16) ─────────────────────────────────────── */
+
+.pm-outline-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-3);
+  text-align: center;
+  padding: var(--pm-space-8);
+  color: var(--pm-text-muted);
+}
+
+.pm-outline-empty-state__copy {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  color: var(--pm-text-secondary);
+  margin: 0;
+}
+
+.pm-outline-empty-state__add {
+  padding: 5px 12px;
+  background-color: var(--pm-surface);
+  color: var(--pm-text-primary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-outline-empty-state__add:hover {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+}
+
+.pm-outline-empty-state__hint {
+  font-family: var(--pm-font-mono-meta-family);
+  font-size: var(--pm-font-mono-meta-size);
+  color: var(--pm-text-muted);
+  margin: 0;
+}
+
+/* ── Contextual sibling-insertion cue (Epic 11, E11-UX1/2/3/5) ────
+   A compact continuation affordance directly beneath the focused row,
+   integrated into the virtualized content geometry (E11-AR2). Content-width,
+   ~22px high, visually subordinate to authored rows. */
+
+.pm-outline-cue {
+  --pm-outline-cue-offset: calc(
+    var(--pm-space-2, 8px) +
+    var(--pm-flag-gutter, 18px) +
+    (var(--pm-indent, 16px) * var(--pm-outline-cue-depth, 0))
+  );
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 1.5rem;
+  width: max-content;
+  max-width: max(0px, calc(100% - var(--pm-outline-cue-offset) - var(--pm-space-2, 8px)));
+  margin: 0 0 0 var(--pm-outline-cue-offset);
+  padding: 0 10px;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-radius: var(--pm-radius-DEFAULT);
+  color: var(--pm-text-muted);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.pm-outline-cue:hover {
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-text-primary);
+}
+
+.pm-outline-cue:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: -1px;
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-text-primary);
+}
+
+.pm-outline-cue__guide {
+  width: 14px;
+  height: 1px;
+  background-color: var(--pm-border-strong);
+  flex-shrink: 0;
+}
+
+.pm-outline-cue__plus {
+  color: inherit;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.pm-outline-cue__label {
+  color: inherit;
+}
+
+.pm-outline-cue__hint {
+  font-family: var(--pm-font-mono-meta-family);
+  font-size: var(--pm-font-mono-meta-size);
+  color: var(--pm-text-muted);
+  margin-left: 4px;
+}

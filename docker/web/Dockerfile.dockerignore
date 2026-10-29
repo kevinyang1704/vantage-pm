@@ -1,0 +1,33 @@
+# Context for docker/web/Dockerfile (the web app). Unlike the root
+# .dockerignore (server image), this keeps spikes/, which the app imports.
+.git/
+.github/
+node_modules/
+**/node_modules/
+dist/
+target/
+**/target/
+src-tauri/
+crates/
+tests/
+coverage/
+playwright-report/
+test-results/
+_bmad-output/
+design-artifacts/
+docs/
+.agent/
+.agents/
+.claude/
+.collab-dev/
+.tools/
+*.log
+output/
+reports/
+
+# Marketing site is maintained outside the app repository.
+/marketing/
+/marketing-evidence/
+/landing/
+/landing-page/
+/website/

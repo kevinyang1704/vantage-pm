@@ -1,0 +1,9 @@
+# Cloudflare Pages response headers for the hosted web app.
+# COOP/COEP make the page cross-origin isolated, which the in-browser SQLite
+# database needs (SharedArrayBuffer). Same values as the Vite dev/preview server.
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Service-Worker-Allowed: /
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer

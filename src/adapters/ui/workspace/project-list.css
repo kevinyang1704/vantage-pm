@@ -1,0 +1,275 @@
+/**
+ * ProjectList CSS — project cards with create and inline rename.
+ *
+ * Uses Meridian CSS custom properties (--pm-*) throughout.
+ * No raw hex, no emoji, no inline styles, no transitions.
+ * Hover is CSS :hover, not JS-tracked.
+ * Focus uses the Meridian focus treatment (focus-bg + spine + text-on-focus).
+ */
+
+.pm-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-7);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Header ──────────────────────────────────────────────────────── */
+
+.pm-project-list-header {
+  font-family: var(--pm-font-section-label-family);
+  font-size: var(--pm-font-section-label-size);
+  font-weight: var(--pm-font-section-label-weight);
+  letter-spacing: var(--pm-font-section-label-letter-spacing);
+  color: var(--pm-text-muted);
+  margin-bottom: var(--pm-space-1);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────── */
+
+.pm-project-list-empty {
+  padding: var(--pm-space-8) var(--pm-space-5);
+  text-align: center;
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-body-size);
+  font-family: var(--pm-font-sans);
+}
+
+/* ── Project card ────────────────────────────────────────────────── */
+/* Per {components.project-card}: surface, 1px border, rounded.xl,
+   elevated header, card-title name, mono-status counts */
+
+.pm-project-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pm-space-4) var(--pm-space-5);
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-xl);
+  cursor: default;
+}
+
+.pm-project-card:hover {
+  border-color: var(--pm-border-strong);
+}
+
+/* ── Project name ────────────────────────────────────────────────── */
+
+.pm-project-card-name {
+  font-family: var(--pm-font-card-title-family);
+  font-size: var(--pm-font-card-title-size);
+  font-weight: var(--pm-font-card-title-weight);
+  letter-spacing: var(--pm-font-card-title-letter-spacing);
+  color: var(--pm-text-primary);
+  flex: 1;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-project-card-name:focus-visible {
+  outline: none;
+  background-color: var(--pm-focus-bg);
+  color: var(--pm-text-on-focus);
+  border-left: 2px solid var(--pm-focus);
+  padding-left: calc(var(--pm-space-5) - 2px);
+  border-radius: var(--pm-radius-DEFAULT);
+}
+
+/* ── Revision ────────────────────────────────────────────────────── */
+
+.pm-project-card-revision {
+  font-family: var(--pm-font-mono-status-family);
+  font-size: var(--pm-font-mono-status-size);
+  font-weight: var(--pm-font-mono-status-weight);
+  color: var(--pm-text-muted);
+  margin-left: var(--pm-space-4);
+  flex-shrink: 0;
+}
+
+/* ── Inline rename input ─────────────────────────────────────────── */
+
+.pm-project-card-input {
+  flex: 1;
+  font-family: var(--pm-font-card-title-family);
+  font-size: var(--pm-font-card-title-size);
+  font-weight: var(--pm-font-card-title-weight);
+  color: var(--pm-text-primary);
+  background-color: var(--pm-focus-bg);
+  border: none;
+  border-left: 2px solid var(--pm-focus);
+  padding: 0;
+  padding-left: var(--pm-space-3);
+  min-width: 0;
+  border-radius: var(--pm-radius-DEFAULT);
+}
+
+.pm-project-card-input:focus {
+  outline: none;
+}
+
+/* ── Create button ──────────────────────────────────────────────── */
+/* Per {components.button}: elevated, text-secondary, 1px border-strong,
+   rounded.DEFAULT, 5px 9px. No dashed border — create is not a sanctioned
+   dash meaning. */
+
+.pm-project-list-create {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  font-weight: var(--pm-font-control-weight);
+  cursor: pointer;
+  width: 100%;
+}
+
+.pm-project-list-create:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-project-list-create:focus-visible {
+  outline: none;
+  background-color: var(--pm-focus-bg);
+  color: var(--pm-text-on-focus);
+  border-left: 2px solid var(--pm-focus);
+  padding-left: 7px;
+}
+
+/* ── Delete button ───────────────────────────────────────────────── */
+
+.pm-project-card-delete {
+  padding: 2px 6px;
+  margin-left: var(--pm-space-2);
+  background-color: transparent;
+  color: var(--pm-text-muted);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pm-project-card-delete:hover {
+  color: var(--pm-danger);
+  border-color: var(--pm-danger);
+}
+
+.pm-project-card-delete:focus-visible {
+  outline: none;
+  color: var(--pm-danger);
+  border-color: var(--pm-danger);
+  box-shadow: inset 0 0 0 1px var(--pm-danger);
+}
+
+/* ── Delete confirmation dialog (FR-61, the one blocking modal) ──── */
+
+.pm-project-delete-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--pm-canvas) 70%, transparent);
+  z-index: 1000;
+}
+
+.pm-project-delete-dialog-inner {
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-xl);
+  padding: var(--pm-space-6);
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-project-delete-title {
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+  margin: 0 0 var(--pm-space-3) 0;
+}
+
+.pm-project-delete-copy {
+  font-family: var(--pm-font-body-family);
+  font-size: var(--pm-font-body-size);
+  line-height: 1.55;
+  color: var(--pm-text-secondary);
+  margin: 0 0 var(--pm-space-4) 0;
+}
+
+.pm-project-delete-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 9px;
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+}
+
+.pm-project-delete-input:focus-visible {
+  outline: none;
+  border-color: var(--pm-focus);
+  box-shadow: inset 0 0 0 1px var(--pm-focus);
+}
+
+.pm-project-delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-3);
+  margin-top: var(--pm-space-4);
+}
+
+.pm-project-delete-cancel {
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-secondary);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-project-delete-cancel:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-project-delete-confirm {
+  padding: 5px 9px;
+  background-color: var(--pm-elevated);
+  color: var(--pm-danger);
+  border: 1px solid var(--pm-danger);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pm-project-delete-confirm:disabled {
+  opacity: 0.5;
+  cursor: default;
+  color: var(--pm-text-muted);
+  border-color: var(--pm-border);
+}
+
+.pm-project-delete-confirm:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--pm-danger);
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+<linearGradient id="tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0D1A4A"/><stop offset="1" stop-color="#04060F"/></linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.38" r="0.55"><stop offset="0" stop-color="#1F4BFF" stop-opacity="0.35"/><stop offset="1" stop-color="#1F4BFF" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1024" height="1024" rx="228" fill="url(#tile)"/>
+<rect width="1024" height="1024" rx="228" fill="url(#glow)"/>
+<g transform="translate(146 160) scale(7.3)"><polygon points="4,20 36.5,29.5 42.6,57" fill="#6C9BFF"/><polygon points="4,20 42.6,57 31.6,60.8" fill="#1C47E6"/><polygon points="31.6,60.8 42.6,57 50,88" fill="#0E2A9C"/><polygon points="36.5,29.5 21.88,25.23 38.82,39.95" fill="#B9D1FF"/><polygon points="96,20 63.5,29.5 57.4,57" fill="#B9D1FF"/><polygon points="96,20 57.4,57 68.4,60.8" fill="#6C9BFF"/><polygon points="68.4,60.8 57.4,57 50,88" fill="#3569FF"/><polygon points="63.5,29.5 78.13,25.23 61.18,39.95" fill="#EEF4FF"/><polygon points="44.3,55 47.15,47.25 50,88" fill="#1C47E6"/><polygon points="47.15,47.25 50,39.5 50,88" fill="#3569FF"/><polygon points="50,39.5 52.85,47.25 50,88" fill="#B9D1FF"/><polygon points="52.85,47.25 55.7,55 50,88" fill="#6C9BFF"/></g>
+</svg>

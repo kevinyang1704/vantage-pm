@@ -1,0 +1,224 @@
+/**
+ * PhaseManagerModal styles — Meridian tokens
+ */
+
+.pm-phase-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--pm-canvas);
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.pm-phase-modal {
+  width: 520px;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: var(--pm-surface);
+  border-radius: 8px;
+  border: 1px solid var(--pm-border-strong);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+}
+
+.pm-phase-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--pm-border);
+  background: var(--pm-elevated);
+}
+
+.pm-phase-modal__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pm-text-primary);
+}
+
+.pm-phase-modal__close-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+}
+
+.pm-phase-modal__close-btn:hover {
+  color: var(--pm-text-primary);
+}
+
+.pm-phase-modal__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.pm-phase-modal__create-form {
+  display: flex;
+  gap: 8px;
+}
+
+.pm-phase-modal__input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  background: var(--pm-surface);
+  color: var(--pm-text-primary);
+}
+
+.pm-phase-modal__input:focus {
+  outline: none;
+  border-color: var(--pm-focus);
+}
+
+.pm-phase-modal__btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.pm-phase-modal__btn--primary {
+  background: var(--pm-accent-strong);
+  color: var(--pm-text-on-focus);
+}
+
+.pm-phase-modal__btn--primary:hover:not(:disabled) {
+  background: var(--pm-accent-strong-hover);
+}
+
+.pm-phase-modal__btn--secondary {
+  background: var(--pm-elevated);
+  color: var(--pm-text-primary);
+  border: 1px solid var(--pm-border);
+}
+
+.pm-phase-modal__btn--danger {
+  background: var(--pm-danger);
+  color: var(--pm-text-on-focus);
+}
+
+.pm-phase-modal__btn--sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.pm-phase-modal__section-title {
+  font-family: var(--pm-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pm-text-muted);
+  margin: 0 0 8px 0;
+}
+
+.pm-phase-modal__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pm-phase-modal__item {
+  display: flex;
+  align-items: center;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  gap: 10px;
+}
+
+.pm-phase-modal__reorder-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pm-phase-modal__arrow-btn {
+  background: transparent;
+  border: none;
+  font-size: 9px;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+}
+
+.pm-phase-modal__arrow-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.pm-phase-modal__item-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pm-phase-modal__phase-name {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.pm-phase-modal__node-count {
+  font-family: var(--pm-font-sans);
+  font-size: 11px;
+  color: var(--pm-text-muted);
+  background: var(--pm-surface);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.pm-phase-modal__item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pm-phase-modal__action-btn {
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--pm-text-muted);
+}
+
+.pm-phase-modal__action-btn:hover {
+  text-decoration: underline;
+}
+
+.pm-phase-modal__action-btn--delete:hover {
+  color: var(--pm-danger);
+}
+
+.pm-phase-modal__delete-confirm {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pm-phase-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

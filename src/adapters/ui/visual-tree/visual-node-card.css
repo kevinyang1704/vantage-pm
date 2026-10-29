@@ -1,0 +1,261 @@
+/* Visual node card (Story 6.2 Task 2) â€” Meridian tokens only, no literal hex. */
+
+.pm-visual-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+  font-family: var(--pm-font-sans);
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: 6px;
+  color: var(--pm-text-primary);
+}
+
+/* Trunk: elevated, 1px border-strong, rounded.xl, accent spine inset 2px from top/bottom */
+.pm-visual-card--trunk {
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 7px;
+  box-shadow: inset 4px 0 0 var(--pm-accent);
+  padding-left: 18px;
+}
+
+.pm-visual-card--trunk .pm-visual-card-title {
+  font-family: var(--pm-font-node-title-trunk-family);
+  font-size: var(--pm-font-node-title-trunk-size);
+  font-weight: var(--pm-font-node-title-trunk-weight);
+}
+
+/* Editing: node-editing-bg fill, 1.5px focus border, rounded.lg, EDITING badge */
+.pm-visual-card--editing {
+  background-color: var(--pm-node-editing-bg);
+  border: 1.5px solid var(--pm-focus);
+  border-radius: 6px;
+}
+
+.pm-visual-card--editing .pm-visual-card-title {
+  color: var(--pm-text-on-focus);
+}
+
+/* Selected: focus-bg fill, 2px accent border, rounded.xl, SELECTED badge */
+.pm-visual-card--selected {
+  background-color: var(--pm-focus-bg);
+  border: 2px solid var(--pm-accent);
+  border-radius: 7px;
+}
+
+.pm-visual-card--selected .pm-visual-card-title {
+  color: var(--pm-text-on-focus);
+}
+
+/* Orphan: canvas fill, 1px dashed flag-orphan border, rounded.lg, ◇ badge */
+.pm-visual-card--orphan {
+  background-color: var(--pm-canvas);
+  border: 1px dashed var(--pm-flag-orphan);
+  border-radius: 6px;
+}
+
+.pm-visual-card--orphan .pm-visual-card-title {
+  color: var(--pm-text-secondary);
+}
+
+.pm-visual-card-badge--orphan {
+  border-color: color-mix(in srgb, var(--pm-warn) 45%, transparent);
+  background-color: var(--pm-warn-bg);
+  color: var(--pm-warn);
+}
+
+.pm-visual-card:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--pm-focus);
+}
+
+.pm-visual-card-title {
+  font-family: var(--pm-font-node-title-family);
+  font-size: var(--pm-font-node-title-size);
+  font-weight: var(--pm-font-node-title-weight);
+  color: var(--pm-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Bordered editing field (Story 6.3 AC2/AC5): a visibly bordered input, not
+   borderless like Outline's — editing is a shape affordance, never color alone. */
+.pm-visual-card-title-input {
+  font-family: var(--pm-font-node-title-family);
+  font-size: var(--pm-font-node-title-size);
+  font-weight: var(--pm-font-node-title-weight);
+  color: var(--pm-text-on-focus);
+  background-color: var(--pm-canvas);
+  border: 1px dashed var(--pm-accent);
+  border-radius: 4px;
+  padding: 2px 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pm-visual-card-title-input:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-visual-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pm-visual-card-type-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.pm-visual-card-tag {
+  font-family: var(--pm-font-type-tag-svg-family);
+  font-size: var(--pm-font-type-tag-svg-size);
+  font-weight: var(--pm-font-type-tag-svg-weight);
+  letter-spacing: var(--pm-font-type-tag-svg-letter-spacing);
+  color: var(--pm-tag-dim);
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.pm-visual-card-type-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  margin-top: 2px;
+  min-width: 140px;
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.pm-visual-card-type-search {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--pm-font-sans);
+  font-size: 11px;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin-bottom: 4px;
+}
+
+.pm-visual-card-type-options {
+  display: flex;
+  flex-direction: column;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.pm-visual-card-type-option {
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--pm-text-secondary);
+  font-family: var(--pm-font-sans);
+  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pm-visual-card-type-option:hover {
+  background-color: var(--pm-surface);
+  color: var(--pm-text-primary);
+}
+
+.pm-visual-card-type-option--selected {
+  color: var(--pm-accent-hover);
+  font-weight: 500;
+}
+
+.pm-visual-card-schedule-btn {
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  color: var(--pm-text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.pm-visual-card-schedule-btn:hover {
+  color: var(--pm-text-secondary);
+}
+
+.pm-visual-card-body-container {
+  margin-top: 6px;
+}
+
+.pm-visual-card-body-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 60px;
+  resize: vertical;
+  font-family: var(--pm-font-sans);
+  font-size: 12px;
+  color: var(--pm-text-primary);
+  background-color: var(--pm-canvas);
+  border: 1px solid var(--pm-border);
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.pm-visual-card-badge {
+  font-family: var(--pm-font-type-tag-svg-family);
+  font-size: var(--pm-font-type-tag-svg-size);
+  font-weight: var(--pm-font-type-tag-svg-weight);
+  letter-spacing: 0.09em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--pm-accent);
+  background-color: var(--pm-accent-soft);
+  color: var(--pm-accent-hover);
+}
+
+/* Corner affordance on a selected card: opens the side inspector drawer
+   (Outline parity). Pinned to the top-right corner, outside the card edge. */
+.pm-visual-card-details-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--pm-text-on-focus);
+  background-color: var(--pm-accent-strong);
+  border: 2px solid var(--pm-canvas);
+  border-radius: var(--pm-radius-full);
+  cursor: pointer;
+}
+
+.pm-visual-card-details-btn:hover {
+  background-color: var(--pm-accent-strong-hover);
+}
+
+.pm-visual-card-details-btn:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-visual-card-details-btn svg {
+  width: 12px;
+  height: 12px;
+}

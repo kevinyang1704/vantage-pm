@@ -1,0 +1,71 @@
+/* Markdown viewer styles (Story 16.2, E16-FR1, E16-FR8).
+   Meridian tokens only — no raw hex, no cast shadows (design-token guard). */
+
+.pm-md {
+  font-size: var(--pm-font-body-size);
+  line-height: var(--pm-font-body-line-height);
+  color: var(--pm-text-secondary);
+  overflow-wrap: break-word;
+}
+
+.pm-md__h1,
+.pm-md__h2,
+.pm-md__h3 {
+  color: var(--pm-text-primary);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0.5em 0 0.25em;
+  line-height: 1.3;
+}
+
+.pm-md__h1 {
+  font-size: 1.0625rem;
+}
+
+.pm-md__h2 {
+  font-size: 0.9375rem;
+}
+
+.pm-md__h3 {
+  font-size: 0.875rem;
+}
+
+.pm-md__paragraph {
+  margin: 0.25em 0;
+}
+
+.pm-md__list {
+  margin: 0.25em 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.pm-md__bold {
+  color: var(--pm-accent);
+  font-weight: 600;
+}
+
+.pm-md__italic {
+  font-style: italic;
+}
+
+.pm-md__inline-code {
+  font-family: var(--pm-font-mono);
+  font-size: 0.75em;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 3px;
+  padding: 0 0.25em;
+}
+
+.pm-md__code-block {
+  font-family: var(--pm-font-mono);
+  font-size: 0.75rem;
+  background: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  border-radius: 4px;
+  padding: 0.5em 0.625em;
+  margin: 0.375em 0;
+  overflow-x: auto;
+  white-space: pre;
+}

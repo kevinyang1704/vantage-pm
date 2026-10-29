@@ -1,0 +1,77 @@
+/**
+ * ActivityPanel CSS (Story 27.8). Design tokens only.
+ */
+
+.pm-activity__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  margin-bottom: var(--pm-space-3);
+}
+
+.pm-activity__title {
+  margin: 0;
+  font-family: var(--pm-font-panel-title-family);
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  color: var(--pm-text-primary);
+}
+
+.pm-activity__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-2);
+  color: var(--pm-text-secondary);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-activity__filter-label {
+  color: var(--pm-text-muted);
+}
+
+.pm-activity__empty {
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-activity__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-activity__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-2) 0;
+  border-bottom: 1px solid var(--pm-border);
+}
+
+.pm-activity__desc {
+  color: var(--pm-text-primary);
+  font-size: var(--pm-font-body-size);
+}
+
+.pm-activity__time {
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  font-family: var(--pm-font-mono-meta-sm-family);
+  flex-shrink: 0;
+}
+
+.pm-activity__more {
+  margin-top: var(--pm-space-3);
+  background: transparent;
+  border: 1px solid var(--pm-border-strong);
+  border-radius: var(--pm-radius-md);
+  color: var(--pm-text-primary);
+  padding: var(--pm-space-1) var(--pm-space-3);
+  cursor: pointer;
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+}

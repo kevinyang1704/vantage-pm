@@ -1,0 +1,13 @@
+# Run Vantage locally in a browser: `docker compose up --build`, then open
+# http://localhost:8080. Local-only: no collaboration, no server, no account.
+# Keep the same port: the browser stores your projects per address, so a
+# different port starts with an empty workspace.
+name: vantage
+services:
+  vantage:
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped

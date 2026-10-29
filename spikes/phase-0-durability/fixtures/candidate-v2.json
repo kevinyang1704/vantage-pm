@@ -1,0 +1,1 @@
+{"schemaVersion":"2.0.0","name":"candidate-v2","migrationId":"0198a000-0000-7000-8000-000000000003","sourceSchemaVersion":"1.0.0","targetSchemaVersion":"2.0.0","assets":"phase0-v2-candidate","readSchemas":["1.0.0","2.0.0"],"writeSchemas":["1.0.0","2.0.0"],"targetSchema":"2.0.0","migrationSteps":["expand","copy","contract"]}

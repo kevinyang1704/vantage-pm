@@ -1,0 +1,28 @@
+/* Containment connectors (Story 6.2 Task 4) — one uniform 1.4px class, butt caps. */
+
+.pm-visual-connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.pm-visual-rail {
+  stroke: color-mix(in srgb, var(--pm-accent) 30%, var(--pm-connector-rail));
+  stroke-width: 1.4;
+  stroke-linecap: butt;
+  fill: none;
+}
+
+.pm-visual-drop {
+  stroke: color-mix(in srgb, var(--pm-accent) 30%, var(--pm-connector-drop));
+  stroke-width: 1.4;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  fill: none;
+}
+
+.pm-visual-junction {
+  fill: color-mix(in srgb, var(--pm-accent) 30%, var(--pm-connector-drop));
+}

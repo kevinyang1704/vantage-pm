@@ -1,0 +1,65 @@
+/**
+ * CollaborationLayer CSS (Story 27.6/27.7/27.8). Design tokens only.
+ *
+ * The layer is a positioned overlay so it never reflows the authoring shell.
+ */
+
+.pm-collaboration-layer {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-3);
+  pointer-events: none;
+}
+
+.pm-collaboration-layer > * {
+  pointer-events: auto;
+}
+
+.pm-collaboration-layer__titlebar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-1) var(--pm-space-2);
+  background: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  border-radius: var(--pm-radius-lg);
+}
+
+.pm-collaboration-layer__activity-toggle {
+  border: 1px solid var(--pm-border-strong);
+  background: transparent;
+  color: var(--pm-text-primary);
+  border-radius: var(--pm-radius-md);
+  padding: var(--pm-space-1) var(--pm-space-2);
+  font-family: var(--pm-font-control-family);
+  font-size: var(--pm-font-control-size);
+  cursor: pointer;
+}
+
+.pm-collaboration-layer__activity-toggle[aria-expanded='true'] {
+  border-color: var(--pm-accent-strong);
+}
+
+/* AC 27.6-4/-5: persistent view-only / read-only copy notice. */
+.pm-collaboration-layer__notice {
+  margin: 0;
+  max-width: 360px;
+  padding: var(--pm-space-2) var(--pm-space-3);
+  background: var(--pm-surface);
+  border: 1px solid var(--pm-warning);
+  border-radius: var(--pm-radius-md);
+  color: var(--pm-text-primary);
+  font-size: var(--pm-font-control-size);
+}
+
+/* View-only shared project: edit controls are visibly unavailable. */
+body[data-pm-view-only] [data-pm-view-only] {
+  cursor: not-allowed;
+  opacity: 0.72;
+}

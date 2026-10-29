@@ -1,0 +1,165 @@
+/**
+ * AppShell CSS — storage-health status display.
+ *
+ * Uses Meridian CSS custom properties (--pm-*) throughout.
+ * No raw hex, no emoji, no inline styles.
+ */
+
+.pm-shell-frame {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Epic 15: row hosting the persistent side navigation + the active scope
+   (workspace overview or a project's AppFrame). The status-health strip
+   below stays a sibling, full width, untouched (UAT #10 / AD-5). */
+.pm-shell-body {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pm-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--pm-space-8);
+  background-color: var(--pm-canvas);
+  color: var(--pm-text-primary);
+  font-family: var(--pm-font-sans);
+}
+
+.pm-shell-title {
+  font-size: var(--pm-font-panel-title-size);
+  font-weight: var(--pm-font-panel-title-weight);
+  letter-spacing: var(--pm-font-panel-title-letter-spacing);
+  margin-bottom: var(--pm-space-3);
+  color: var(--pm-accent);
+}
+
+/* ── Status strip (in-flow bottom bar; UAT #10 — no fixed overlay) ── */
+
+.pm-shell-status-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--pm-space-5);
+  flex-shrink: 0;
+  padding: 2px var(--pm-space-5);
+  border-top: none;
+  background: linear-gradient(to right,
+    transparent, var(--pm-border) 48px,
+    var(--pm-border) calc(100% - 48px), transparent
+  ) no-repeat top / 100% 1px, var(--pm-surface);
+  font-size: 10px;
+  color: var(--pm-text-muted);
+}
+
+/* In-strip children render compact and inline (no stacked margins). */
+.pm-shell-status-meta .pm-shell-status {
+  padding: 1px 8px;
+  border-radius: var(--pm-radius-sm);
+  font-size: 10px;
+  font-weight: 500;
+  max-width: none;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.pm-shell-status-meta .pm-shell-provisional,
+.pm-shell-status-meta .pm-shell-capabilities,
+.pm-shell-status-meta .pm-shell-boot,
+.pm-shell-status-meta .pm-shell-cause {
+  margin-top: 0;
+  font-size: 10px;
+}
+
+.pm-shell-status-meta .pm-shell-title {
+  display: none; /* product name lives in the toolbar lockup */
+}
+
+/* ── Status block ────────────────────────────────────────────────── */
+
+.pm-shell-status {
+  padding: var(--pm-space-4) var(--pm-space-5);
+  border-radius: var(--pm-radius-DEFAULT);
+  font-size: var(--pm-font-body-size);
+  font-weight: 500;
+  max-width: 480px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.pm-shell-status--loading {
+  background-color: var(--pm-elevated);
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-muted);
+}
+
+.pm-shell-status--granted {
+  background-color: var(--pm-accent-soft);
+  border: 1px solid var(--pm-accent);
+  color: var(--pm-accent-hover);
+}
+
+.pm-shell-status--denied {
+  background-color: var(--pm-seq-bg);
+  border: 1px solid var(--pm-flag-seq);
+  color: var(--pm-flag-seq);
+}
+
+.pm-shell-status--orphan {
+  background-color: var(--pm-orphan-bg);
+  border: 1px solid var(--pm-flag-orphan);
+  color: var(--pm-flag-orphan);
+}
+
+.pm-shell-status--uncertified {
+  background-color: var(--pm-accent-soft);
+  border: 1px solid var(--pm-accent);
+  color: var(--pm-accent-hover);
+}
+
+.pm-shell-cause {
+  margin-top: var(--pm-space-2);
+  color: var(--pm-text-muted);
+  font-size: var(--pm-font-body-size);
+}
+
+/* ── Provisional copy ────────────────────────────────────────────── */
+
+.pm-shell-provisional {
+  margin-top: var(--pm-space-4);
+  font-size: var(--pm-font-mono-meta-size);
+  font-family: var(--pm-font-mono-meta-family);
+  font-weight: var(--pm-font-mono-meta-weight);
+  color: var(--pm-text-muted);
+}
+
+/* ── Capability summary ──────────────────────────────────────────── */
+
+.pm-shell-capabilities {
+  margin-top: var(--pm-space-5);
+  font-size: var(--pm-font-mono-meta-size);
+  font-family: var(--pm-font-mono-meta-family);
+  font-weight: var(--pm-font-mono-meta-weight);
+  color: var(--pm-text-muted);
+}
+
+/* ── Boot time ───────────────────────────────────────────────────── */
+
+.pm-shell-boot {
+  margin-top: var(--pm-space-5);
+  font-size: var(--pm-font-mono-meta-size);
+  font-family: var(--pm-font-mono-meta-family);
+  font-weight: var(--pm-font-mono-meta-weight);
+  color: var(--pm-text-muted);
+}

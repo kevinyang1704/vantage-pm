@@ -1,0 +1,63 @@
+/* Theme Chip Row (Story 6.4) */
+
+.pm-theme-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  height: 32px;
+  box-sizing: border-box;
+}
+
+.pm-theme-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 13px;
+  background-color: var(--pm-surface);
+  border: 1px solid var(--pm-border);
+  color: var(--pm-text-secondary);
+  font-family: var(--pm-font-sans);
+  font-size: var(--pm-font-mono-meta-sm-size);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pm-theme-chip:hover {
+  background-color: var(--pm-elevated);
+  color: var(--pm-text-primary);
+}
+
+.pm-theme-chip:focus-visible {
+  outline: 2px solid var(--pm-focus);
+  outline-offset: 1px;
+}
+
+.pm-theme-chip--selected {
+  background-color: var(--pm-accent-soft);
+  border-color: var(--pm-accent);
+  color: var(--pm-accent-hover);
+  font-weight: 500;
+}
+
+.pm-theme-chip--overflow {
+  background-color: var(--pm-canvas);
+  border: 1px dashed var(--pm-border-strong);
+  color: var(--pm-text-muted);
+  font-family: var(--pm-font-mono-meta-sm-family);
+  font-size: var(--pm-font-mono-meta-sm-size);
+}
+
+.pm-theme-chip--overflow:hover {
+  background-color: var(--pm-surface);
+  color: var(--pm-text-primary);
+  border-style: solid;
+}
+
+.pm-theme-chip--adjacent {
+  padding: 0;
+  width: 22px;
+  justify-content: center;
+  flex-shrink: 0;
+}

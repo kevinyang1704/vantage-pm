@@ -1,0 +1,16 @@
+[package]
+name = "collaboration-merge-spike"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# THROWAWAY SPIKE — Story 27.1, AC 27.1-6.
+# This crate is NOT production code. It is disposable. It demonstrates that the
+# existing native handler *shape* (one transaction per command, receipt ledger,
+# base-revision precondition) converges under D8 across two replicas when the
+# server orders commands. It deliberately uses a tiny in-memory model rather than
+# rusqlite so it stays readable; the point is the merge algorithm, not storage.
+
+[dependencies]
+
+[dev-dependencies]
