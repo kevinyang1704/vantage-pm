@@ -472,6 +472,11 @@ export class AnalysisEngine {
           });
           break;
         }
+        case 'ForecastSprintPlanSet': {
+          const current = this.#forecastPlan ?? createForecastPlan({ projectId: this.#projectId });
+          this.#forecastPlan = createForecastPlan({ ...current, sprintPlan: change.sprintPlan });
+          break;
+        }
         case 'ForecastOrderSet': {
           const current = this.#forecastPlan ?? createForecastPlan({ projectId: this.#projectId });
           this.#forecastPlan = createForecastPlan({

@@ -11,6 +11,7 @@ use tower::ServiceExt;
 
 const P: &str = "019ff300-0000-7000-8000-000000000001";
 const NOW: &str = "2026-09-30T00:00:00Z";
+const SCHEMA: i64 = pmapp_server::handshake::CURRENT_SCHEMA_VERSION;
 
 const EDITOR: &str = "dev-editor";
 const EDITOR_BEARER: &str = "editor-secret";
@@ -93,7 +94,7 @@ async fn editor_submits_commands_that_apply_in_order() {
     let response = app
         .oneshot(
             Request::builder()
-                .uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version=17&since=1&device_id={EDITOR}&bearer={EDITOR_BEARER}"))
+                .uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version={SCHEMA}&since=1&device_id={EDITOR}&bearer={EDITOR_BEARER}"))
                 .body(Body::empty()).unwrap(),
         )
         .await
@@ -130,7 +131,7 @@ async fn an_unauthenticated_bootstrap_is_refused() {
     let app = command_router(state());
     let response = app
         .oneshot(
-            Request::builder().uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version=17&since=0&device_id={EDITOR}"))
+            Request::builder().uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version={SCHEMA}&since=0&device_id={EDITOR}"))
                 .body(Body::empty()).unwrap(),
         )
         .await
@@ -144,7 +145,7 @@ async fn a_non_member_cannot_bootstrap() {
     let app = command_router(state());
     let response = app
         .oneshot(
-            Request::builder().uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version=17&since=0&device_id=dev-stranger&bearer=x"))
+            Request::builder().uri(format!("/projects/{P}/bootstrap?recovery_version=1&stream_epoch=1&protocol_version=1.0.0&schema_version={SCHEMA}&since=0&device_id=dev-stranger&bearer=x"))
                 .body(Body::empty()).unwrap(),
         )
         .await

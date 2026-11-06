@@ -44,6 +44,10 @@
       "019ffe00-0000-7000-8000-00000000000c"
     ],
     "sprintLengthDays": 14,
+    "sprintPlan": {
+      "capacities": {},
+      "placements": []
+    },
     "startDate": "2026-09-07",
     "startSprintOrdinal": 1
   },

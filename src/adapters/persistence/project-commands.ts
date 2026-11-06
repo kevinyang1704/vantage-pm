@@ -60,6 +60,7 @@ import type {
   RestoreForecastScopeWireCommand,
   SetForecastSequenceWireCommand,
   SetForecastBlockerWireCommand,
+  SetForecastSprintPlanWireCommand,
   CreateForecastScenarioWireCommand,
   RemoveForecastScenarioWireCommand,
   RestoreForecastScenarioWireCommand,
@@ -96,6 +97,7 @@ import {
   readForecastPlan,
   insertEmptyForecastPlan,
   writeForecastPlan,
+  writeForecastSprintPlan,
   deleteForecastPlan,
   readForecastScenario,
   insertForecastScenario,
@@ -104,6 +106,7 @@ import {
 } from './forecast-operations';
 import {
   createForecastPlan,
+  createForecastSprintPlan,
   createForecastConfiguration,
 } from '../../domain/forecast/forecast-plan.entity';
 import type { ForecastParallelGroup, ForecastPerson } from '../../domain/forecast/forecast-plan.entity';
@@ -837,6 +840,8 @@ export class ProductCommandHandler {
         return this.#applySetForecastMembership(command);
       case 'SetForecastBlocker':
         return this.#applySetForecastBlocker(command);
+      case 'SetForecastSprintPlan':
+        return this.#applySetForecastSprintPlan(command);
       case 'CreateForecastScenario':
         return this.#applyCreateForecastScenario(command);
       case 'RemoveForecastScenario':
@@ -5886,6 +5891,93 @@ export class ProductCommandHandler {
   // and adds no delay duration — it only makes an otherwise-complete numeric
   // result `conditional` (AR-12). A no-op (already blocked / already clear /
   // not in scope) is rejected rather than committed as an empty revision.
+
+  // Delivery Board: SetForecastSprintPlan
+  // Replaces the plan's sprint plan (hand placements + per-sprint capacity).
+  // The board checks capacity and dependency rules before sending; the
+  // repository stores the canonical value. Needs an existing plan (there is
+  // nothing to place without scope) and rejects a no-op.
+
+  #applySetForecastSprintPlan(command: SetForecastSprintPlanWireCommand): ProductCommandResult {
+    const project = rows(this.db, 'SELECT id, revision FROM projects WHERE id = ?', [command.projectId])[0];
+    if (!project) {
+      return Object.freeze({
+        type: 'ProductCommandRejected',
+        protocolVersion: PROTOCOL_VERSION,
+        commandId: command.commandId,
+        code: 'PROJECT_NOT_FOUND',
+      });
+    }
+    const currentRevision = Number(project.revision);
+    if (currentRevision !== command.baseRevision) {
+      return Object.freeze({
+        type: 'ProductCommandRejected',
+        protocolVersion: PROTOCOL_VERSION,
+        commandId: command.commandId,
+        code: 'REVISION_CONFLICT',
+        expectedRevision: currentRevision,
+      });
+    }
+    const priorPlan = readForecastPlan(this.db, command.projectId);
+    const prior = createForecastSprintPlan(priorPlan?.sprintPlan);
+    const next = createForecastSprintPlan(command.sprintPlan);
+    if (!priorPlan || JSON.stringify(prior) === JSON.stringify(next)) {
+      return Object.freeze({
+        type: 'ProductCommandRejected',
+        protocolVersion: PROTOCOL_VERSION,
+        commandId: command.commandId,
+        code: 'FORECAST_SPRINT_PLAN_INVALID',
+        projectId: command.projectId,
+      });
+    }
+
+    const __pmTxn = this.beginCommand();
+    try {
+      writeForecastSprintPlan(this.db, command.projectId, next);
+      this.db.exec({
+        sql: 'UPDATE projects SET revision = ? WHERE id = ?',
+        bind: [command.expectedRevision, command.projectId],
+      });
+      const changeSet: ChangeSet = Object.freeze({
+        protocolVersion: PROTOCOL_VERSION,
+        projectId: command.projectId,
+        baseRevision: command.baseRevision,
+        targetRevision: command.expectedRevision,
+        changes: Object.freeze([
+          { type: 'ForecastSprintPlanSet' as const, sprintPlan: next, priorSprintPlan: prior },
+        ]),
+      });
+      const result: ProductCommandApplied = Object.freeze({
+        type: 'ProductCommandApplied',
+        protocolVersion: PROTOCOL_VERSION,
+        commandId: command.commandId,
+        projectId: command.projectId,
+        baseRevision: command.baseRevision,
+        targetRevision: command.expectedRevision,
+        outcome: 'VfsCommitAccepted',
+        disposition: 'NewCommit',
+        changeSet,
+      });
+      this.db.exec({
+        sql: `INSERT INTO product_command_receipt(
+                command_id, project_id, command_type, base_revision, target_revision, result_json
+              ) VALUES(?, ?, ?, ?, ?, ?)`,
+        bind: [
+          command.commandId,
+          command.projectId,
+          command.type,
+          command.baseRevision,
+          command.expectedRevision,
+          JSON.stringify(result),
+        ],
+      });
+      this.commitCommand(__pmTxn);
+      return result;
+    } catch (error) {
+      try { this.rollbackCommand(__pmTxn); } catch { /* preserve */ }
+      throw error;
+    }
+  }
 
   #applySetForecastBlocker(command: SetForecastBlockerWireCommand): ProductCommandResult {
     const project = rows(

@@ -1,0 +1,2097 @@
+{
+  "schemaVersion": 10,
+  "exportedAt": "2027-01-18T09:00:00.000Z",
+  "project": {
+    "id": "01a20000-0000-7000-8000-000000000001",
+    "name": "Lumen Trade — fictional investing app"
+  },
+  "phases": [
+    {
+      "id": "01a20000-0000-7000-8000-000000000002",
+      "name": "01 · Foundations",
+      "position": "1024"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000003",
+      "name": "02 · Private beta",
+      "position": "2048"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000004",
+      "name": "03 · Public launch",
+      "position": "3072"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "01a20000-0000-7000-8000-000000000005",
+      "parentId": null,
+      "title": "Make a first investment feel understandable, controlled, and trustworthy",
+      "bodyText": "# Lumen Trade\nA fictional, cash-only stock trading app for first-time investors. All names, targets, dates, decisions, and progress are invented demo data.\n\n## Product thesis\nPeople make a confident first investment when identity, funding, market information, and order handling work as one journey. Shared ledger, identity, and event capabilities support multiple customer outcomes.\n\n## Success by 31 March 2027\n- Increase verified-to-funded conversion from a fictional 38% baseline to 60%.\n- Increase funded-to-first-order conversion from 25% to 45% within seven days.\n- Increase four-week retained funded accounts from 20% to 35%.\n\n## Guardrails\nNo duplicate orders; every cash movement reconciles; show stale quotes; explain risk before confirmation. No margin, options, crypto, or investment recommendations in launch scope.\n\n## Demo route\nExplore weighted Themes, platform dependencies, briefs, Questions, Criteria, Gantt, and Forecast. Change the ledger schedule to review downstream impact. Compare a smaller launch scope and added capacity as saved scenarios.",
+      "position": "1024",
+      "nodeType": "Vision",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000006",
+      "parentId": "01a20000-0000-7000-8000-000000000005",
+      "title": "Help 60% of verified customers fund their account",
+      "bodyText": "## Intended outcome\nVerified-to-funded conversion: 38% → 60% within seven days. Funnel events expose where customers abandon verification or deposits.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "position": "1024",
+      "nodeType": "Theme",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": 40,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000007",
+      "parentId": "01a20000-0000-7000-8000-000000000005",
+      "title": "Help 45% of funded customers place an informed first order",
+      "bodyText": "## Intended outcome\nFunded-to-first-order conversion: 25% → 45% within seven days. Guardrails: no duplicate executions and clear cash/risk disclosures.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "position": "2048",
+      "nodeType": "Theme",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": 35,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000008",
+      "parentId": "01a20000-0000-7000-8000-000000000005",
+      "title": "Bring 35% of funded customers back in week four",
+      "bodyText": "## Intended outcome\nFour-week retained funded accounts: 20% → 35%. Track portfolio comprehension and repeat use, without rewarding excessive trading.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "position": "3072",
+      "nodeType": "Theme",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": 25,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000009",
+      "parentId": "01a20000-0000-7000-8000-000000000005",
+      "title": "Build reusable trust and operating foundations",
+      "bodyText": "## Intended outcome\nEnabling investment rather than a separate customer conversion target. Identity, ledger, event contracts, and operations unlock work across the three customer outcomes. Trace those relationships through Unlocks.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "position": "4096",
+      "nodeType": "Theme",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": 0,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000a",
+      "parentId": "01a20000-0000-7000-8000-000000000006",
+      "title": "Account opening and funding",
+      "bodyText": "## Capability\nAccount opening and funding is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "1024",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000b",
+      "parentId": "01a20000-0000-7000-8000-000000000007",
+      "title": "Understand and place a trade",
+      "bodyText": "## Capability\nUnderstand and place a trade is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "1024",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000c",
+      "parentId": "01a20000-0000-7000-8000-000000000008",
+      "title": "Portfolio understanding and habit",
+      "bodyText": "## Capability\nPortfolio understanding and habit is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "1024",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000d",
+      "parentId": "01a20000-0000-7000-8000-000000000009",
+      "title": "Identity and entitlement platform",
+      "bodyText": "## Capability\nIdentity and entitlement platform is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "1024",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000e",
+      "parentId": "01a20000-0000-7000-8000-000000000009",
+      "title": "Money and order platform",
+      "bodyText": "## Capability\nMoney and order platform is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "2048",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000000f",
+      "parentId": "01a20000-0000-7000-8000-000000000009",
+      "title": "Events, reliability, and service operations",
+      "bodyText": "## Capability\nEvents, reliability, and service operations is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "position": "3072",
+      "nodeType": "Component",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000014",
+      "parentId": "01a20000-0000-7000-8000-00000000000d",
+      "title": "Reusable identity verification and eligibility",
+      "bodyText": "## Customer / platform value\nA single verification state gates deposits and orders. Retried callbacks must not create duplicate accounts.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nDuplicate verification callbacks produce one customer and one eligibility decision.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-01-04",
+      "endDate": "2027-01-15",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 8,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000002",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000015",
+      "parentId": "01a20000-0000-7000-8000-000000000014",
+      "title": "Duplicate verification callbacks produce one customer and one eligibility decision.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": true,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000016",
+      "parentId": "01a20000-0000-7000-8000-000000000014",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": true,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000017",
+      "parentId": "01a20000-0000-7000-8000-00000000000f",
+      "title": "Versioned journey events and outcome dashboard",
+      "bodyText": "## Customer / platform value\nOne event contract measures verification, deposit settlement, first order, and week-four return. Product teams reuse the same cohort definitions.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA synthetic customer journey appears once at every funnel stage with no personal data in analytics.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-01-04",
+      "endDate": "2027-01-15",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 5,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000002",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000018",
+      "parentId": "01a20000-0000-7000-8000-000000000017",
+      "title": "A synthetic customer journey appears once at every funnel stage with no personal data in analytics.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": true,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000019",
+      "parentId": "01a20000-0000-7000-8000-000000000017",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": true,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001a",
+      "parentId": "01a20000-0000-7000-8000-00000000000e",
+      "title": "Double-entry cash ledger and reconciliation",
+      "bodyText": "## Customer / platform value\nShared source of truth for deposits, buying power, trades, and portfolio cash. A delay here affects funding, ordering, and statements.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nEvery synthetic cash movement balances; replaying a deposit event does not change the balance twice.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-01-11",
+      "endDate": "2027-01-29",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 13,
+      "effortPointsDone": 3,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000002",
+      "deliveryStatus": "in_progress"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001b",
+      "parentId": "01a20000-0000-7000-8000-00000000001a",
+      "title": "Every synthetic cash movement balances; replaying a deposit event does not change the balance twice.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001c",
+      "parentId": "01a20000-0000-7000-8000-00000000001a",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001d",
+      "parentId": "01a20000-0000-7000-8000-00000000000e",
+      "title": "Market data gateway with freshness contracts",
+      "bodyText": "## Customer / platform value\nServe a shared quote API to discovery, order preview, and portfolio screens. Make stale data explicit rather than presenting it as live.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA quote older than the configured threshold is visibly marked stale in every consuming screen.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "position": "2048",
+      "nodeType": "Feature",
+      "startDate": "2027-01-18",
+      "endDate": "2027-01-29",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 3,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000002",
+      "deliveryStatus": "in_progress"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001e",
+      "parentId": "01a20000-0000-7000-8000-00000000001d",
+      "title": "A quote older than the configured threshold is visibly marked stale in every consuming screen.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000001f",
+      "parentId": "01a20000-0000-7000-8000-00000000001d",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000020",
+      "parentId": "01a20000-0000-7000-8000-00000000000a",
+      "title": "Guided account opening with resumable verification",
+      "bodyText": "## Customer / platform value\nExplain why information is needed and resume an interrupted application. Outcome: reduce verification abandonment.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA customer can resume verification after restarting without submitting identity data again.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-01-18",
+      "endDate": "2027-01-29",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 3,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "in_progress"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000021",
+      "parentId": "01a20000-0000-7000-8000-000000000020",
+      "title": "A customer can resume verification after restarting without submitting identity data again.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000022",
+      "parentId": "01a20000-0000-7000-8000-000000000020",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000023",
+      "parentId": "01a20000-0000-7000-8000-00000000000a",
+      "title": "Link a bank and track a first deposit",
+      "bodyText": "## Customer / platform value\nShow pending versus available cash and explain settlement. Outcome: move verified customers toward funded activation.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA pending deposit is visible but cannot be spent before the ledger marks it available.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "position": "2048",
+      "nodeType": "Feature",
+      "startDate": "2027-02-01",
+      "endDate": "2027-02-12",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000024",
+      "parentId": "01a20000-0000-7000-8000-000000000023",
+      "title": "A pending deposit is visible but cannot be spent before the ledger marks it available.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000025",
+      "parentId": "01a20000-0000-7000-8000-000000000023",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000026",
+      "parentId": "01a20000-0000-7000-8000-00000000000b",
+      "title": "Search stocks and build a first watchlist",
+      "bodyText": "## Customer / platform value\nExplain company basics, show fresh prices, and save a watchlist. Outcome: help customers understand what they might buy.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA saved watchlist survives a restart and stale prices carry the gateway freshness label.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-02-01",
+      "endDate": "2027-02-12",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000027",
+      "parentId": "01a20000-0000-7000-8000-000000000026",
+      "title": "A saved watchlist survives a restart and stale prices carry the gateway freshness label.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000028",
+      "parentId": "01a20000-0000-7000-8000-000000000026",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000029",
+      "parentId": "01a20000-0000-7000-8000-00000000000b",
+      "title": "Plain-language risk and cash-only order preview",
+      "bodyText": "## Customer / platform value\nShow estimated cost, available buying power, volatility notice, and market-hours behavior before confirmation.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nAn order exceeding available cash is rejected with an explanation before confirmation.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "position": "2048",
+      "nodeType": "Feature",
+      "startDate": "2027-02-15",
+      "endDate": "2027-02-26",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002a",
+      "parentId": "01a20000-0000-7000-8000-000000000029",
+      "title": "An order exceeding available cash is rejected with an explanation before confirmation.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002b",
+      "parentId": "01a20000-0000-7000-8000-000000000029",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002c",
+      "parentId": "01a20000-0000-7000-8000-00000000000e",
+      "title": "Idempotent order routing and execution state",
+      "bodyText": "## Customer / platform value\nReuse buying-power checks and a durable order state machine. Handle retries and out-of-order execution events safely.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nRepeated confirmation with the same idempotency key creates exactly one broker order.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "position": "3072",
+      "nodeType": "Feature",
+      "startDate": "2027-02-15",
+      "endDate": "2027-03-05",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 13,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002d",
+      "parentId": "01a20000-0000-7000-8000-00000000002c",
+      "title": "Repeated confirmation with the same idempotency key creates exactly one broker order.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002e",
+      "parentId": "01a20000-0000-7000-8000-00000000002c",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000002f",
+      "parentId": "01a20000-0000-7000-8000-00000000000b",
+      "title": "Place a first trade with a clear execution receipt",
+      "bodyText": "## Customer / platform value\nConnect discovery, risk preview, routing, and receipts. Outcome: informed first-order conversion rather than trading volume.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA customer can distinguish submitted, filled, and rejected orders and see final price and fees.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "position": "3072",
+      "nodeType": "Feature",
+      "startDate": "2027-03-08",
+      "endDate": "2027-03-12",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000030",
+      "parentId": "01a20000-0000-7000-8000-00000000002f",
+      "title": "A customer can distinguish submitted, filled, and rejected orders and see final price and fees.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000031",
+      "parentId": "01a20000-0000-7000-8000-00000000002f",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000032",
+      "parentId": "01a20000-0000-7000-8000-00000000000c",
+      "title": "Explain holdings, cash, and daily value changes",
+      "bodyText": "## Customer / platform value\nCombine executed positions, ledger cash, and quotes with accessible explanations of unrealized movement.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nPortfolio totals reconcile to ledger cash and executed positions; stale valuations are labelled.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "position": "1024",
+      "nodeType": "Feature",
+      "startDate": "2027-03-08",
+      "endDate": "2027-03-19",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000004",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000033",
+      "parentId": "01a20000-0000-7000-8000-000000000032",
+      "title": "Portfolio totals reconcile to ledger cash and executed positions; stale valuations are labelled.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000034",
+      "parentId": "01a20000-0000-7000-8000-000000000032",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000035",
+      "parentId": "01a20000-0000-7000-8000-00000000000c",
+      "title": "Opt-in price and execution notifications",
+      "bodyText": "## Customer / platform value\nUse shared events for useful notifications with quiet hours and opt-out. Outcome: purposeful return visits without urgency or pressure.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nOpting out prevents future alerts; an execution event produces at most one notification.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "position": "2048",
+      "nodeType": "Feature",
+      "startDate": "2027-03-15",
+      "endDate": "2027-03-26",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000004",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000036",
+      "parentId": "01a20000-0000-7000-8000-000000000035",
+      "title": "Opting out prevents future alerts; an execution event produces at most one notification.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000037",
+      "parentId": "01a20000-0000-7000-8000-000000000035",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000038",
+      "parentId": "01a20000-0000-7000-8000-00000000000c",
+      "title": "Download a monthly activity statement",
+      "bodyText": "## Customer / platform value\nReuse the ledger and order history for a readable record of deposits, trades, fees, and ending balances.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nStatement closing cash equals the ledger balance for the same cut-off.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "position": "3072",
+      "nodeType": "Feature",
+      "startDate": "2027-03-22",
+      "endDate": "2027-03-31",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000004",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000039",
+      "parentId": "01a20000-0000-7000-8000-000000000038",
+      "title": "Statement closing cash equals the ledger balance for the same cut-off.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003a",
+      "parentId": "01a20000-0000-7000-8000-000000000038",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003b",
+      "parentId": "01a20000-0000-7000-8000-00000000000f",
+      "title": "Support timeline, audit trail, and trading kill switch",
+      "bodyText": "## Customer / platform value\nProvide a redacted journey timeline and an audited switch to stop new order submissions while preserving history.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nAn authorized operator can halt new submissions; the actor, reason, and timestamp remain auditable.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "position": "2048",
+      "nodeType": "Feature",
+      "startDate": "2027-02-01",
+      "endDate": "2027-02-12",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 8,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000003",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003c",
+      "parentId": "01a20000-0000-7000-8000-00000000003b",
+      "title": "An authorized operator can halt new submissions; the actor, reason, and timestamp remain auditable.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003d",
+      "parentId": "01a20000-0000-7000-8000-00000000003b",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003e",
+      "parentId": "01a20000-0000-7000-8000-00000000000f",
+      "title": "Public-launch rehearsal and recovery drill",
+      "bodyText": "## Customer / platform value\nExercise market-data outage, duplicate execution events, and cash reconciliation before the fictional launch decision.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA synthetic outage is recovered with no duplicate orders and no unexplained cash difference.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "position": "3072",
+      "nodeType": "Feature",
+      "startDate": "2027-03-22",
+      "endDate": "2027-03-31",
+      "durationDays": null,
+      "scheduleSourceMode": "start_end",
+      "completed": false,
+      "effortPoints": 5,
+      "effortPointsDone": 0,
+      "strategicWeight": null,
+      "phaseId": "01a20000-0000-7000-8000-000000000004",
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000003f",
+      "parentId": "01a20000-0000-7000-8000-00000000003e",
+      "title": "A synthetic outage is recovered with no duplicate orders and no unexplained cash difference.",
+      "bodyText": null,
+      "position": "1024",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000040",
+      "parentId": "01a20000-0000-7000-8000-00000000003e",
+      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "bodyText": null,
+      "position": "2048",
+      "nodeType": "AcceptanceCriterion",
+      "startDate": null,
+      "endDate": null,
+      "durationDays": null,
+      "scheduleSourceMode": "none",
+      "completed": false,
+      "effortPoints": null,
+      "effortPointsDone": null,
+      "strategicWeight": null,
+      "phaseId": null,
+      "deliveryStatus": "not_started"
+    }
+  ],
+  "nodeCustomFields": [
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000014",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Avery Chen · Identity & experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000014",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000017",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Jordan Pike · Reliability & insights"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000017",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000001a",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Morgan Vale · Money systems"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000001a",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000001d",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Riley Moss · Trading experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000001d",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000020",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Avery Chen · Identity & experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000020",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Verified → funded within 7 days"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000023",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Morgan Vale · Money systems"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000023",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Verified → funded within 7 days"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000026",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Riley Moss · Trading experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000026",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Funded → first order within 7 days"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000029",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Avery Chen · Identity & experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000029",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Funded → first order within 7 days"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000002c",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Morgan Vale · Money systems"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000002c",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000002f",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Riley Moss · Trading experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000002f",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Funded → first order within 7 days"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000032",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Riley Moss · Trading experience"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000032",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Week-four retained funded accounts"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000035",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Jordan Pike · Reliability & insights"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000035",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Week-four retained funded accounts"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000038",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Morgan Vale · Money systems"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-000000000038",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Week-four retained funded accounts"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000003b",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Jordan Pike · Reliability & insights"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000003b",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000003e",
+      "fieldKey": "demo-owner",
+      "fieldValue": "Jordan Pike · Reliability & insights"
+    },
+    {
+      "nodeId": "01a20000-0000-7000-8000-00000000003e",
+      "fieldKey": "demo-measure",
+      "fieldValue": "Shared capability: follow Unlocks to customer outcomes"
+    }
+  ],
+  "typeTemplateFields": [
+    {
+      "nodeType": "Feature",
+      "fieldKey": "demo-owner",
+      "fieldLabel": "Demo owner",
+      "position": 1024
+    },
+    {
+      "nodeType": "Feature",
+      "fieldKey": "demo-measure",
+      "fieldLabel": "Outcome measure",
+      "position": 2048
+    }
+  ],
+  "unlockEdges": [
+    {
+      "id": "01a20000-0000-7000-8000-000000000041",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000014",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000020"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000042",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000014",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000023"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000043",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000014",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002c"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000044",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001a",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000023"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000045",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001a",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000029"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000046",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001a",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002c"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000047",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001a",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000032"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000048",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001a",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000038"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000049",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001d",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000026"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004a",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001d",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000029"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004b",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000001d",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000032"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004c",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000020",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000023"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004d",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000023",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002f"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004e",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000026",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002f"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000004f",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000029",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002f"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000050",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000002c",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002f"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000051",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000002c",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000032"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000052",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000002c",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000038"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000053",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000017",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000035"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000054",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000002c",
+      "targetNodeId": "01a20000-0000-7000-8000-000000000035"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000055",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000017",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000003e"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000056",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000003b",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000002c"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000057",
+      "sourceNodeId": "01a20000-0000-7000-8000-00000000002f",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000003e"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000058",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000032",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000003e"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-000000000059",
+      "sourceNodeId": "01a20000-0000-7000-8000-000000000038",
+      "targetNodeId": "01a20000-0000-7000-8000-00000000003e"
+    }
+  ],
+  "findingDismissals": [],
+  "affectedReasons": [],
+  "openQuestions": [
+    {
+      "id": "01a20000-0000-7000-8000-00000000005a",
+      "nodeId": "01a20000-0000-7000-8000-000000000023",
+      "questionText": "Should unsettled deposits be available for trading?",
+      "status": "DECIDED",
+      "decisionText": "No. Launch uses settled cash only; prioritize reconciliation and clear expectations.",
+      "position": "1024",
+      "resolvedAtISO": "2027-01-18T09:00:00.000Z",
+      "createdAtISO": "2027-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000005b",
+      "nodeId": "01a20000-0000-7000-8000-00000000001d",
+      "questionText": "Which stale-quote threshold is understandable in customer testing?",
+      "status": "OPEN",
+      "decisionText": null,
+      "position": "2048",
+      "resolvedAtISO": null,
+      "createdAtISO": "2027-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000005c",
+      "nodeId": "01a20000-0000-7000-8000-00000000002c",
+      "questionText": "How should a timed-out order confirmation explain an unknown outcome?",
+      "status": "OPEN",
+      "decisionText": null,
+      "position": "3072",
+      "resolvedAtISO": null,
+      "createdAtISO": "2027-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000005d",
+      "nodeId": "01a20000-0000-7000-8000-000000000035",
+      "questionText": "Should return-rate experiments include urgency prompts?",
+      "status": "DECIDED",
+      "decisionText": "No. Use opt-in informational alerts; measure comprehension alongside retention.",
+      "position": "4096",
+      "resolvedAtISO": "2027-01-18T09:00:00.000Z",
+      "createdAtISO": "2027-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "01a20000-0000-7000-8000-00000000005e",
+      "nodeId": "01a20000-0000-7000-8000-00000000003e",
+      "questionText": "Who signs off the recovery-drill evidence before public launch?",
+      "status": "OPEN",
+      "decisionText": null,
+      "position": "5120",
+      "resolvedAtISO": null,
+      "createdAtISO": "2027-01-18T09:00:00.000Z"
+    }
+  ],
+  "forecastPlan": {
+    "selectedFeatureIds": [
+      "01a20000-0000-7000-8000-000000000014",
+      "01a20000-0000-7000-8000-000000000017",
+      "01a20000-0000-7000-8000-00000000001a",
+      "01a20000-0000-7000-8000-00000000001d",
+      "01a20000-0000-7000-8000-000000000020",
+      "01a20000-0000-7000-8000-000000000023",
+      "01a20000-0000-7000-8000-000000000026",
+      "01a20000-0000-7000-8000-000000000029",
+      "01a20000-0000-7000-8000-00000000002c",
+      "01a20000-0000-7000-8000-00000000002f",
+      "01a20000-0000-7000-8000-000000000032",
+      "01a20000-0000-7000-8000-000000000035",
+      "01a20000-0000-7000-8000-000000000038",
+      "01a20000-0000-7000-8000-00000000003b",
+      "01a20000-0000-7000-8000-00000000003e"
+    ],
+    "parallelGroups": [
+      {
+        "featureIds": [
+          "01a20000-0000-7000-8000-000000000014",
+          "01a20000-0000-7000-8000-000000000017"
+        ]
+      },
+      {
+        "featureIds": [
+          "01a20000-0000-7000-8000-00000000001a",
+          "01a20000-0000-7000-8000-00000000001d"
+        ]
+      }
+    ],
+    "blockedFeatureIds": [
+      "01a20000-0000-7000-8000-00000000002c"
+    ],
+    "pointsPerSprint": 20,
+    "sprintLengthDays": 14,
+    "cadence": "fixed-contiguous",
+    "startSprintOrdinal": 1,
+    "startDate": "2027-01-04",
+    "policyVersion": "staffed-capacity-v1",
+    "planningLevel": "Feature",
+    "roster": [
+      {
+        "id": "01a20000-0000-7000-8000-000000000010",
+        "name": "Avery Chen · Identity & experience",
+        "weightUnits": 100
+      },
+      {
+        "id": "01a20000-0000-7000-8000-000000000011",
+        "name": "Morgan Vale · Money systems",
+        "weightUnits": 100
+      },
+      {
+        "id": "01a20000-0000-7000-8000-000000000012",
+        "name": "Riley Moss · Trading experience",
+        "weightUnits": 100
+      },
+      {
+        "id": "01a20000-0000-7000-8000-000000000013",
+        "name": "Jordan Pike · Reliability & insights",
+        "weightUnits": 75
+      }
+    ],
+    "assignments": {
+      "01a20000-0000-7000-8000-000000000014": [
+        "01a20000-0000-7000-8000-000000000010"
+      ],
+      "01a20000-0000-7000-8000-000000000017": [
+        "01a20000-0000-7000-8000-000000000013"
+      ],
+      "01a20000-0000-7000-8000-00000000001a": [
+        "01a20000-0000-7000-8000-000000000011"
+      ],
+      "01a20000-0000-7000-8000-00000000001d": [
+        "01a20000-0000-7000-8000-000000000012"
+      ],
+      "01a20000-0000-7000-8000-000000000020": [
+        "01a20000-0000-7000-8000-000000000010"
+      ],
+      "01a20000-0000-7000-8000-000000000023": [
+        "01a20000-0000-7000-8000-000000000011"
+      ],
+      "01a20000-0000-7000-8000-000000000026": [
+        "01a20000-0000-7000-8000-000000000012"
+      ],
+      "01a20000-0000-7000-8000-000000000029": [
+        "01a20000-0000-7000-8000-000000000010"
+      ],
+      "01a20000-0000-7000-8000-00000000002c": [
+        "01a20000-0000-7000-8000-000000000011"
+      ],
+      "01a20000-0000-7000-8000-00000000002f": [
+        "01a20000-0000-7000-8000-000000000012"
+      ],
+      "01a20000-0000-7000-8000-000000000032": [
+        "01a20000-0000-7000-8000-000000000012"
+      ],
+      "01a20000-0000-7000-8000-000000000035": [
+        "01a20000-0000-7000-8000-000000000013"
+      ],
+      "01a20000-0000-7000-8000-000000000038": [
+        "01a20000-0000-7000-8000-000000000011"
+      ],
+      "01a20000-0000-7000-8000-00000000003b": [
+        "01a20000-0000-7000-8000-000000000013"
+      ],
+      "01a20000-0000-7000-8000-00000000003e": [
+        "01a20000-0000-7000-8000-000000000013"
+      ]
+    },
+    "sprintPlan": {
+      "placements": [
+        {
+          "itemId": "01a20000-0000-7000-8000-00000000001a",
+          "sprint": 1
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-000000000020",
+          "sprint": 1
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-00000000001d",
+          "sprint": 2
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-000000000023",
+          "sprint": 2
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-000000000026",
+          "sprint": 3
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-000000000029",
+          "sprint": 3
+        },
+        {
+          "itemId": "01a20000-0000-7000-8000-00000000003b",
+          "sprint": 3
+        }
+      ],
+      "capacities": {}
+    }
+  },
+  "forecastScenarios": [
+    {
+      "scenarioId": "01a20000-0000-7000-8000-00000000005f",
+      "label": "Smaller launch — defer alerts and monthly statements",
+      "baselineRevision": 1,
+      "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
+      "policyVersion": "staffed-capacity-v1",
+      "createdAtISO": "2027-01-18T09:00:00.000Z",
+      "baseline": {
+        "planningLevel": "Feature",
+        "orderedScope": [
+          "01a20000-0000-7000-8000-000000000014",
+          "01a20000-0000-7000-8000-000000000017",
+          "01a20000-0000-7000-8000-00000000001a",
+          "01a20000-0000-7000-8000-00000000001d",
+          "01a20000-0000-7000-8000-000000000020",
+          "01a20000-0000-7000-8000-000000000023",
+          "01a20000-0000-7000-8000-000000000026",
+          "01a20000-0000-7000-8000-000000000029",
+          "01a20000-0000-7000-8000-00000000002c",
+          "01a20000-0000-7000-8000-00000000002f",
+          "01a20000-0000-7000-8000-000000000032",
+          "01a20000-0000-7000-8000-000000000035",
+          "01a20000-0000-7000-8000-000000000038",
+          "01a20000-0000-7000-8000-00000000003b",
+          "01a20000-0000-7000-8000-00000000003e"
+        ],
+        "configuration": {
+          "pointsPerSprint": 20,
+          "sprintLengthDays": 14,
+          "cadence": "fixed-contiguous",
+          "startSprintOrdinal": 1,
+          "startDate": "2027-01-04"
+        },
+        "parallelGroups": [
+          {
+            "featureIds": [
+              "01a20000-0000-7000-8000-000000000014",
+              "01a20000-0000-7000-8000-000000000017"
+            ]
+          },
+          {
+            "featureIds": [
+              "01a20000-0000-7000-8000-00000000001a",
+              "01a20000-0000-7000-8000-00000000001d"
+            ]
+          }
+        ],
+        "blockedFeatureIds": [
+          "01a20000-0000-7000-8000-00000000002c"
+        ],
+        "factMap": {
+          "01a20000-0000-7000-8000-000000000014": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000d",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000017": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000001a": {
+            "effortPoints": 13,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000001d": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000020": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000a",
+              "01a20000-0000-7000-8000-000000000006",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000023": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000a",
+              "01a20000-0000-7000-8000-000000000006",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000026": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000029": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000002c": {
+            "effortPoints": 13,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000002f": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000032": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000035": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000038": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000003b": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000003e": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          }
+        },
+        "roster": [
+          {
+            "id": "01a20000-0000-7000-8000-000000000010",
+            "name": "Avery Chen · Identity & experience",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000011",
+            "name": "Morgan Vale · Money systems",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000012",
+            "name": "Riley Moss · Trading experience",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000013",
+            "name": "Jordan Pike · Reliability & insights",
+            "weightUnits": 75
+          }
+        ],
+        "assignments": {
+          "01a20000-0000-7000-8000-000000000014": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-000000000017": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-00000000001a": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000001d": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000020": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-000000000023": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-000000000026": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000029": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-00000000002c": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000002f": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000032": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000035": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-000000000038": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000003b": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-00000000003e": [
+            "01a20000-0000-7000-8000-000000000013"
+          ]
+        }
+      },
+      "patch": {
+        "orderedScope": [
+          "01a20000-0000-7000-8000-000000000014",
+          "01a20000-0000-7000-8000-000000000017",
+          "01a20000-0000-7000-8000-00000000001a",
+          "01a20000-0000-7000-8000-00000000001d",
+          "01a20000-0000-7000-8000-000000000020",
+          "01a20000-0000-7000-8000-000000000023",
+          "01a20000-0000-7000-8000-000000000026",
+          "01a20000-0000-7000-8000-000000000029",
+          "01a20000-0000-7000-8000-00000000002c",
+          "01a20000-0000-7000-8000-00000000002f",
+          "01a20000-0000-7000-8000-000000000032",
+          "01a20000-0000-7000-8000-00000000003b",
+          "01a20000-0000-7000-8000-00000000003e"
+        ]
+      }
+    },
+    {
+      "scenarioId": "01a20000-0000-7000-8000-000000000060",
+      "label": "More money-platform capacity — Morgan from 1.0 to 1.5",
+      "baselineRevision": 1,
+      "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
+      "policyVersion": "staffed-capacity-v1",
+      "createdAtISO": "2027-01-18T09:00:00.000Z",
+      "baseline": {
+        "planningLevel": "Feature",
+        "orderedScope": [
+          "01a20000-0000-7000-8000-000000000014",
+          "01a20000-0000-7000-8000-000000000017",
+          "01a20000-0000-7000-8000-00000000001a",
+          "01a20000-0000-7000-8000-00000000001d",
+          "01a20000-0000-7000-8000-000000000020",
+          "01a20000-0000-7000-8000-000000000023",
+          "01a20000-0000-7000-8000-000000000026",
+          "01a20000-0000-7000-8000-000000000029",
+          "01a20000-0000-7000-8000-00000000002c",
+          "01a20000-0000-7000-8000-00000000002f",
+          "01a20000-0000-7000-8000-000000000032",
+          "01a20000-0000-7000-8000-000000000035",
+          "01a20000-0000-7000-8000-000000000038",
+          "01a20000-0000-7000-8000-00000000003b",
+          "01a20000-0000-7000-8000-00000000003e"
+        ],
+        "configuration": {
+          "pointsPerSprint": 20,
+          "sprintLengthDays": 14,
+          "cadence": "fixed-contiguous",
+          "startSprintOrdinal": 1,
+          "startDate": "2027-01-04"
+        },
+        "parallelGroups": [
+          {
+            "featureIds": [
+              "01a20000-0000-7000-8000-000000000014",
+              "01a20000-0000-7000-8000-000000000017"
+            ]
+          },
+          {
+            "featureIds": [
+              "01a20000-0000-7000-8000-00000000001a",
+              "01a20000-0000-7000-8000-00000000001d"
+            ]
+          }
+        ],
+        "blockedFeatureIds": [
+          "01a20000-0000-7000-8000-00000000002c"
+        ],
+        "factMap": {
+          "01a20000-0000-7000-8000-000000000014": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000d",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000017": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000001a": {
+            "effortPoints": 13,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000001d": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000020": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000a",
+              "01a20000-0000-7000-8000-000000000006",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000023": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000a",
+              "01a20000-0000-7000-8000-000000000006",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000026": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000029": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000002c": {
+            "effortPoints": 13,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000e",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000002f": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000b",
+              "01a20000-0000-7000-8000-000000000007",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000032": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000035": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-000000000038": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000c",
+              "01a20000-0000-7000-8000-000000000008",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000003b": {
+            "effortPoints": 8,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          },
+          "01a20000-0000-7000-8000-00000000003e": {
+            "effortPoints": 5,
+            "nodeType": "Feature",
+            "projectId": "01a20000-0000-7000-8000-000000000001",
+            "ancestorIds": [
+              "01a20000-0000-7000-8000-00000000000f",
+              "01a20000-0000-7000-8000-000000000009",
+              "01a20000-0000-7000-8000-000000000005"
+            ]
+          }
+        },
+        "roster": [
+          {
+            "id": "01a20000-0000-7000-8000-000000000010",
+            "name": "Avery Chen · Identity & experience",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000011",
+            "name": "Morgan Vale · Money systems",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000012",
+            "name": "Riley Moss · Trading experience",
+            "weightUnits": 100
+          },
+          {
+            "id": "01a20000-0000-7000-8000-000000000013",
+            "name": "Jordan Pike · Reliability & insights",
+            "weightUnits": 75
+          }
+        ],
+        "assignments": {
+          "01a20000-0000-7000-8000-000000000014": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-000000000017": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-00000000001a": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000001d": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000020": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-000000000023": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-000000000026": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000029": [
+            "01a20000-0000-7000-8000-000000000010"
+          ],
+          "01a20000-0000-7000-8000-00000000002c": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000002f": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000032": [
+            "01a20000-0000-7000-8000-000000000012"
+          ],
+          "01a20000-0000-7000-8000-000000000035": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-000000000038": [
+            "01a20000-0000-7000-8000-000000000011"
+          ],
+          "01a20000-0000-7000-8000-00000000003b": [
+            "01a20000-0000-7000-8000-000000000013"
+          ],
+          "01a20000-0000-7000-8000-00000000003e": [
+            "01a20000-0000-7000-8000-000000000013"
+          ]
+        }
+      },
+      "patch": {
+        "weightOverrides": {
+          "01a20000-0000-7000-8000-000000000011": 150
+        }
+      }
+    }
+  ]
+}

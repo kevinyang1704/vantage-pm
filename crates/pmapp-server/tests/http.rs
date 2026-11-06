@@ -59,7 +59,7 @@ async fn healthz_reports_ok() {
 #[tokio::test]
 async fn handshake_accepts_current_and_refuses_unsupported() {
     let app = router(state());
-    let current = serde_json::json!({ "protocolVersion": "1.0.0", "schemaVersion": 17 });
+    let current = serde_json::json!({ "protocolVersion": "1.0.0", "schemaVersion": pmapp_server::handshake::CURRENT_SCHEMA_VERSION });
     let response = app
         .clone()
         .oneshot(

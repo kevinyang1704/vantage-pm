@@ -187,6 +187,10 @@ export type InverseCommandDescriptor =
       featureId: string;
       blocked: boolean;
     }>
+  | Readonly<{
+      type: 'SetForecastSprintPlan';
+      sprintPlan: import('../forecast/forecast-plan.entity').ForecastSprintPlan;
+    }>
   // ── Epic 20 Inversions (Story 20.4) ────────────────────────────────
   | Readonly<{
       type: 'RemoveForecastScenario';
@@ -578,6 +582,9 @@ export function computeInverseDescriptor(changeSet: ChangeSet): InverseCommandDe
         featureId: primaryChange.featureId,
         blocked: primaryChange.priorBlocked,
       });
+
+    case 'ForecastSprintPlanSet':
+      return Object.freeze({ type: 'SetForecastSprintPlan', sprintPlan: primaryChange.priorSprintPlan });
 
     // ── Epic 20 Inversions (Story 20.4) ──────────────────────────────
     case 'ForecastScenarioCreated':

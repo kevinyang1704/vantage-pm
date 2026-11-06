@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { fitGanttZoom, generateHeaderColumns } from './gantt-scope';
+import { fitGanttZoom, generateHeaderColumns, horizonGanttZoom } from './gantt-scope';
 
 describe('fitGanttZoom (Gantt Fit control)', () => {
   it('fits a multi-year window into the viewport, zooming out past Quarter', () => {
@@ -49,5 +49,35 @@ describe('fitGanttZoom (Gantt Fit control)', () => {
         .reduce((sum, column) => sum + column.pixelWidth, 0);
       expect(width).toBeCloseTo(896, 6);
     }
+  });
+});
+
+
+describe('fixed calendar horizons', () => {
+  it.each([
+    ['week', '2028-02-17', '2028-02-14', '2028-05-07', 84, 12],
+    ['month', '2028-02-17', '2028-02-01', '2028-07-31', 182, 6],
+    ['quarter', '2027-11-17', '2027-10-01', '2028-09-30', 366, 4],
+  ] as const)('%s aligns a partial origin and pads a short project', (granularity, origin, start, end, days, count) => {
+    const zoom = horizonGanttZoom(origin, origin, 840, granularity);
+    expect(zoom.dateWindowStart).toBe(start);
+    expect(zoom.dateWindowEnd).toBe(end);
+    expect(zoom.horizonDays).toBe(days);
+    expect(zoom.pixelsPerDay).toBe(840 / days);
+    const columns = generateHeaderColumns(start, end, granularity, zoom.pixelsPerDay).filter(c => c.level === 'major');
+    expect(columns).toHaveLength(count);
+    expect(columns.reduce((sum, c) => sum + c.pixelWidth, 0)).toBeCloseTo(840, 8);
+  });
+
+  it('keeps the same ruler for a long project, independently of scroll position', () => {
+    const short = horizonGanttZoom('2026-05-15', '2026-05-16', 900, 'month');
+    const long = horizonGanttZoom('2026-05-15', '2030-12-31', 900, 'month');
+    expect(long.pixelsPerDay).toBe(short.pixelsPerDay);
+    expect(long.dateWindowEnd).toBe('2030-12-31');
+    expect(long.dateWindowStart).toBe('2026-05-01');
+  });
+
+  it.each([0, -20, Number.NaN, Number.POSITIVE_INFINITY])('handles unavailable viewport width %s', width => {
+    expect(horizonGanttZoom('2026-01-01', '2026-01-01', width, 'quarter').pixelsPerDay).toBe(1 / 365);
   });
 });

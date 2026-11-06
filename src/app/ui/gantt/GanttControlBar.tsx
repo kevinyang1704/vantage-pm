@@ -51,12 +51,13 @@ export function GanttControlBar({
           className="pm-gantt-control-bar__group"
         >
           {granularities.map((g) => {
-            const isSelected = granularity === g;
+            const isSelected = !fitted && granularity === g;
             return (
               <button
                 key={g}
                 type="button"
                 aria-pressed={isSelected}
+                title={`Show ${g === 'week' ? '12 weeks' : g === 'month' ? '6 months' : '4 quarters'} across the timeline`}
                 onClick={() => onChangeWindow({ granularity: g })}
                 className={`pm-gantt-control-bar__seg-btn ${isSelected ? 'pm-gantt-control-bar__seg-btn--selected' : ''}`}
               >

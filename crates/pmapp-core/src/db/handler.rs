@@ -955,6 +955,7 @@ fn dispatch(tx: &mut Transaction, command: ProductCommand) -> Result<ProductComm
         ProductCommand::ConfigureForecastPlan(c) => apply_configure_forecast_plan(tx, c),
         ProductCommand::SetForecastMembership(c) => apply_set_forecast_membership(tx, c),
         ProductCommand::SetForecastBlocker(c) => apply_set_forecast_blocker(tx, c),
+        ProductCommand::SetForecastSprintPlan(c) => apply_set_forecast_sprint_plan(tx, c),
         ProductCommand::CreateForecastScenario(c) => apply_create_forecast_scenario(tx, c),
         ProductCommand::RemoveForecastScenario(c) => apply_remove_forecast_scenario(tx, c),
         ProductCommand::RestoreForecastScenario(c) => apply_restore_forecast_scenario(tx, c),
@@ -3125,6 +3126,136 @@ fn apply_set_forecast_blocker(
     ))
 }
 
+// ── Delivery Board: SetForecastSprintPlan ────────────────────────────────
+// Replaces the plan's sprint plan (hand placements + per-sprint capacity).
+// The board checks capacity and dependency rules before sending; the
+// repository validates the shape and stores the canonical value. Needs an
+// existing plan and rejects a no-op, matching the browser handler.
+
+const MAX_SPRINT_PLAN_ENTRIES: usize = 10_000;
+const MAX_SAFE_INTEGER: i64 = 9_007_199_254_740_991;
+
+/// Validate and canonicalize a sprint plan: one placement per item (the last
+/// wins, at its position) and capacity keys in sprint order. `None` when the
+/// value is malformed.
+pub(crate) fn canonical_sprint_plan(value: &serde_json::Value) -> Option<serde_json::Value> {
+    use serde_json::{json, Map, Value};
+    let object = match value {
+        Value::Null => return Some(json!({ "placements": [], "capacities": {} })),
+        Value::Object(object) => object,
+        _ => return None,
+    };
+    if object.keys().any(|key| key != "placements" && key != "capacities") {
+        return None;
+    }
+    let placements_in = match object.get("placements") {
+        None => Vec::new(),
+        Some(Value::Array(items)) => items.clone(),
+        Some(_) => return None,
+    };
+    let capacities_in = match object.get("capacities") {
+        None => Map::new(),
+        Some(Value::Object(map)) => map.clone(),
+        Some(_) => return None,
+    };
+    if placements_in.len() + capacities_in.len() > MAX_SPRINT_PLAN_ENTRIES {
+        return None;
+    }
+    let mut parsed: Vec<(String, i64)> = Vec::with_capacity(placements_in.len());
+    for entry in &placements_in {
+        let entry = entry.as_object()?;
+        if entry.keys().any(|key| key != "itemId" && key != "sprint") {
+            return None;
+        }
+        let item_id = entry.get("itemId")?.as_str()?;
+        if !crate::protocol::uuid_v7::is_uuid_v7(item_id) {
+            return None;
+        }
+        let sprint = entry.get("sprint")?.as_i64()?;
+        if sprint <= 0 || sprint > MAX_SAFE_INTEGER {
+            return None;
+        }
+        parsed.push((item_id.to_string(), sprint));
+    }
+    let mut last_index: HashMap<&str, usize> = HashMap::new();
+    for (index, (item_id, _)) in parsed.iter().enumerate() {
+        last_index.insert(item_id.as_str(), index);
+    }
+    let placements: Vec<Value> = parsed
+        .iter()
+        .enumerate()
+        .filter(|(index, (item_id, _))| last_index.get(item_id.as_str()) == Some(index))
+        .map(|(_, (item_id, sprint))| json!({ "itemId": item_id, "sprint": sprint }))
+        .collect();
+    let mut capacities: Vec<(i64, i64)> = Vec::with_capacity(capacities_in.len());
+    for (key, points) in &capacities_in {
+        let first = key.chars().next()?;
+        if first == '0' || !key.chars().all(|c| c.is_ascii_digit()) {
+            return None;
+        }
+        let sprint: i64 = key.parse().ok()?;
+        if sprint <= 0 || sprint > MAX_SAFE_INTEGER {
+            return None;
+        }
+        let points = points.as_i64()?;
+        if points < 0 || points > MAX_SAFE_INTEGER {
+            return None;
+        }
+        capacities.push((sprint, points));
+    }
+    capacities.sort_by_key(|(sprint, _)| *sprint);
+    let mut capacity_map = Map::new();
+    for (sprint, points) in capacities {
+        capacity_map.insert(sprint.to_string(), json!(points));
+    }
+    Some(json!({ "placements": placements, "capacities": Value::Object(capacity_map) }))
+}
+
+fn apply_set_forecast_sprint_plan(
+    tx: &mut Transaction,
+    cmd: SetForecastSprintPlanCommand,
+) -> Result<ProductCommandResult, ProductCommandResult> {
+    let Some(next) = canonical_sprint_plan(&cmd.sprint_plan) else {
+        return Err(rejected(&cmd.command_id, "INVALID_COMMAND", None, Some(&cmd.project_id), None));
+    };
+    let stored: Option<Option<String>> = tx
+        .query_row(
+            "SELECT sprint_plan FROM forecast_plans WHERE project_id = ?1",
+            rusqlite::params![cmd.project_id],
+            |r| r.get::<_, Option<String>>(0),
+        )
+        .optional()
+        .map_err(|_| internal_rejection(&cmd.command_id))?;
+    let Some(stored) = stored else {
+        return Err(rejected(&cmd.command_id, "FORECAST_SPRINT_PLAN_INVALID", None, Some(&cmd.project_id), None));
+    };
+    let prior_raw: serde_json::Value = match stored.as_deref() {
+        None => serde_json::Value::Null,
+        Some(text) => serde_json::from_str(text).map_err(|_| internal_rejection(&cmd.command_id))?,
+    };
+    let prior = canonical_sprint_plan(&prior_raw).ok_or_else(|| internal_rejection(&cmd.command_id))?;
+    if prior == next {
+        return Err(rejected(&cmd.command_id, "FORECAST_SPRINT_PLAN_INVALID", None, Some(&cmd.project_id), None));
+    }
+    tx.execute(
+        "UPDATE forecast_plans SET sprint_plan = ?1 WHERE project_id = ?2",
+        rusqlite::params![next.to_string(), cmd.project_id],
+    )
+    .map_err(|_| internal_rejection(&cmd.command_id))?;
+
+    let changes = vec![NodeChange::ForecastSprintPlanSet {
+        sprint_plan: next,
+        prior_sprint_plan: prior,
+    }];
+    Ok(applied(
+        &cmd.command_id,
+        &cmd.project_id,
+        cmd.base_revision,
+        cmd.expected_revision,
+        Some(change_set(&cmd.project_id, cmd.base_revision, cmd.expected_revision, changes)),
+    ))
+}
+
 // ── Epic 20: Forecast scenarios (Story 20.4) ─────────────────────────────
 // Inputs only, never a computed result (AD-22). CreateForecastScenario
 // extracts the baseline scope/config/groups/blocked set and the union fact
@@ -4957,6 +5088,31 @@ mod tests {
     
 
     const PROJECT_ID: &str = "0198a000-0000-7000-8000-000000000002";
+    #[test]
+    fn sprint_plan_canonicalizes_like_the_browser() {
+        use serde_json::json;
+        let a = "0198a000-0000-7000-8000-00000000000a";
+        let b = "0198a000-0000-7000-8000-00000000000b";
+        let canonical = canonical_sprint_plan(&json!({
+            "placements": [{ "itemId": a, "sprint": 3 }, { "itemId": b, "sprint": 2 }, { "itemId": a, "sprint": 4 }],
+            "capacities": { "10": 5, "2": 0 }
+        }))
+        .unwrap();
+        assert_eq!(canonical["placements"], json!([{ "itemId": b, "sprint": 2 }, { "itemId": a, "sprint": 4 }]));
+        assert_eq!(canonical["capacities"], json!({ "2": 0, "10": 5 }));
+        assert_eq!(canonical_sprint_plan(&json!({})).unwrap(), json!({ "placements": [], "capacities": {} }));
+        for bad in [
+            json!([]),
+            json!({ "placements": [{ "itemId": "nope", "sprint": 1 }] }),
+            json!({ "placements": [{ "itemId": a, "sprint": 0 }] }),
+            json!({ "capacities": { "01": 3 } }),
+            json!({ "capacities": { "2": -1 } }),
+            json!({ "other": 1 }),
+        ] {
+            assert!(canonical_sprint_plan(&bad).is_none(), "{bad}");
+        }
+    }
+
     const COMMAND_ID: &str = "0198a000-0000-7000-8000-000000000001";
     const NODE_ID: &str = "0198a000-0000-7000-8000-000000000003";
 

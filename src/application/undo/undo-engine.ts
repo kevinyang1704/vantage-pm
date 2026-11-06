@@ -666,6 +666,18 @@ export class UndoEngine {
         });
         break;
 
+      case 'SetForecastSprintPlan':
+        inverseCommand = Object.freeze({
+          type: 'SetForecastSprintPlan',
+          protocolVersion: PROTOCOL_VERSION,
+          commandId,
+          projectId,
+          baseRevision: currentRevision,
+          expectedRevision: currentRevision + 1,
+          sprintPlan: inverseDesc.sprintPlan,
+        });
+        break;
+
       case 'RemoveForecastScenario':
         inverseCommand = Object.freeze({
           type: 'RemoveForecastScenario',

@@ -66,6 +66,31 @@ export function fitGanttZoom(
   return Object.freeze({ pixelsPerDay, granularity: resolvedGranularity });
 }
 
+/** Calendar-aligned, fixed ruler. Panning never participates in this calculation. */
+export function horizonGanttZoom(
+  rangeStart: string,
+  rangeEnd: string,
+  viewportPx: number,
+  granularity: GanttGranularity,
+): GanttFitZoom & Readonly<{ dateWindowStart: string; dateWindowEnd: string; horizonDays: number }> {
+  const date = Temporal.PlainDate.from(rangeStart);
+  const start = granularity === 'week'
+    ? date.subtract({ days: date.dayOfWeek - 1 })
+    : date.with({ day: 1, ...(granularity === 'quarter' ? { month: Math.floor((date.month - 1) / 3) * 3 + 1 } : {}) });
+  const exclusiveEnd = granularity === 'week' ? start.add({ days: 84 })
+    : start.add({ months: granularity === 'month' ? 6 : 12 });
+  const horizonDays = start.until(exclusiveEnd, { largestUnit: 'day' }).days;
+  const horizonEnd = exclusiveEnd.subtract({ days: 1 }).toString();
+  const width = Number.isFinite(viewportPx) ? Math.max(1, viewportPx) : 1;
+  return Object.freeze({
+    dateWindowStart: start.toString(),
+    dateWindowEnd: rangeEnd > horizonEnd ? rangeEnd : horizonEnd,
+    horizonDays,
+    pixelsPerDay: width / horizonDays,
+    granularity,
+  });
+}
+
 export function generateHeaderColumns(
   windowStart: string,
   windowEnd: string,

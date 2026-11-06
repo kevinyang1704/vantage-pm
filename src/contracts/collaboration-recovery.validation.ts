@@ -8,6 +8,7 @@ import { canParentNodeType } from '../domain/tree/node-hierarchy.policy';
 import { isValidNodeType } from '../domain/tree/node-type.policy';
 import type { NodeType } from '../domain/tree/node.entity';
 import { validatePersistedForecastScenario } from '../domain/forecast/scenario';
+import { createForecastSprintPlan } from '../domain/forecast/forecast-plan.entity';
 import { validateRoster, validateForecastGroups, validateCapacity, validateSprintLength, validateStartOrdinal, validateStartDate, validatePolicyVersion } from '../domain/forecast/forecast-validators';
 
 const invalid = (): never => { throw new Error('INVALID_RECOVERY_ENVELOPE'); };
@@ -59,6 +60,7 @@ function effectValue(value: unknown, schema: RecoveryEffectSchema, projectId: st
     case 'ForecastNodeLevel': if (!['Theme', 'Component', 'Feature'].includes(String(value))) invalid(); return;
     case 'ForecastPolicyVersion': if (validatePolicyVersion(value)) invalid(); return;
     case 'ForecastPerson': record(value, ['id', 'name', 'weightUnits']); if (validateRoster([value]).length) invalid(); return;
+    case 'ForecastSprintPlan': { const plan = record(value, ['placements', 'capacities']); for (const placement of array(plan.placements)) record(placement, ['itemId', 'sprint']); try { createForecastSprintPlan(value); } catch { invalid(); } return; }
     case 'PersistedForecastScenario': if (validatePersistedForecastScenario(value, projectId).length) invalid(); return;
     case 'ForecastGroupChange': {
       const group = record(value); if (group.kind === 'unchanged' || group.kind === 'leave') { record(group, ['kind']); return; }
@@ -129,6 +131,7 @@ export function validateRecoveryGraph(value: unknown, projectId: string): assert
     if (new Set(array(blocked)).size !== array(blocked).length || validateRoster(roster).length || validatePolicyVersion(plan.policyVersion) || !['Theme', 'Component', 'Feature'].includes(plan.planningLevel) || plan.cadence !== 'fixed-contiguous') invalid();
     if (validateCapacity(plan.pointsPerSprint, 'pointsPerSprint') || validateSprintLength(plan.sprintLengthDays, 'sprintLengthDays') || validateStartOrdinal(plan.startSprintOrdinal, 'startSprintOrdinal') || validateStartDate(plan.startDate, 'startDate')) invalid();
     for (const person of array(roster)) record(person, ['id', 'name', 'weightUnits']);
+    try { createForecastSprintPlan(JSON.parse(plan.sprintPlan)); } catch { invalid(); }
     const selectedIds = new Set(array(selected)); const people = new Set(array(roster).map(person => record(person).id));
     for (const group of array(groups)) { const ids = record(group, ['featureIds']).featureIds; if (!Array.isArray(ids) || ids.length < 2 || ids.some(id => !selectedIds.has(id))) invalid(); }
     if (validateForecastGroups(selected as string[], groups as {featureIds: string[]}[]).length) invalid();

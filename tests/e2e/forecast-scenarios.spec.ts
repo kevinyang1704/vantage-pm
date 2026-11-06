@@ -24,6 +24,13 @@ async function openForecastWithTwoFeatures(page: import('@playwright/test').Page
   await expect(page.getByText('Storage Available')).toBeVisible({ timeout: 30_000 });
   const outline = page.locator('nav.pm-side-nav').getByRole('button', { name: 'Outline', exact: true });
   await page.locator('nav.pm-side-nav').getByRole('button', { name: 'New project', exact: true }).click();
+  // The new project becomes current asynchronously; wait for it before opening a view.
+  await expect(page.locator('.pm-side-nav__current-title')).toHaveText('New Project', { timeout: 30_000 });
+  // Open the Outline only once the new (empty) project is the selection;
+  // clicking sooner can open the boot project, which already has a node.
+  await expect(
+    page.locator('.pm-side-nav__project[aria-current="true"]').filter({ hasText: 'New Project' }),
+  ).toHaveCount(1);
   await expect(outline).toBeVisible();
   await outline.click();
   const addFirstNode = page.getByRole('button', { name: '+ Add node', exact: true });

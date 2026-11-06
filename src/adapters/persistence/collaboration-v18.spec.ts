@@ -97,12 +97,12 @@ describe('coordinated collaboration schema v18 and recovery parity', () => {
   it('creates all sidecars on fresh and populated v17 upgrades without changing authored facts', () => {
     const { db, handler, command, outbox } = fixture();
     try {
-      expect(PRODUCT_SCHEMA_VERSION).toBe(20); expect(readUserVersion(db)).toBe(20);
+      expect(PRODUCT_SCHEMA_VERSION).toBe(21); expect(readUserVersion(db)).toBe(21);
       const c = command(11); handler.applyWithOutbox(c, outbox(c), P);
       const authored = rows(db, 'SELECT * FROM nodes');
       db.exec('DROP TABLE collaboration_rejections; PRAGMA user_version=17');
       prepareProductDatabase(db);
-      expect(readUserVersion(db)).toBe(20); expect(rows(db, 'SELECT * FROM nodes')).toEqual(authored);
+      expect(readUserVersion(db)).toBe(21); expect(rows(db, 'SELECT * FROM nodes')).toEqual(authored);
       expect(readOutbox(db, P).entries[0].command).toEqual(c);
       const names = rows(db, "SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'collaboration_%'").map((r) => r.name).sort();
       expect(names).toEqual(['collaboration_attempt_receipt', 'collaboration_authoritative_history', 'collaboration_confirmed_state', 'collaboration_cursor', 'collaboration_outbox', 'collaboration_outbox_quarantine', 'collaboration_quarantine_metadata', 'collaboration_recovery_archive', 'collaboration_recovery_envelope', 'collaboration_rejections']);

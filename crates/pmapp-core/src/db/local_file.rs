@@ -210,8 +210,8 @@ fn graph(snapshot: &Value, revision: i64) -> Result<RecoveryGraph, RepositoryErr
         let mut plan=plan.clone();
         let o=plan.as_object_mut().ok_or_else(invalid)?;
         o.insert("projectId".into(), json!(project));
-        for field in ["selectedFeatureIds","parallelGroups","blockedFeatureIds","roster","assignments"]{
-            let value=o.remove(field).unwrap_or_else(||if field=="assignments"{
+        for field in ["selectedFeatureIds","parallelGroups","blockedFeatureIds","roster","assignments","sprintPlan"]{
+            let value=o.remove(field).unwrap_or_else(||if field=="assignments"||field=="sprintPlan"{
                 json!({
                 }
                 )
@@ -290,7 +290,7 @@ fn portable(graph: &RecoveryGraph) -> Result<Value, RepositoryError>{
         let mut plan=plan.clone();
         let o=plan.as_object_mut().ok_or_else(invalid)?;
         o.remove("projectId");
-        for field in ["selectedFeatureIds","parallelGroups","blockedFeatureIds","roster","assignments"]{
+        for field in ["selectedFeatureIds","parallelGroups","blockedFeatureIds","roster","assignments","sprintPlan"]{
             let raw=o.get(field).and_then(Value::as_str).ok_or_else(invalid)?;
             let v=serde_json::from_str(raw).map_err(|_|invalid())?;
             o.insert(field.into(), v);

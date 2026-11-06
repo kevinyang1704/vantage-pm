@@ -130,7 +130,98 @@ export type ForecastPlan = Readonly<{
   roster: readonly ForecastPerson[];
   /** Per-item assigned person IDs, keyed by item ID (Story 22.1, SF-FR4). */
   assignments: Readonly<Record<string, readonly string[]>>;
+  /**
+   * Hand-placed sprints and per-sprint capacity overrides for the Delivery
+   * Board. Optional so plans built before the sprint plan existed stay valid;
+   * a missing value reads as the empty sprint plan.
+   */
+  sprintPlan?: ForecastSprintPlan;
 }>;
+
+/** One hand placement: the item starts in `sprint`. */
+export type ForecastSprintPlacement = Readonly<{ itemId: string; sprint: number }>;
+
+/**
+ * The Delivery Board's hand-authored sprint plan.
+ *
+ * `placements` lists the items dropped into a sprint, in the order they were
+ * placed (an item appears at most once; re-placing it moves it to the end).
+ * Earlier placements keep their room in a sprint when a later one arrives.
+ * `capacities` maps a sprint ordinal, written as a decimal string, to that
+ * sprint's capacity in points when it differs from the team's points per
+ * sprint. Both are project facts; the board's placement of every other item
+ * is a disposable projection over them.
+ */
+export type ForecastSprintPlan = Readonly<{
+  placements: readonly ForecastSprintPlacement[];
+  capacities: Readonly<Record<string, number>>;
+}>;
+
+export const EMPTY_FORECAST_SPRINT_PLAN: ForecastSprintPlan = Object.freeze({
+  placements: Object.freeze([]),
+  capacities: Object.freeze({}),
+});
+
+/** Upper bound on stored entries, so a hostile import cannot balloon a plan. */
+export const MAX_FORECAST_SPRINT_PLAN_ENTRIES = 10_000;
+
+function isPositiveSafeInt(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value > 0;
+}
+
+function isNonNegativeSafeInt(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+}
+
+/**
+ * Validate and canonicalize a sprint plan: one placement per item (the last
+ * wins, at its position), capacity keys in sprint order. Throws
+ * `INVALID_SPRINT_PLAN` on any malformed entry rather than dropping it, so a
+ * damaged stored value is reported instead of silently rewritten.
+ */
+export function createForecastSprintPlan(input: unknown): ForecastSprintPlan {
+  if (input === undefined || input === null) return EMPTY_FORECAST_SPRINT_PLAN;
+  if (typeof input !== 'object' || Array.isArray(input)) throw new Error('INVALID_SPRINT_PLAN');
+  const raw = input as { placements?: unknown; capacities?: unknown };
+  const placementsIn = raw.placements ?? [];
+  const capacitiesIn = raw.capacities ?? {};
+  if (!Array.isArray(placementsIn) || typeof capacitiesIn !== 'object' || capacitiesIn === null || Array.isArray(capacitiesIn)) {
+    throw new Error('INVALID_SPRINT_PLAN');
+  }
+  const capacityEntries = Object.entries(capacitiesIn as Record<string, unknown>);
+  if (placementsIn.length + capacityEntries.length > MAX_FORECAST_SPRINT_PLAN_ENTRIES) {
+    throw new Error('INVALID_SPRINT_PLAN');
+  }
+  const lastIndex = new Map<string, number>();
+  placementsIn.forEach((entry: unknown, index) => {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) throw new Error('INVALID_SPRINT_PLAN');
+    const { itemId, sprint } = entry as { itemId?: unknown; sprint?: unknown };
+    if (typeof itemId !== 'string') throw new Error('INVALID_SPRINT_PLAN');
+    assertUuidV7(itemId, 'INVALID_SPRINT_PLAN');
+    if (!isPositiveSafeInt(sprint)) throw new Error('INVALID_SPRINT_PLAN');
+    lastIndex.set(itemId, index);
+  });
+  const placements: ForecastSprintPlacement[] = [];
+  placementsIn.forEach((entry: { itemId: string; sprint: number }, index) => {
+    if (lastIndex.get(entry.itemId) === index) {
+      placements.push(Object.freeze({ itemId: entry.itemId, sprint: entry.sprint }));
+    }
+  });
+  const capacities: Record<string, number> = {};
+  for (const [key, points] of capacityEntries.sort(([a], [b]) => Number(a) - Number(b))) {
+    if (!/^[1-9][0-9]*$/.test(key) || !isPositiveSafeInt(Number(key))) throw new Error('INVALID_SPRINT_PLAN');
+    if (!isNonNegativeSafeInt(points)) throw new Error('INVALID_SPRINT_PLAN');
+    capacities[key] = points;
+  }
+  return Object.freeze({ placements: Object.freeze(placements), capacities: Object.freeze(capacities) });
+}
+
+/** True when two sprint plans hold the same facts. */
+export function sameForecastSprintPlan(a: ForecastSprintPlan, b: ForecastSprintPlan): boolean {
+  const ca = createForecastSprintPlan(a);
+  const cb = createForecastSprintPlan(b);
+  return JSON.stringify(ca) === JSON.stringify(cb);
+}
 
 export function createEmptyForecastPlan(
   projectId: string,
@@ -153,6 +244,7 @@ export function createEmptyForecastPlan(
     planningLevel,
     roster: Object.freeze([]),
     assignments: Object.freeze({}),
+    sprintPlan: EMPTY_FORECAST_SPRINT_PLAN,
   });
 }
 
@@ -206,6 +298,7 @@ export function createForecastPlan(params: Readonly<{
   planningLevel?: ForecastNodeLevel;
   roster?: readonly ForecastPerson[];
   assignments?: Readonly<Record<string, readonly string[]>>;
+  sprintPlan?: ForecastSprintPlan;
 }>): ForecastPlan {
   assertUuidV7(params.projectId, 'ForecastPlan.projectId must be a valid UUIDv7');
   const selectedFeatureIds = Object.freeze([...(params.selectedFeatureIds ?? [])]);
@@ -255,5 +348,6 @@ export function createForecastPlan(params: Readonly<{
     planningLevel: params.planningLevel ?? DEFAULT_FORECAST_NODE_LEVEL,
     roster,
     assignments: canonicalizeForecastAssignments(params.assignments ?? {}),
+    sprintPlan: createForecastSprintPlan(params.sprintPlan),
   });
 }

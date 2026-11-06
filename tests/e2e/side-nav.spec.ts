@@ -313,14 +313,16 @@ test.describe('Epic 15: Persistent Side Navigation — Option A (workspace-first
       await expect(page.locator('.pm-side-nav__projects-count')).toHaveText('2');
     });
 
-    test('the Import action is absent in the browser build (native-only path, no second import implementation)', async ({ page }) => {
+    test('Import, Export project and Share for editing are available in the local-only browser build', async ({ page }) => {
       await page.goto(PRODUCT_APP_URL);
       await expect(page.getByRole('heading', { name: 'Workspace' })).toBeVisible();
 
-      // Browser compositions never render the desktop-only Import action;
-      // the desktop flow is certified against the shared use case elsewhere.
-      await expect(page.getByTestId('import-trigger')).toHaveCount(0);
-      await expect(page.locator('.pm-side-nav__action')).toHaveCount(1); // New project only
+      // The local-only build uses the same portable-file paths in the browser
+      // and on the desktop; Import and Export are first-class actions.
+      await expect(page.getByTestId('import-trigger')).toHaveCount(1);
+      await expect(page.getByTestId('export-project-trigger')).toHaveCount(1);
+      await expect(page.getByTestId('share-file-trigger')).toHaveCount(1);
+      await expect(page.locator('.pm-side-nav__action')).toHaveCount(4); // New project, Import, Export project, Share for editing
     });
   });
 

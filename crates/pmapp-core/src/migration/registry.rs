@@ -11,7 +11,7 @@ use crate::db::schema::BASELINE_SCHEMA_VERSION;
 /// A single ordered migration step: target version + SQL that upgrades the
 /// schema FROM (version - 1) TO version. Each step is idempotent (guarded by
 /// `IF NOT EXISTS` where applicable) and runs inside one transaction.
-pub const MIGRATION_STEPS: [MigrationStep; 16] = [
+pub const MIGRATION_STEPS: [MigrationStep; 17] = [
     // v5 (Epic 10, E10-AR9): viewport pan/zoom columns on the isolated
     // Visual view-state lane. Guarded so a fresh v5 baseline (DDL already
     // contains the columns) skips cleanly.
@@ -168,6 +168,13 @@ pub const MIGRATION_STEPS: [MigrationStep; 16] = [
     MigrationStep { version: 18, sql: crate::db::collaboration::JOURNAL_DDL },
     MigrationStep { version: 19, sql: crate::db::recovery_journal::MIGRATION_DDL },
     MigrationStep { version: 20, sql: crate::db::local_file::DDL },
+    // v21 (Delivery Board): the forecast plan's sprint plan (hand placements
+    // and per-sprint capacities). Bare TEXT with a constant `'{}'` default so
+    // a migrated schema and a fresh v21 baseline stay identical.
+    MigrationStep {
+        version: 21,
+        sql: "ALTER TABLE forecast_plans ADD COLUMN sprint_plan TEXT NOT NULL DEFAULT '{}';",
+    },
 ];
 
 pub struct MigrationStep {

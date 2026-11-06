@@ -52,17 +52,17 @@ function openMemory(): Database {
 
 describe('Story 22.15: Browser schema compatibility gate', () => {
   describe('AC 22.15-1: The browser records its schema marker atomically', () => {
-    it('stamps user_version = 20 when preparing a fresh database', () => {
+    it('stamps user_version = 21 when preparing a fresh database', () => {
       const db = openMemory();
       expect(readUserVersion(db)).toBe(0);
 
       prepareProductDatabase(db);
       expect(readUserVersion(db)).toBe(PRODUCT_SCHEMA_VERSION);
-      expect(readUserVersion(db)).toBe(20);
+      expect(readUserVersion(db)).toBe(21);
       db.close();
     });
 
-    it('stamps user_version = 20 on an unmarked legacy database after migration', () => {
+    it('stamps user_version = 21 on an unmarked legacy database after migration', () => {
       const db = openMemory();
       // Simulate an older unmarked database with projects table
       db.exec('CREATE TABLE projects(id TEXT PRIMARY KEY, name TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 0);');
@@ -181,7 +181,7 @@ describe('Story 22.15: Browser schema compatibility gate', () => {
 
       // Tab 1 starts up at current schema (v18)
       const tab1Handler = prepareProductDatabase(db);
-      expect(readUserVersion(db)).toBe(20);
+      expect(readUserVersion(db)).toBe(21);
 
       // Tab 1 executes a valid command successfully
       const projectId = createUuidV7();
@@ -249,8 +249,9 @@ describe('Story 22.15: Browser schema compatibility gate', () => {
 
       // Native derives CURRENT_SCHEMA_VERSION = BASELINE_SCHEMA_VERSION + MIGRATION_STEPS.len()
       // Epic 27 adds coordinated collaboration journals at version 18 and
-      // typed recovery/stream-epoch sidecars plus local file metadata at version 20
-      expect(PRODUCT_SCHEMA_VERSION).toBe(20);
+      // typed recovery/stream-epoch sidecars plus local file metadata at version 20,
+      // and the Delivery Board sprint plan at version 21
+      expect(PRODUCT_SCHEMA_VERSION).toBe(21);
 
       // Verify the native test browser_and_native_schema_versions_match checks this exact TS constant
       expect(nativeContent).toContain('fn browser_and_native_schema_versions_match');
@@ -337,7 +338,7 @@ describe('Story 22.15: Browser schema compatibility gate', () => {
     it('allows a current v15 database to open, verify, and accept commands', () => {
       const db = openMemory();
       const handler = prepareProductDatabase(db);
-      expect(readUserVersion(db)).toBe(20);
+      expect(readUserVersion(db)).toBe(21);
 
       const cmd = createCreateProjectCommand(
         createDomainCreateProject({

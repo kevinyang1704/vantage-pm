@@ -29,7 +29,7 @@ import type { Database } from '@sqlite.org/sqlite-wasm';
  * before executing any writing statement or migration.
  * Keep this in step with `src-tauri/src/db/schema.rs:CURRENT_SCHEMA_VERSION`.
  */
-export const PRODUCT_SCHEMA_VERSION = 20;
+export const PRODUCT_SCHEMA_VERSION = 21;
 
 /**
  * Actionable message shown when a database saved by a newer build is opened.
@@ -332,7 +332,8 @@ export const PRODUCT_SCHEMA_DDL = [
     policy_version      TEXT    NOT NULL DEFAULT 'shared-capacity-v1',
     planning_level      TEXT    NOT NULL DEFAULT 'Feature',
     roster              TEXT    NOT NULL DEFAULT '[]',
-    assignments         TEXT    NOT NULL DEFAULT '{}'
+    assignments         TEXT    NOT NULL DEFAULT '{}',
+    sprint_plan         TEXT    NOT NULL DEFAULT '{}'
   )`,
   // ── Forecast Scenarios table (Epic 20, Story 20.4) ────────────────
   // Saved historical trade-off scenarios: inputs only, never a computed

@@ -4,8 +4,9 @@ import { projectTest } from './custom.fixture';
 import { networkMonitorTest } from './network-error-monitor.fixture';
 import { unexpectedRequestDenylistFixture } from './unexpected-request-denylist.fixture';
 import { todayFixture } from './today.fixture';
+import { forecastViewTest } from './forecast-view.fixture';
 
-export const test = mergeTests(projectTest, networkMonitorTest, unexpectedRequestDenylistFixture, todayFixture);
+export const test = mergeTests(projectTest, networkMonitorTest, unexpectedRequestDenylistFixture, todayFixture, forecastViewTest);
 
 export { expect } from '@playwright/test';
 export type { Cleanup, CleanupRegistry } from './custom.fixture';

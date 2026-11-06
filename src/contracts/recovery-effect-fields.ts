@@ -418,6 +418,14 @@ export const RECOVERY_EFFECT_FIELDS = {
     ],
     "optional": []
   },
+  "ForecastSprintPlanSet": {
+    "required": [
+      "type",
+      "sprintPlan",
+      "priorSprintPlan"
+    ],
+    "optional": []
+  },
   "ForecastScenarioCreated": {
     "required": [
       "type",
@@ -2649,6 +2657,28 @@ export const RECOVERY_EFFECT_SCHEMAS: Readonly<Record<NodeChange['type'], Recove
       },
       "priorBlocked": {
         "schema": "boolean",
+        "optional": false
+      }
+    }
+  },
+  "ForecastSprintPlanSet": {
+    "object": {
+      "type": {
+        "schema": {
+          "literal": "ForecastSprintPlanSet"
+        },
+        "optional": false
+      },
+      "sprintPlan": {
+        "schema": {
+          "custom": "ForecastSprintPlan"
+        },
+        "optional": false
+      },
+      "priorSprintPlan": {
+        "schema": {
+          "custom": "ForecastSprintPlan"
+        },
         "optional": false
       }
     }

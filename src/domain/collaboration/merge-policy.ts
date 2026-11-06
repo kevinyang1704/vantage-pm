@@ -53,6 +53,7 @@ export function mergeClassFor(type: ProductCommand['type']): MergeClass {
     case 'UpdateNodeQuestion':
     case 'ResolveNodeQuestion':
     case 'SetForecastBlocker':
+    case 'SetForecastSprintPlan':
     case 'SetForecastPlanningLevel':
     case 'UpdateForecastPerson':
       return 'same-field';

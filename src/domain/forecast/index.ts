@@ -12,6 +12,9 @@ export {
   createEmptyForecastPlan,
   createForecastConfiguration,
   createForecastPlan,
+  createForecastSprintPlan,
+  sameForecastSprintPlan,
+  EMPTY_FORECAST_SPRINT_PLAN,
 } from './forecast-plan.entity';
 export type {
   ForecastPlan,
@@ -20,6 +23,8 @@ export type {
   ForecastPolicyVersion,
   ForecastCadence,
   ForecastPerson,
+  ForecastSprintPlan,
+  ForecastSprintPlacement,
 } from './forecast-plan.entity';
 export {
   isFiniteNonNegativeSafeInteger,
@@ -67,6 +72,7 @@ export {
   createRemoveForecastPlanCommand,
   createSetForecastMembershipCommand,
   createSetForecastBlockerCommand,
+  createSetForecastSprintPlanCommand,
   createReorderForecastFeaturesCommand,
   createSetForecastSequenceCommand,
   createSetForecastParallelGroupsCommand,
@@ -90,6 +96,7 @@ export type {
   RemoveForecastPlanCommand,
   SetForecastMembershipCommand,
   SetForecastBlockerCommand,
+  SetForecastSprintPlanCommand,
   ReorderForecastFeaturesCommand,
   SetForecastSequenceCommand,
   SetForecastParallelGroupsCommand,

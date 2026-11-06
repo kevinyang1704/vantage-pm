@@ -4,7 +4,7 @@ import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const skipped = new Set(['.git', 'node_modules', 'dist', 'target', '.test-tmp', '.tools', 'coverage', 'test-results', 'playwright-report', 'blob-report']);
+const skipped = new Set(['.git', 'node_modules', 'release', 'dist', 'target', '.test-tmp', '.tools', 'coverage', 'test-results', 'playwright-report', 'blob-report']);
 const marketingDirectory = /(^|\/)(marketing(?:-evidence)?|landing(?:-page)?|website)(\/|$)/i;
 const marketingScript = /^scripts\/[^/]*(marketing|landing-page)[^/]*\.(mjs|js|ts|ps1|bat)$/i;
 

@@ -18,7 +18,8 @@ import {
   isValidStaffingWeightUnits,
 } from './forecast-validators';
 import type { ForecastScenarioPatch, PersistedForecastScenario } from './scenario';
-import type { ForecastNodeLevel, ForecastPerson } from './forecast-plan.entity';
+import type { ForecastNodeLevel, ForecastPerson, ForecastSprintPlan } from './forecast-plan.entity';
+import { createForecastSprintPlan } from './forecast-plan.entity';
 
 export type ConfigureForecastPlanCommand = Readonly<{
   type: 'ConfigureForecastPlan';
@@ -981,4 +982,39 @@ export function createSetForecastPolicyCommand(params: {
   });
 }
 
+// ── Delivery Board sprint plan ─────────────────────────────────────────────
 
+/**
+ * Replace the plan's hand-authored sprint plan (Delivery Board): which sprint
+ * each hand-placed item starts in, and any per-sprint capacity override. The
+ * whole value is set at once so undo is the same command carrying the prior
+ * value. The repository stores it as given; placement rules (capacity,
+ * dependencies, blockers) are checked by the board before it sends one.
+ */
+export type SetForecastSprintPlanCommand = Readonly<{
+  type: 'SetForecastSprintPlan';
+  commandId: string;
+  projectId: string;
+  baseRevision: number;
+  sprintPlan: ForecastSprintPlan;
+}>;
+
+export function createSetForecastSprintPlanCommand(params: {
+  commandId: string;
+  projectId: string;
+  baseRevision: number;
+  sprintPlan: ForecastSprintPlan;
+}): SetForecastSprintPlanCommand {
+  assertUuidV7(params.commandId, 'commandId must be a valid UUIDv7');
+  assertUuidV7(params.projectId, 'projectId must be a valid UUIDv7');
+  if (!Number.isSafeInteger(params.baseRevision) || params.baseRevision < 0) {
+    throw new Error('INVALID_BASE_REVISION');
+  }
+  return Object.freeze({
+    type: 'SetForecastSprintPlan',
+    commandId: params.commandId,
+    projectId: params.projectId,
+    baseRevision: params.baseRevision,
+    sprintPlan: createForecastSprintPlan(params.sprintPlan),
+  });
+}

@@ -63,19 +63,19 @@ function makePorts(overrides: Partial<ExportProjectPorts> = {}): ExportProjectPo
 }
 
 describe('exportProject (Epic 13 Task 3)', () => {
-  it('exports a v9 envelope containing the full authored graph', async () => {
+  it('exports a v10 envelope containing the full authored graph', async () => {
     const result = await exportProject(PROJECT_ID, makePorts());
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.envelope.schemaVersion).toBe(9);
+    expect(result.envelope.schemaVersion).toBe(10);
     expect(result.envelope.project.id).toBe(PROJECT_ID);
-    if (result.envelope.schemaVersion === 9) {
+    if (result.envelope.schemaVersion === 10) {
       expect(result.envelope.nodes).toHaveLength(1);
       expect(result.envelope.openQuestions).toHaveLength(0);
     }
     expect(result.snapshotRevision).toBe(7);
     const parsed = JSON.parse(result.json);
-    expect(parsed.schemaVersion).toBe(9);
+    expect(parsed.schemaVersion).toBe(10);
     expect(parsed.nodes[0].title).toBe('Vision');
   });
 

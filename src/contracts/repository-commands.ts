@@ -1,4 +1,5 @@
 import { validateDeletionBundle } from './deletion-bundle';
+import { createForecastSprintPlan } from '../domain/forecast/forecast-plan.entity';
 /**
  * Repository command contracts (Epic 1, Epic 2, Epic 3, AD-4, AD-7, AD-8, AD-9, AD-16).
  *
@@ -667,6 +668,19 @@ export type SetForecastBlockerWireCommand = Readonly<{
   blocked: boolean;
 }>;
 
+/** Delivery Board sprint plan: replaces the plan's whole sprint plan. */
+export type SetForecastSprintPlanWireCommand = Readonly<{
+  type: 'SetForecastSprintPlan';
+  protocolVersion: typeof PROTOCOL_VERSION;
+  commandId: string;
+  projectId: string;
+  baseRevision: number;
+  expectedRevision: number;
+  /** Actor identity (Story 27.3). Optional on the wire; the repository stamps it. */
+  actorId?: string;
+  sprintPlan: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
+}>;
+
 // ── Epic 20 Wire Commands (Story 20.4) ────────────────────────────────
 
 export type CreateForecastScenarioWireCommand = Readonly<{
@@ -965,6 +979,7 @@ export type ProductCommand =
   | RestoreForecastScopeWireCommand
   // Epic 20 commands
   | SetForecastBlockerWireCommand
+  | SetForecastSprintPlanWireCommand
   | CreateForecastScenarioWireCommand
   | RemoveForecastScenarioWireCommand
   | RestoreForecastScenarioWireCommand
@@ -1032,6 +1047,7 @@ export type ProductCommandRejected = Readonly<{
     | 'FORECAST_CONFIG_INVALID'
     | 'FORECAST_POLICY_UNSUPPORTED'
     | 'FORECAST_BLOCKER_INVALID'
+    | 'FORECAST_SPRINT_PLAN_INVALID'
     | 'FORECAST_SCENARIO_INVALID'
     | 'FORECAST_SCENARIO_STALE'
     | 'FORECAST_SCENARIO_NOT_FOUND'
@@ -1960,6 +1976,23 @@ export function createSetForecastBlockerWireCommand(
   });
 }
 
+export function createSetForecastSprintPlanWireCommand(
+  domain: import('../domain/forecast/forecast.commands').SetForecastSprintPlanCommand,
+): SetForecastSprintPlanWireCommand {
+  assertUuidV7(domain.commandId, 'commandId');
+  assertUuidV7(domain.projectId, 'projectId');
+  if (!Number.isSafeInteger(domain.baseRevision) || domain.baseRevision < 0) throw new Error('INVALID_BASE_REVISION');
+  return Object.freeze({
+    type: 'SetForecastSprintPlan',
+    protocolVersion: PROTOCOL_VERSION,
+    commandId: domain.commandId,
+    projectId: domain.projectId,
+    baseRevision: domain.baseRevision,
+    expectedRevision: domain.baseRevision + 1,
+    sprintPlan: createForecastSprintPlan(domain.sprintPlan),
+  });
+}
+
 export function createCreateForecastScenarioWireCommand(
   domain: import('../domain/forecast/forecast.commands').CreateForecastScenarioCommand,
 ): CreateForecastScenarioWireCommand {
@@ -2551,6 +2584,22 @@ export function validateRemoveForecastPlanWireCommand(input: unknown): RemoveFor
 
 // ── Epic 20 Validators (Story 20.1) ───────────────────────────────────
 
+export function validateSetForecastSprintPlanWireCommand(input: unknown): SetForecastSprintPlanWireCommand {
+  if (!input || typeof input !== 'object') throw new Error('INVALID_COMMAND');
+  const cmd = input as Partial<SetForecastSprintPlanWireCommand>;
+  if (cmd.type !== 'SetForecastSprintPlan' || cmd.protocolVersion !== PROTOCOL_VERSION) {
+    throw new Error('PROTOCOL_VERSION_MISMATCH');
+  }
+  assertUuidV7(String(cmd.commandId), 'commandId');
+  assertUuidV7(String(cmd.projectId), 'projectId');
+  if (!Number.isSafeInteger(cmd.baseRevision) || Number(cmd.baseRevision) < 0) throw new Error('INVALID_BASE_REVISION');
+  if (!Number.isSafeInteger(cmd.expectedRevision) || cmd.expectedRevision !== Number(cmd.baseRevision) + 1) {
+    throw new Error('INVALID_COMMAND');
+  }
+  const sprintPlan = createForecastSprintPlan(cmd.sprintPlan);
+  return Object.freeze({ ...(cmd as SetForecastSprintPlanWireCommand), sprintPlan });
+}
+
 export function validateSetForecastBlockerWireCommand(input: unknown): SetForecastBlockerWireCommand {
   if (!input || typeof input !== 'object') throw new Error('INVALID_COMMAND');
   const cmd = input as Partial<SetForecastBlockerWireCommand>;
@@ -2996,6 +3045,8 @@ export function validateProductCommand(input: unknown): ProductCommand {
       return validateRemoveForecastPlanWireCommand(input);
     case 'SetForecastBlocker':
       return validateSetForecastBlockerWireCommand(input);
+    case 'SetForecastSprintPlan':
+      return validateSetForecastSprintPlanWireCommand(input);
     case 'CreateForecastScenario':
       return validateCreateForecastScenarioWireCommand(input);
     case 'RemoveForecastScenario':

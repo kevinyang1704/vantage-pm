@@ -883,6 +883,24 @@ pub struct SetForecastBlockerCommand {
     pub blocked: bool,
 }
 
+/// Delivery Board sprint plan: replaces the plan's whole sprint plan (hand
+/// placements and per-sprint capacities). The value is validated by the
+/// handler and stored as canonical JSON.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SetForecastSprintPlanCommand {
+    #[serde(skip)]
+    pub command_name: String,
+    pub protocol_version: String,
+    pub command_id: String,
+    pub project_id: String,
+    pub base_revision: i64,
+    pub expected_revision: i64,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub actor_id: Option<String>,
+    pub sprint_plan: serde_json::Value,
+}
+
 // ── Epic 20 commands (Story 20.4) ─────────────────────────────────────────
 // The scenario baseline + patch are opaque validated JSON to the native
 // layer — stored as blobs and reproduced verbatim (AD-22).
@@ -1186,6 +1204,7 @@ pub enum ProductCommand {
     ConfigureForecastPlan(ConfigureForecastPlanCommand),
     SetForecastMembership(SetForecastMembershipCommand),
     SetForecastBlocker(SetForecastBlockerCommand),
+    SetForecastSprintPlan(SetForecastSprintPlanCommand),
     CreateForecastScenario(CreateForecastScenarioCommand),
     RemoveForecastScenario(RemoveForecastScenarioCommand),
     RestoreForecastScenario(RestoreForecastScenarioCommand),
@@ -1461,6 +1480,11 @@ pub enum NodeChange {
         blocked: bool,
         prior_blocked: bool,
     },
+    // ── Delivery Board sprint plan ─────────────────────────────────────
+    ForecastSprintPlanSet {
+        sprint_plan: serde_json::Value,
+        prior_sprint_plan: serde_json::Value,
+    },
     // ── Epic 20 changes (Story 20.4) ───────────────────────────────────
     ForecastScenarioCreated {
         scenario: serde_json::Value,
@@ -1654,6 +1678,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => &c.command_id,
             ProductCommand::SetForecastMembership(c) => &c.command_id,
             ProductCommand::SetForecastBlocker(c) => &c.command_id,
+            ProductCommand::SetForecastSprintPlan(c) => &c.command_id,
             ProductCommand::CreateForecastScenario(c) => &c.command_id,
             ProductCommand::RemoveForecastScenario(c) => &c.command_id,
             ProductCommand::RestoreForecastScenario(c) => &c.command_id,
@@ -1719,6 +1744,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => c.actor_id.as_deref(),
             ProductCommand::SetForecastMembership(c) => c.actor_id.as_deref(),
             ProductCommand::SetForecastBlocker(c) => c.actor_id.as_deref(),
+            ProductCommand::SetForecastSprintPlan(c) => c.actor_id.as_deref(),
             ProductCommand::CreateForecastScenario(c) => c.actor_id.as_deref(),
             ProductCommand::RemoveForecastScenario(c) => c.actor_id.as_deref(),
             ProductCommand::RestoreForecastScenario(c) => c.actor_id.as_deref(),
@@ -1783,6 +1809,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => &c.project_id,
             ProductCommand::SetForecastMembership(c) => &c.project_id,
             ProductCommand::SetForecastBlocker(c) => &c.project_id,
+            ProductCommand::SetForecastSprintPlan(c) => &c.project_id,
             ProductCommand::CreateForecastScenario(c) => &c.project_id,
             ProductCommand::RemoveForecastScenario(c) => &c.project_id,
             ProductCommand::RestoreForecastScenario(c) => &c.project_id,
@@ -1847,6 +1874,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => c.base_revision,
             ProductCommand::SetForecastMembership(c) => c.base_revision,
             ProductCommand::SetForecastBlocker(c) => c.base_revision,
+            ProductCommand::SetForecastSprintPlan(c) => c.base_revision,
             ProductCommand::CreateForecastScenario(c) => c.base_revision,
             ProductCommand::RemoveForecastScenario(c) => c.base_revision,
             ProductCommand::RestoreForecastScenario(c) => c.base_revision,
@@ -1911,6 +1939,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => c.expected_revision,
             ProductCommand::SetForecastMembership(c) => c.expected_revision,
             ProductCommand::SetForecastBlocker(c) => c.expected_revision,
+            ProductCommand::SetForecastSprintPlan(c) => c.expected_revision,
             ProductCommand::CreateForecastScenario(c) => c.expected_revision,
             ProductCommand::RemoveForecastScenario(c) => c.expected_revision,
             ProductCommand::RestoreForecastScenario(c) => c.expected_revision,
@@ -1975,6 +2004,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(_) => "ConfigureForecastPlan",
             ProductCommand::SetForecastMembership(_) => "SetForecastMembership",
             ProductCommand::SetForecastBlocker(_) => "SetForecastBlocker",
+            ProductCommand::SetForecastSprintPlan(_) => "SetForecastSprintPlan",
             ProductCommand::CreateForecastScenario(_) => "CreateForecastScenario",
             ProductCommand::RemoveForecastScenario(_) => "RemoveForecastScenario",
             ProductCommand::RestoreForecastScenario(_) => "RestoreForecastScenario",
@@ -2039,6 +2069,7 @@ impl ProductCommand {
             ProductCommand::ConfigureForecastPlan(c) => &c.protocol_version,
             ProductCommand::SetForecastMembership(c) => &c.protocol_version,
             ProductCommand::SetForecastBlocker(c) => &c.protocol_version,
+            ProductCommand::SetForecastSprintPlan(c) => &c.protocol_version,
             ProductCommand::CreateForecastScenario(c) => &c.protocol_version,
             ProductCommand::RemoveForecastScenario(c) => &c.protocol_version,
             ProductCommand::RestoreForecastScenario(c) => &c.protocol_version,

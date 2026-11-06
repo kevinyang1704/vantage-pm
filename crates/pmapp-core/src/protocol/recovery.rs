@@ -154,6 +154,7 @@ pub struct RecoveryForecastPlansRow {
     pub planning_level: String,
     pub roster: String,
     pub assignments: String,
+    pub sprint_plan: String,
 }
 #[derive(Debug,Clone,Serialize,Deserialize)]
 #[serde(rename_all="camelCase",deny_unknown_fields)]

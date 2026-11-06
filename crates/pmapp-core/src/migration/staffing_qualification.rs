@@ -248,10 +248,10 @@ fn v13_applies_exactly_the_two_staffing_steps() {
     // Steps after v13: v14 roster, v15 assignments (Story 22.4), then v16
     // points-done (Story 26.5) and v17 actor-id (Epic 27, Story 27.3) — later,
     // unrelated steps, followed by v18 collaboration journals and v19
-    // recovery/stream-epoch sidecars. The first two
-    // are the staffing steps this test names.
+    // recovery/stream-epoch sidecars and v21 the Delivery Board sprint plan.
+    // The first two are the staffing steps this test names.
     let pending: Vec<i64> = migration_steps().iter().map(|s| s.version).filter(|v| *v > 13).collect();
-    assert_eq!(pending, vec![14, 15, 16, 17, 18, 19, 20]);
+    assert_eq!(pending, vec![14, 15, 16, 17, 18, 19, 20, 21]);
     let sql: Vec<&str> = migration_steps().iter().filter(|s| s.version > 13).map(|s| s.sql).collect();
     assert!(sql[0].contains("ADD COLUMN roster") && sql[1].contains("ADD COLUMN assignments"));
     assert!(sql[2].contains("ADD COLUMN effort_points_done"));
@@ -259,6 +259,7 @@ fn v13_applies_exactly_the_two_staffing_steps() {
     assert!(sql[4].contains("CREATE TABLE IF NOT EXISTS collaboration_outbox"));
     assert!(sql[5].contains("collaboration_recovery_archive"));
     assert!(sql[6].contains("local_file_state"));
+    assert!(sql[7].contains("ADD COLUMN sprint_plan"));
 }
 
 // ── AC 22.13-2: repeating startup is a no-op ──────────────────────────────

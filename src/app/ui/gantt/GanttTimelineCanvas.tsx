@@ -56,6 +56,7 @@ export interface GanttTimelineCanvasProps {
    * at least 800 px wide; Fit passes 0 so the timeline matches the canvas.
    */
   readonly minWidthPx?: number;
+  readonly onHorizontalScroll?: (left: number, width: number) => void;
   readonly focusedNodeId: string | null;
   /**
    * Optional handle onto the scrolling root, so the parent can mirror this
@@ -98,6 +99,7 @@ export function GanttTimelineCanvas({
   nodes = [],
   pixelsPerDay = 8,
   minWidthPx = 800,
+  onHorizontalScroll,
   focusedNodeId,
   scrollRef,
   onSelectNode,
@@ -259,6 +261,10 @@ export function GanttTimelineCanvas({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       className="pm-gantt-canvas"
+      data-axis-start={minDate}
+      data-axis-end={maxDate}
+      data-pixels-per-day={pixelsPerDay}
+      onScroll={(event) => onHorizontalScroll?.(event.currentTarget.scrollLeft, event.currentTarget.clientWidth)}
     >
       {/* Header Columns Track — major intervals only (E14-AR3) */}
       {headerColumns.length > 0 && (
@@ -274,6 +280,8 @@ export function GanttTimelineCanvas({
               <div
                 key={col.id}
                 role="columnheader"
+                data-start-date={col.startDate}
+                data-end-date={col.endDate}
                 className="pm-gantt-canvas__header-col"
                 style={{
                   width: `${col.pixelWidth}px`,
@@ -326,6 +334,8 @@ export function GanttTimelineCanvas({
             key={`phase-line-${phase.phaseId}`}
             aria-hidden="true"
             className="pm-gantt-canvas__phase-band"
+            data-start-date={phase.startDate}
+            data-end-date={phase.endDate}
             style={{
               left: `${phase.startX}px`,
               width: `${Math.max(1, phase.endX - phase.startX)}px`,
@@ -370,6 +380,8 @@ export function GanttTimelineCanvas({
             {dependencyRoutes.map((route) => (
               <path
                 key={route.edgeId}
+                data-source-id={route.sourceNodeId}
+                data-target-id={route.targetNodeId}
                 d={route.pathD}
                 fill="none"
                 stroke={
@@ -412,6 +424,7 @@ export function GanttTimelineCanvas({
           return (
             <div
               key={row.nodeId}
+              data-node-id={row.nodeId}
               className={`pm-gantt-canvas__row ${isFocused ? 'pm-gantt-canvas__row--focused' : ''}`}
               style={{
                 top: `${topPx}px`,
@@ -429,6 +442,9 @@ export function GanttTimelineCanvas({
                   onClick={() => onSelectNode(row.nodeId)}
                   onPointerDown={(e) => handleStartDrag(e, row, 'body')}
                   title={`${row.title || 'Untitled'} (${activeStartDate} – ${activeEndDate}, ${isBeingDragged ? dragState.currentDurationDays : row.durationDays}d)`}
+                  data-node-id={row.nodeId}
+                  data-start-date={activeStartDate}
+                  data-end-date={activeEndDate}
                   className={`pm-gantt-canvas__bar
                     ${row.workstreamHueIndex !== null ? `pm-gantt-canvas__bar--ws is-ws${row.workstreamHueIndex}` : ''}
                     ${isBeingDragged ? 'pm-gantt-canvas__bar--dragging' : ''}
@@ -471,6 +487,9 @@ export function GanttTimelineCanvas({
                   onClick={() => onSelectNode(row.nodeId)}
                   onPointerDown={(e) => handleStartDrag(e, row, 'body')}
                   title={`${spanNoun}: ${row.title || 'Untitled'} (${row.startDate} – ${row.endDate}, ${row.durationDays}d)`}
+                  data-node-id={row.nodeId}
+                  data-start-date={activeStartDate}
+                  data-end-date={activeEndDate}
                   className={`pm-gantt-canvas__derived
                     ${isStrategicSummary ? 'pm-gantt-canvas__derived--summary' : ''}
                     ${row.barKind !== 'derived' ? 'pm-gantt-canvas__derived--movable' : ''}

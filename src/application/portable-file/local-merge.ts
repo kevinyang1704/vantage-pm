@@ -2,7 +2,7 @@ import { createUuidV7, assertUuidV7 } from '../../../spikes/phase-0-durability/s
 import { computeForecastFingerprintSync as rawHash } from '../../domain/forecast/forecast-canonical';
 import { validateUnlockEdge } from '../../domain/edge/unlock-edge.policy';
 import { canParentNodeType } from '../../domain/tree/node-hierarchy.policy';
-import { validatePortableFileEnvelope, type PortableProjectSnapshot, type PortableFileEnvelopeV9, type PortableNode } from '../../contracts/portable-file.schema';
+import { validatePortableFileEnvelope, type PortableProjectSnapshot, type PortableFileEnvelopeV10, type PortableNode } from '../../contracts/portable-file.schema';
 import type { BranchLink, LocalFileState, LocalShareBundle, ParsedLocalFile, MergeReview, MergeChange, MergeDecision } from '../../contracts/local-file-collaboration';
 import { importProject, envelopeToSnapshot, remapPortableSnapshot } from './import-project';
 export type { LocalFileState, LocalShareBundle, ParsedLocalFile, MergeReview, MergeChange, MergeDecision } from '../../contracts/local-file-collaboration';
@@ -60,15 +60,15 @@ function checkJsonDepth(raw:string):void {
   }
 }
 function object(value: unknown): Row { if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid collaboration object.'); return value as Row; }
-export function snapshotEnvelope(snapshot: PortableProjectSnapshot): PortableFileEnvelopeV9 {
+export function snapshotEnvelope(snapshot: PortableProjectSnapshot): PortableFileEnvelopeV10 {
   const { projectId, projectName, projectRevision: _revision, ...content } = snapshot;
-  return { schemaVersion: 9, exportedAt: '2026-01-01T00:00:00.000Z', project: { id: projectId, name: projectName }, ...content };
+  return { schemaVersion: 10, exportedAt: '2026-01-01T00:00:00.000Z', project: { id: projectId, name: projectName }, ...content };
 }
 export function validateLocalSnapshot(value: unknown): PortableProjectSnapshot {
   const obj = object(value);
   const result = validatePortableFileEnvelope(snapshotEnvelope(obj as unknown as PortableProjectSnapshot));
   if (!result.ok) throw new Error(`Invalid project: ${result.error.type}`);
-  const normalized = envelopeToSnapshot(result.value as PortableFileEnvelopeV9);
+  const normalized = envelopeToSnapshot(result.value as PortableFileEnvelopeV10);
   const revision = obj.projectRevision;
   if (!Number.isSafeInteger(revision) || (revision as number) < 1) throw new Error('Invalid project revision.');
   // Portable validation covers references/containment; also preserve typed hierarchy invariants.

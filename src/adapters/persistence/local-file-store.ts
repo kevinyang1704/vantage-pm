@@ -89,8 +89,8 @@ function replace(db: Database, snapshot: PortableProjectSnapshot, nextRevision: 
                 let value = record[field];
                 if (field === 'position')
                     value = String(value);
-                if (table === 'forecast_plans' && ['selectedFeatureIds', 'parallelGroups', 'blockedFeatureIds', 'roster', 'assignments'].includes(field))
-                    return JSON.stringify(value ?? (field === 'assignments' ? {} : []));
+                if (table === 'forecast_plans' && ['selectedFeatureIds', 'parallelGroups', 'blockedFeatureIds', 'roster', 'assignments', 'sprintPlan'].includes(field))
+                    return JSON.stringify(value ?? (field === 'assignments' || field === 'sprintPlan' ? {} : []));
                 if (field === 'deliveryStatus')
                     value ??= 'not_started';
                 if (field === 'planningLevel')

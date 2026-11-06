@@ -191,6 +191,8 @@ export interface ForecastWorkspaceProps {
   readonly backlogWidth?: number;
   /** Callback when the user resizes the left backlog panel. */
   readonly onBacklogWidthChange?: (width: number) => void;
+  /** Switch to the Delivery Board surface. */
+  readonly onSwitchView?: () => void;
 }
 
 interface GroupInfoEntry {
@@ -307,6 +309,7 @@ export function ForecastWorkspace({
   onSaveWhatIf,
   backlogWidth,
   onBacklogWidthChange,
+  onSwitchView,
 }: ForecastWorkspaceProps): React.ReactElement {
   const [localBacklogWidth, setLocalBacklogWidth] = useState<number>(
     backlogWidth ?? FORECAST_BACKLOG_DEFAULT_WIDTH,
@@ -2239,7 +2242,16 @@ export function ForecastWorkspace({
       <div className="pm-forecast__list" role="region" aria-label="Forecast planning list" ref={listScrollRef}>
         {!plan ? (
           levelOptions && onChoosePlanningLevel ? (
-            <PlanningLevelStep options={levelOptions} onChoose={(lvl) => { onChoosePlanningLevel(lvl); openConfig(); }} />
+            <>
+              {onSwitchView && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '6px 10px' }}>
+                  <button type="button" className="pm-forecast__button pm-forecast__button--small" onClick={onSwitchView}>
+                    Delivery board
+                  </button>
+                </div>
+              )}
+              <PlanningLevelStep options={levelOptions} onChoose={(lvl) => { onChoosePlanningLevel(lvl); openConfig(); }} />
+            </>
           ) : (
             <div className="pm-forecast__empty">
               <p className="pm-forecast__empty-title">No forecast configured</p>
@@ -2250,6 +2262,16 @@ export function ForecastWorkspace({
               <button type="button" className="pm-forecast__button pm-forecast__button--primary" onClick={openConfig}>
                 Configure plan
               </button>
+              {onSwitchView && (
+                <button
+                  type="button"
+                  className="pm-forecast__button"
+                  style={{ marginTop: 'var(--pm-space-2)' }}
+                  onClick={onSwitchView}
+                >
+                  Delivery board
+                </button>
+              )}
             </div>
           )
         ) : (
@@ -2401,6 +2423,15 @@ export function ForecastWorkspace({
                 <option value="staffed-capacity-v1">Assigned people</option>
                   </select>
                 </div>
+              )}
+              {onSwitchView && (
+                <button
+                  type="button"
+                  className="pm-forecast__button pm-forecast__button--small"
+                  onClick={onSwitchView}
+                >
+                  Delivery board
+                </button>
               )}
             </div>
 

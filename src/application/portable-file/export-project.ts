@@ -99,7 +99,7 @@ export async function exportProject(projectId: string, ports: ExportProjectPorts
   }
 
   const envelope: PortableFileEnvelope = Object.freeze({
-    schemaVersion: PORTABLE_FILE_SCHEMA_VERSION as 9,
+    schemaVersion: PORTABLE_FILE_SCHEMA_VERSION as 10,
     exportedAt: ports.clock.nowISO(),
     project: Object.freeze({
       id: project.id,

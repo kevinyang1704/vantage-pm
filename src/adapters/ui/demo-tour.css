@@ -1,0 +1,45 @@
+.pm-demo-tour {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pm-text-primary);
+  overflow: hidden;
+}
+.pm-demo-tour::backdrop { background: transparent; }
+.pm-demo-tour__shade {
+  position: absolute;
+  background: color-mix(in srgb, var(--pm-canvas) 78%, transparent);
+  pointer-events: none;
+}
+.pm-demo-tour__spotlight {
+  position: absolute;
+  border: 2px solid var(--pm-focus);
+  border-radius: 6px;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+.pm-demo-tour__card {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 22px;
+  border: 1px solid var(--pm-border-strong);
+  border-radius: 12px;
+  background: var(--pm-elevated);
+  overflow: auto;
+  font-family: inherit;
+}
+.pm-demo-tour__progress { margin: 0 0 12px; font-size: 12px; color: var(--pm-text-secondary); }
+.pm-demo-tour__card h2 { margin: 0 0 10px; font-size: 19px; line-height: 1.3; }
+.pm-demo-tour__card > p:last-of-type { margin: 0 0 22px; font-size: 14px; line-height: 1.65; color: var(--pm-text-secondary); }
+.pm-demo-tour__actions { display: flex; gap: 8px; align-items: center; }
+.pm-demo-tour__actions span { flex: 1; }
+.pm-demo-tour__actions button { cursor: pointer; padding: 8px 10px; border: 1px solid var(--pm-border); border-radius: 6px; background: var(--pm-surface); color: var(--pm-text-primary); font: inherit; font-size: 12px; white-space: nowrap; }
+.pm-demo-tour__actions .pm-demo-tour__next { background: var(--pm-accent-strong); color: var(--pm-text-on-focus); border-color: var(--pm-accent-strong); }
+.pm-demo-tour__actions button:focus-visible { outline: 2px solid var(--pm-focus); outline-offset: 3px; }

@@ -30,6 +30,7 @@ import type { ProjectAnalysisInput } from '../../application/workspace/workspace
 import { coerceDeliveryStatus } from '../../domain/tree/node.entity';
 import {
   canonicalizeForecastAssignments,
+  createForecastSprintPlan,
   type ForecastPolicyVersion,
 } from '../../domain/forecast/forecast-plan.entity';
 import { normalizePersistedForecastScenario } from '../../domain/forecast/scenario';
@@ -206,6 +207,7 @@ export async function queryNativeAnalysisSnapshot(projectId: string): Promise<An
             // (Story 22.10, R1): replacing them with `{}` made every staffed
             // native plan analyse as incomplete after load, reload or resync.
             assignments: canonicalizeForecastAssignments(fp.assignments ?? {}),
+            sprintPlan: createForecastSprintPlan(fp.sprintPlan),
           }),
         }
       : {}),
@@ -598,9 +600,22 @@ export async function queryNativePortableSnapshot(projectId: string): Promise<Po
             startSprintOrdinal: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.startSprintOrdinal,
             startDate: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.startDate,
             policyVersion: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.policyVersion,
-            roster: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.roster ?? [],
-            assignments: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.assignments ?? {},
-          }),
+              roster: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.roster ?? [],
+              assignments: (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.assignments ?? {},
+              ...((snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!.sprintPlan
+                ? {
+                    sprintPlan: (() => {
+                      const native = (snapshot as NativeProjectSnapshotWithForecastPlan).forecastPlan!;
+                      const sprintPlan = createForecastSprintPlan(native.sprintPlan);
+                      // Same as the browser export: only items still in the plan.
+                      return Object.freeze({
+                        placements: Object.freeze(sprintPlan.placements.filter((p) => native.selectedFeatureIds.includes(p.itemId))),
+                        capacities: sprintPlan.capacities,
+                      });
+                    })(),
+                  }
+                : {}),
+            }),
         }
       : {}),
     ...(((snapshot as NativeProjectSnapshotWithForecastPlan).forecastScenarios?.length ?? 0) > 0
@@ -648,6 +663,7 @@ interface NativeProjectSnapshotWithForecastPlan {
     readonly policyVersion: string;
     readonly roster?: readonly import('../../domain/forecast/forecast-plan.entity').ForecastPerson[];
     readonly assignments?: Readonly<Record<string, readonly string[]>>;
+    readonly sprintPlan?: import('../../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
   };
   readonly forecastScenarios?: readonly unknown[];
 }

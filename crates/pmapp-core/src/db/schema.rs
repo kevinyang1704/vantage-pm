@@ -224,7 +224,8 @@ pub const PRODUCT_SCHEMA_DDL: [&str; 26] = [
     policy_version      TEXT    NOT NULL DEFAULT 'shared-capacity-v1',
     planning_level      TEXT    NOT NULL DEFAULT 'Feature',
     roster              TEXT    NOT NULL DEFAULT '[]',
-    assignments         TEXT    NOT NULL DEFAULT '{}'
+    assignments         TEXT    NOT NULL DEFAULT '{}',
+    sprint_plan         TEXT    NOT NULL DEFAULT '{}'
   )"#,
     // ── Forecast Scenarios table (Epic 20, Story 20.4) ────────────────
     // Saved historical trade-off scenarios: inputs only (AD-22).

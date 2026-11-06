@@ -140,6 +140,27 @@ export function moveBlockToIndex(
 }
 
 /**
+ * Place a feature that was just added to the plan immediately before
+ * `beforeId` (or last when `beforeId` is null or no longer in the order).
+ * Used when a Backlog item is dropped onto the Delivery Board: membership
+ * appends the feature, then this moves it to the drop point. Returns null when
+ * the feature is absent or already in place, so callers skip a no-op write.
+ */
+export function placeFeatureBefore(
+  currentIds: readonly string[],
+  featureId: string,
+  beforeId: string | null,
+  parallelGroups: readonly ForecastParallelGroup[],
+): MoveBlockResult | null {
+  const from = currentIds.indexOf(featureId);
+  if (from === -1) return null;
+  const anchor = beforeId === null || beforeId === featureId ? -1 : currentIds.indexOf(beforeId);
+  const targetIndex = anchor === -1 ? currentIds.length : anchor;
+  if (targetIndex === from || targetIndex === from + 1) return null;
+  return moveBlockToIndex(currentIds, [featureId], targetIndex, parallelGroups);
+}
+
+/**
  * Resolve a bucket member drag (Story 21.3 AC 6/9/10). `targetIndex` is the
  * *raw* item-space drop position (pre-clamp, from `calculateDropIndexFromMidpoints`).
  *

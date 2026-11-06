@@ -215,6 +215,10 @@ pub struct ForecastPlanRow {
     pub roster: Vec<crate::protocol::commands::ForecastPersonDto>,
     #[serde(default)]
     pub assignments: std::collections::HashMap<String, Vec<String>>,
+    /// The Delivery Board's sprint plan (hand placements and per-sprint
+    /// capacities), canonical JSON. Null on a row without the column.
+    #[serde(default)]
+    pub sprint_plan: serde_json::Value,
 }
 
 fn default_planning_level() -> String {
@@ -1248,19 +1252,20 @@ pub fn query_project_snapshot(conn: &Connection, project_id: &str) -> Result<Pro
             Option<String>,
             Option<String>,
             Option<String>,
+            Option<String>,
         )> = conn
             .query_row(
                 "SELECT selected_feature_ids, parallel_groups, blocked_feature_ids, points_per_sprint,
-                        sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level, roster, assignments
+                        sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level, roster, assignments, sprint_plan
                  FROM forecast_plans WHERE project_id = ?1",
                 [project_id],
-                |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?, r.get(10)?, r.get(11)?)),
+                |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?, r.get(10)?, r.get(11)?, r.get(12)?)),
             )
             .optional()
             .map_err(|_| RepositoryError::Internal)?;
         match raw {
             None => None,
-            Some((ids_json, groups_json, blocked_json, pps, sld, cadence, sso, sd, policy, level, roster_json, assignments_json)) => {
+            Some((ids_json, groups_json, blocked_json, pps, sld, cadence, sso, sd, policy, level, roster_json, assignments_json, sprint_json)) => {
                 // Story 21.7 AC 6: a missing/unparseable planning_level
                 // normalizes to "Feature" without panicking or interrupting
                 // background coherence analysis.
@@ -1284,6 +1289,15 @@ pub fn query_project_snapshot(conn: &Connection, project_id: &str) -> Result<Pro
                         planning_level,
                         roster: parse_plan_cell(roster_json.as_deref(), "roster")?,
                         assignments: parse_plan_cell(assignments_json.as_deref(), "assignments")?,
+                        sprint_plan: {
+                            let value: serde_json::Value = match sprint_json.as_deref() {
+                                None => serde_json::Value::Null,
+                                Some(text) => serde_json::from_str(text)
+                                    .map_err(|_| "FORECAST_PLAN_CORRUPT: sprint_plan".to_string())?,
+                            };
+                            crate::db::handler::canonical_sprint_plan(&value)
+                                .ok_or_else(|| "FORECAST_PLAN_CORRUPT: sprint_plan".to_string())?
+                        },
                     })
                 })();
                 match parsed {
@@ -1608,11 +1622,15 @@ pub fn batch_import_portable_with_state(conn:&mut Connection,snapshot:&PortableI
             serde_json::to_string(&plan.roster).unwrap_or_else(|_| "[]".to_string());
         let assignments_json =
             serde_json::to_string(&plan.assignments).unwrap_or_else(|_| "{}".to_string());
+        let sprint_plan_json = crate::db::handler::canonical_sprint_plan(&plan.sprint_plan)
+            .ok_or(RepositoryError::Internal)?
+            .to_string();
         insert(
             "INSERT INTO forecast_plans(
                 project_id, selected_feature_ids, parallel_groups, blocked_feature_ids, points_per_sprint,
-                sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level, roster, assignments
-             ) VALUES(?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)",
+                sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level, roster, assignments,
+                sprint_plan
+             ) VALUES(?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14)",
             &[
                 &snapshot.project_id,
                 &ids_json,
@@ -1627,6 +1645,7 @@ pub fn batch_import_portable_with_state(conn:&mut Connection,snapshot:&PortableI
                 &planning_level,
                 &roster_json,
                 &assignments_json,
+                &sprint_plan_json,
             ],
         )?;
     }
@@ -1777,6 +1796,7 @@ mod tests {
                 planning_level: "Feature".to_string(),
                 roster: vec![],
                 assignments: std::collections::HashMap::new(),
+                sprint_plan: serde_json::Value::Null,
             }),
             forecast_scenarios: vec![],
         }

@@ -23,6 +23,7 @@ import {
   type PortableFileEnvelopeV7,
   type PortableFileEnvelopeV8,
   type PortableFileEnvelopeV9,
+  type PortableFileEnvelopeV10,
   type PortableFileRejection,
   type PortableForecastPlan,
   type PortableForecastScenario,
@@ -44,7 +45,7 @@ export type ImportRejection =
 
 /** Maps a validated v4/v5/v6/v7 envelope onto the persistence-boundary snapshot. */
 export function envelopeToSnapshot(
-  envelope: PortableFileEnvelopeV4 | PortableFileEnvelopeV5 | PortableFileEnvelopeV6 | PortableFileEnvelopeV7 | PortableFileEnvelopeV8 | PortableFileEnvelopeV9,
+  envelope: PortableFileEnvelopeV4 | PortableFileEnvelopeV5 | PortableFileEnvelopeV6 | PortableFileEnvelopeV7 | PortableFileEnvelopeV8 | PortableFileEnvelopeV9 | PortableFileEnvelopeV10,
 ): PortableProjectSnapshot {
   return Object.freeze({
     projectId: envelope.project.id,
@@ -260,6 +261,18 @@ export function remapPortableSnapshot(
       ...(remappedBlockedFeatureIds ? { blockedFeatureIds: Object.freeze(remappedBlockedFeatureIds) } : {}),
       ...(remappedRoster ? { roster: Object.freeze(remappedRoster) } : {}),
       ...(remappedAssignments ? { assignments: remappedAssignments } : {}),
+      ...(origPlan.sprintPlan
+        ? {
+            sprintPlan: Object.freeze({
+              placements: Object.freeze(
+                origPlan.sprintPlan.placements.map((placement) =>
+                  Object.freeze({ itemId: nodeMap.get(placement.itemId) ?? placement.itemId, sprint: placement.sprint }),
+                ),
+              ),
+              capacities: origPlan.sprintPlan.capacities,
+            }),
+          }
+        : {}),
     });
   }
 

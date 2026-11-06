@@ -349,6 +349,12 @@ export type NodeChange =
       blocked: boolean;
       priorBlocked: boolean;
     }>
+  // ── Delivery Board sprint plan ────────────────────────────────────
+  | Readonly<{
+      type: 'ForecastSprintPlanSet';
+      sprintPlan: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
+      priorSprintPlan: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
+    }>
   // ── Epic 20 Changes (Story 20.4) ──────────────────────────────────
   | Readonly<{
       type: 'ForecastScenarioCreated';

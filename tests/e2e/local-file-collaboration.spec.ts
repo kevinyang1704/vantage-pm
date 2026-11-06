@@ -7,7 +7,7 @@ type Page = Parameters<typeof openFirstProjectOutline>[0];
 const titles = (page: Page) => page.locator('input.pm-outline-row__title-input');
 function portable(count = 2) {
   const id = (n: number) => `019a0000-0000-7000-8000-${n.toString().padStart(12, '0')}`;
-  return JSON.stringify({ schemaVersion: 9, exportedAt: '2026-10-28T00:00:00.000Z', project: { id: id(1), name: 'Synthetic shared plan' },
+  return JSON.stringify({ schemaVersion: 10, exportedAt: '2026-10-28T00:00:00.000Z', project: { id: id(1), name: 'Synthetic shared plan' },
     nodes: Array.from({ length: count }, (_, index) => index + 2).map(n => ({ id: id(n), parentId: null, title: n === 2 ? 'Original first' : n === 3 ? 'Original second' : `Branch item ${n}`, bodyText: null, position: String(n * 4294967296), nodeType: null, startDate: null, endDate: null, durationDays: null, scheduleSourceMode: 'none', completed: false, effortPoints: null, effortPointsDone: null, strategicWeight: null, phaseId: null, deliveryStatus: 'not_started' })),
     phases: [], nodeCustomFields: [], typeTemplateFields: [], unlockEdges: [], findingDismissals: [], affectedReasons: [], openQuestions: [] });
 }

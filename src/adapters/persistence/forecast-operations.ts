@@ -20,8 +20,10 @@ import {
   FORECAST_POLICY_VERSION,
   FORECAST_CADENCE,
   DEFAULT_FORECAST_NODE_LEVEL,
+  EMPTY_FORECAST_SPRINT_PLAN,
+  createForecastSprintPlan,
 } from '../../domain/forecast/forecast-plan.entity';
-import type { ForecastPlan, ForecastConfiguration, ForecastNodeLevel, ForecastPerson } from '../../domain/forecast/forecast-plan.entity';
+import type { ForecastPlan, ForecastConfiguration, ForecastNodeLevel, ForecastPerson, ForecastSprintPlan } from '../../domain/forecast/forecast-plan.entity';
 import type { PersistedForecastScenario } from '../../domain/forecast/scenario';
 import { normalizePersistedForecastScenario } from '../../domain/forecast/scenario';
 
@@ -198,6 +200,32 @@ export function readForecastPlan(db: Database, projectId: string): ForecastPlan 
     planningLevel: normalizePlanningLevel(row.planning_level),
     roster: parseRoster(row.roster),
     assignments: parseAssignments(row.assignments),
+    sprintPlan: parseSprintPlan(row.sprint_plan),
+  });
+}
+
+/**
+ * Parse `sprint_plan` (the Delivery Board's hand placements and per-sprint
+ * capacities). `NULL` or a missing column (a row before the column) is the
+ * empty sprint plan; a damaged cell is reported, never silently emptied.
+ */
+function parseSprintPlan(raw: SqlValue | undefined): ForecastSprintPlan {
+  if (raw === null || raw === undefined) return EMPTY_FORECAST_SPRINT_PLAN;
+  try {
+    return createForecastSprintPlan(JSON.parse(String(raw)));
+  } catch {
+    throw new ForecastPlanCorruptError('sprint_plan');
+  }
+}
+
+/**
+ * Store the plan's sprint plan. `writeForecastPlan` never touches this column,
+ * so every other forecast write keeps the hand placements as they are.
+ */
+export function writeForecastSprintPlan(db: Database, projectId: string, sprintPlan: ForecastSprintPlan): void {
+  db.exec({
+    sql: 'UPDATE forecast_plans SET sprint_plan = ? WHERE project_id = ?',
+    bind: [JSON.stringify(createForecastSprintPlan(sprintPlan)), projectId],
   });
 }
 

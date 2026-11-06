@@ -117,7 +117,7 @@ describe('Story 18.2 forecast persistence', () => {
   it('the forecast_plans table exists at the current schema version', async () => {
     await initWorkerDatabase();
     const db = getDatabase();
-    expect(PRODUCT_SCHEMA_VERSION).toBe(20);
+    expect(PRODUCT_SCHEMA_VERSION).toBe(21);
     const table = db?.exec({
       sql: "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'forecast_plans'",
       rowMode: 'object',
@@ -2538,7 +2538,7 @@ describe('Story 21.7 — SetForecastPlanningLevel (FR-13, D4/D7)', () => {
     it('a fresh database carries the version 16 assignments column (AC 22.4-8, current schema only)', async () => {
       await initWorkerDatabase();
       const db = getDatabase()!;
-      expect(PRODUCT_SCHEMA_VERSION).toBe(20);
+      expect(PRODUCT_SCHEMA_VERSION).toBe(21);
       const cols = db.exec({
         sql: 'PRAGMA table_info(forecast_plans)',
         rowMode: 'object',
@@ -2650,7 +2650,7 @@ describe('Story 21.7 — SetForecastPlanningLevel (FR-13, D4/D7)', () => {
       expect(saved.patch.assignmentOverrides).toEqual({ [featureB]: [personBob] });
 
       // AC 23.3-6: Schema version 16, versioned JSON storage safely supports staffed scenario records
-      expect(PRODUCT_SCHEMA_VERSION).toBe(20);
+      expect(PRODUCT_SCHEMA_VERSION).toBe(21);
     });
 
     it('saves and reloads weight overrides of 1000.00 and 1000.01 like live weights (AC 23.9-1/-2)', async () => {

@@ -1,6 +1,6 @@
 # Vantage PM
 
-A local-first product planning app. Maintain one vision tree and work with it through an outline, visual tree, Gantt chart, capacity forecasts, and Word or PowerPoint exports.
+A local-first product planning app. Maintain one vision tree and work with it through an outline, visual tree, fixed-horizon Gantt chart, capacity forecasts, hand-planned delivery sprints, and Word or PowerPoint exports.
 
 This public repository contains the app, its local runtimes, tests, and documentation. The marketing website and landing-page code are maintained separately and are excluded here.
 
@@ -27,6 +27,14 @@ You can also import an independent project as a new branch, or create a separate
 
 Files contain the whole shared project and its recorded checkpoints. Nothing synchronizes automatically. See the [local collaboration guide](docs/local-collaboration.md) for conflict handling, recovery, and the 30 MB / 32-checkpoint limits.
 
+## Plan delivery by hand
+
+**Forecast** opens on the Delivery Board. Drag work from the Backlog into sprint columns, set each sprint's capacity, and let blockers and dependencies hold work until it can start. Only work you drag in is scheduled; delivered work is listed separately from the Backlog.
+
+Use **List view** for the detailed forecast math, people and assignments, scenarios, and trade-off analysis. The Board/List choice is remembered per browser, and `?forecastView=board` or `?forecastView=list` overrides it for a specific link.
+
+The **Gantt** view uses calendar-aligned 12-week, six-month, and four-quarter horizons that scroll for longer plans. **Fit** remains a whole-project overview, and the timeline legend explains dependency and schedule-conflict lines.
+
 ## Choose how to run
 
 | Option | Guide |
@@ -40,13 +48,16 @@ The Windows desktop app uses local Rust SQLite storage and requires the Tauri bu
 
 ## Development
 
+Try the fictional [Lumen Trade demo project](docs/demo-project.md) to explore outcomes, shared platform capabilities, dependencies, forecast trade-offs, and a hand-planned delivery board. Import `public/demos/lumen-trade.json` into Vantage.
+
 ```sh
 npm run dev
 npm run check:app-only
 npm run typecheck
 npm run test:unit
+npm run test:native
+npm run test:e2e
 npm run build
-cargo test -p pmapp-core --lib
 ```
 
 Source: `src/domain` contains rules, `src/application` use cases, `src/adapters` UI and persistence, `src/contracts` file and command formats, `src-tauri` the desktop shell, and `crates/pmapp-core` the shared Rust runtime. `spikes/phase-0-durability` contains persistence infrastructure still used by the app and tests. Default app builds use local storage and file exchange; network collaboration is disabled.
@@ -60,3 +71,9 @@ Active development; this source is not a certified release. Keep backups of impo
 ## License
 
 [MIT](LICENSE). Original copyright attribution is retained.
+
+### Portable Windows package
+
+Run `npm run package:portable` on the build machine, then share `release/vantage-pm-portable-windows-x64.zip`. Recipients extract it and double-click `start_vantage.bat`; no npm or Rust installation is needed. The included portable Node executable must be permitted by company policy. See [portable Windows instructions](docs/portable-windows.md).
+
+After packaging, you can also double-click `start_vantage.bat` in the repository root to run the generated app locally. Re-run `npm run package:portable` after changing app source.

@@ -1045,7 +1045,7 @@ mod tests {
         conn.execute_batch("DROP TABLE collaboration_rejections").unwrap();
         // Reconstruct the real lazy v17/v18 cursor shape instead of tagging
         // a fully initialized v19 schema as an older database.
-        conn.execute_batch("ALTER TABLE collaboration_cursor DROP COLUMN stream_epoch; ALTER TABLE collaboration_cursor DROP COLUMN recovery_required; ALTER TABLE collaboration_cursor DROP COLUMN recovery_reason").unwrap();
+        conn.execute_batch("ALTER TABLE collaboration_cursor DROP COLUMN stream_epoch; ALTER TABLE collaboration_cursor DROP COLUMN recovery_required; ALTER TABLE collaboration_cursor DROP COLUMN recovery_reason; ALTER TABLE forecast_plans DROP COLUMN sprint_plan").unwrap();
         crate::migration::runner::run_migrations(&mut conn).unwrap();
         assert_eq!(conn.query_row("PRAGMA user_version", [], |r|r.get::<_, i64>(0)).unwrap(), crate::db::schema::CURRENT_SCHEMA_VERSION);
         assert_eq!(read(&mut conn, P).unwrap().entries[0].command, c);

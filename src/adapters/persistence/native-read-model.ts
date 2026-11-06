@@ -107,6 +107,8 @@ export interface NativeForecastPlanRow {
   readonly policyVersion: string;
   readonly roster?: readonly import('../../domain/forecast/forecast-plan.entity').ForecastPerson[];
   readonly assignments?: Readonly<Record<string, readonly string[]>>;
+  /** The Delivery Board's sprint plan. Optional for a native build without it. */
+  readonly sprintPlan?: import('../../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
 }
 
 export interface NativeProjectSnapshot {

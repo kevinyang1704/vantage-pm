@@ -90,6 +90,10 @@ const COPY: Readonly<Record<ProductCommandRejected['code'], RejectionFeedback>> 
     cause: 'That Feature is not in the forecast, or its blocker is already in that state.',
     resultingState: 'The forecast was not changed; your selection is preserved.',
   }),
+  FORECAST_SPRINT_PLAN_INVALID: Object.freeze({
+    cause: 'That sprint plan could not be saved; the plan is missing or has not changed.',
+    resultingState: 'The sprint plan was not changed; your selection is preserved.',
+  }),
   FORECAST_SCENARIO_INVALID: Object.freeze({
     cause: 'That scenario could not be saved — its identity is already in use or its patch references a node that is not a Feature.',
     resultingState: 'No scenario was saved; your draft is preserved.',

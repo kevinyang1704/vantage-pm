@@ -97,6 +97,7 @@ export function GanttHierarchyColumn({
                 onToggleCollapse?.(row.nodeId);
               }
             }}
+            data-node-id={row.nodeId}
             className={`pm-gantt-hierarchy__row ${isFocused ? 'pm-gantt-hierarchy__row--focused' : ''}`}
             style={{
               height: `${GANTT_ROW_HEIGHT_PX}px`,

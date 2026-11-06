@@ -35,6 +35,11 @@
       "schemaVersion": 20,
       "introducedAtIso": "2026-10-28T00:00:00Z",
       "source": "vantage-local-file-collaboration"
+    },
+    {
+      "schemaVersion": 21,
+      "introducedAtIso": "2026-11-06T00:00:00Z",
+      "source": "forecast-delivery-board"
     }
   ]
 }

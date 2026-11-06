@@ -84,6 +84,8 @@ export function describeChange(change: ConfirmedChange, titleFor: (id: string) =
       return `${change.actorName} reordered phases`;
     case 'SetForecastBlocker':
       return `${change.actorName} ${c.blocked ? 'blocked' : 'unblocked'} ${t(c.featureId)}`;
+    case 'SetForecastSprintPlan':
+      return `${change.actorName} changed the sprint plan`;
     default:
       return `${change.actorName} made a change`;
   }

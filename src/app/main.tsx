@@ -16,6 +16,7 @@ import './main.css';
 import { AppShell } from '../adapters/ui/app-shell';
 import { AppFrame } from '../adapters/ui/shell/app-frame';
 import { SideNav } from '../adapters/ui/shell/side-nav';
+import { DemoTour } from '../adapters/ui/demo-tour';
 import { TreeRegion } from '../adapters/ui/shell/tree-region';
 import { StatusLine } from '../adapters/ui/shell/status-line';
 import { Breadcrumb, type Crumb } from '../adapters/ui/shell/breadcrumb';
@@ -24,7 +25,8 @@ import { VisualTreeView } from '../adapters/ui/visual-tree/visual-tree-view';
 import type { ViewportTransform } from '../application/visual-tree/viewport-transform';
 import { ThemeChipRow } from '../adapters/ui/visual-tree/theme-chip-row';
 import { GanttView } from './ui/gantt/GanttView';
-import { ForecastWorkspace, type ForecastPlanningRow } from '../adapters/ui/forecast/forecast-workspace';
+import type { ForecastPlanningRow } from '../adapters/ui/forecast/forecast-workspace';
+import { ForecastSurface } from '../adapters/ui/forecast/forecast-surface';
 import { sortByTreeOrder } from '../adapters/ui/forecast/forecast-placement';
 import { createForecastPlan, type ForecastPlan } from '../domain/forecast/forecast-plan.entity';
 import { createForecastRefreshChain } from '../application/forecast-refresh-chain';
@@ -40,6 +42,7 @@ import {
   createConfigureForecastPlanWireCommand,
   createSetForecastMembershipWireCommand,
   createSetForecastBlockerWireCommand,
+  createSetForecastSprintPlanWireCommand,
   createSetForecastPlanningLevelWireCommand,
   createCreateForecastScenarioWireCommand,
   createRemoveForecastScenarioWireCommand,
@@ -54,6 +57,7 @@ import {
   createConfigureForecastPlanCommand,
   createSetForecastMembershipCommand,
   createSetForecastBlockerCommand,
+  createSetForecastSprintPlanCommand,
   createSetForecastPlanningLevelCommand,
   createCreateForecastScenarioCommand,
   createRemoveForecastScenarioCommand,
@@ -264,6 +268,13 @@ function toDomainNodes(model: OutlineReadModel): readonly Node[] {
 }
 
 /** Story 27.2: result of one atomic composite gesture. */
+/**
+ * How long a view switch, project switch or undo/redo waits for in-flight
+ * commands before giving up: 100 polls of 50 ms (5 s). A 300 ms wait dropped
+ * the click whenever local storage was slow to acknowledge an edit.
+ */
+const QUEUE_SETTLE_POLLS = 100;
+
 type BatchTrackOutcome =
   | { kind: 'applied' }
   | { kind: 'rejected'; rejected: ProductCommandRejected }
@@ -1396,7 +1407,7 @@ function PMAppRoot() {
 
       if (currentProjectId) {
         if (!orchestrator.isQueueSettled(currentProjectId)) {
-          for (let i = 0; i < 6; i++) {
+          for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
             await new Promise((resolve) => setTimeout(resolve, 50));
             if (orchestrator.isQueueSettled(currentProjectId)) break;
           }
@@ -1480,6 +1491,9 @@ function PMAppRoot() {
     },
     [selectedProjectId, focusedNodeId, outlineModel, viewMode, applyOutlineModel],
   );
+
+  /** The view to open once an in-progress entry from the workspace overview finishes. */
+  const pendingEntryViewRef = useRef<'outline' | 'visual' | 'gantt' | 'forecast' | null>(null);
 
   const switchProject = useCallback(
     async (targetProjectId: string): Promise<
@@ -2095,15 +2109,36 @@ function PMAppRoot() {
 
   const handleToggleForecastMembership = async (featureId: string, included: boolean): Promise<boolean> => {
     if (!selectedProjectId || !outlineModel) return false;
-    const cmd = createSetForecastMembershipWireCommand(
+    const base = getProjectRevision(selectedProjectId);
+    const membership = (baseRevision: number) => createSetForecastMembershipWireCommand(
       createSetForecastMembershipCommand({
         commandId: createUuidV7(),
         projectId: selectedProjectId,
-        baseRevision: getProjectRevision(selectedProjectId),
+        baseRevision,
         featureId,
         included,
       }),
     );
+    // Taking an item out of the plan also takes it out of its sprint, in the
+    // same step: otherwise adding it back later would drop it straight into
+    // its old sprint without the capacity and dependency checks.
+    const sprintPlan = forecastPlan?.sprintPlan;
+    if (!included && sprintPlan?.placements.some((placement) => placement.itemId === featureId)) {
+      const cleared = createSetForecastSprintPlanWireCommand(
+        createSetForecastSprintPlanCommand({
+          commandId: createUuidV7(),
+          projectId: selectedProjectId,
+          baseRevision: base,
+          sprintPlan: {
+            placements: sprintPlan.placements.filter((placement) => placement.itemId !== featureId),
+            capacities: sprintPlan.capacities,
+          },
+        }),
+      );
+      const batch = await dispatchBatchAndTrack([cleared, membership(base + 1)]);
+      return batch?.kind === 'applied';
+    }
+    const cmd = membership(base);
     const outcome = await dispatchAndTrack(cmd);
     return (
       outcome?.type === 'CommandDispatched' && outcome.result.type === 'ProductCommandApplied'
@@ -2260,20 +2295,67 @@ function PMAppRoot() {
     await dispatchAndTrack(cmd);
   };
 
+  // Delivery Board: save the sprint plan (hand placements + per-sprint
+  // capacity). Dropping a Backlog item that is not in the plan yet adds it
+  // first, in one transaction and one undo entry.
+  const handleSetForecastSprintPlan = async (
+    sprintPlan: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan,
+    addFeatureId?: string,
+  ): Promise<boolean> => {
+    if (!selectedProjectId || !outlineModel) return false;
+    const base = getProjectRevision(selectedProjectId);
+    const sprintPlanCommand = (baseRevision: number) =>
+      createSetForecastSprintPlanWireCommand(
+        createSetForecastSprintPlanCommand({ commandId: createUuidV7(), projectId: selectedProjectId, baseRevision, sprintPlan }),
+      );
+    if (!addFeatureId) {
+      const outcome = await dispatchAndTrack(sprintPlanCommand(base));
+      return outcome?.type === 'CommandDispatched' && outcome.result.type === 'ProductCommandApplied';
+    }
+    const membership = createSetForecastMembershipWireCommand(
+      createSetForecastMembershipCommand({
+        commandId: createUuidV7(),
+        projectId: selectedProjectId,
+        baseRevision: base,
+        featureId: addFeatureId,
+        included: true,
+      }),
+    );
+    const outcome = await dispatchBatchAndTrack([membership, sprintPlanCommand(base + 1)]);
+    return outcome?.kind === 'applied';
+  };
+
   // Story 21.10 AC 3: persist a planning-level switch (FR-13). The command
   // atomically clears scope, groups, and blockers; the confirmation dialog
   // lives in the workspace.
   const handleSetForecastPlanningLevel = async (level: import('../adapters/ui/forecast/planning-level-step').PlanningLevel) => {
     if (!selectedProjectId || !outlineModel) return;
-    const cmd = createSetForecastPlanningLevelWireCommand(
+    const base = getProjectRevision(selectedProjectId);
+    const levelCommand = (baseRevision: number) => createSetForecastPlanningLevelWireCommand(
       createSetForecastPlanningLevelCommand({
         commandId: createUuidV7(),
         projectId: selectedProjectId,
-        baseRevision: getProjectRevision(selectedProjectId),
+        baseRevision,
         planningLevel: level,
       }),
     );
-    await dispatchAndTrack(cmd);
+    // The level change empties the scope; take its items out of their sprints
+    // in the same step so they cannot come back into an old sprint unchecked.
+    // Per-sprint capacities are kept: they describe the team, not the items.
+    const sprintPlan = forecastPlan?.sprintPlan;
+    if (sprintPlan && sprintPlan.placements.length > 0 && forecastPlan?.planningLevel !== level) {
+      const cleared = createSetForecastSprintPlanWireCommand(
+        createSetForecastSprintPlanCommand({
+          commandId: createUuidV7(),
+          projectId: selectedProjectId,
+          baseRevision: base,
+          sprintPlan: { placements: [], capacities: sprintPlan.capacities },
+        }),
+      );
+      await dispatchBatchAndTrack([cleared, levelCommand(base + 1)]);
+      return;
+    }
+    await dispatchAndTrack(levelCommand(base));
   };
 
   // Persistence seam for the forecast workspace's combined move. Story 27.2:
@@ -2741,7 +2823,7 @@ function PMAppRoot() {
   const handleUndo = async () => {
     if (!undoEngineRef.current || !selectedProjectId || !outlineModel) return;
     if (orchestratorRef.current && !orchestratorRef.current.isQueueSettled(selectedProjectId)) {
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
         await new Promise((resolve) => setTimeout(resolve, 50));
         if (orchestratorRef.current.isQueueSettled(selectedProjectId)) break;
       }
@@ -2762,7 +2844,7 @@ function PMAppRoot() {
   const handleRedo = async () => {
     if (!undoEngineRef.current || !selectedProjectId || !outlineModel) return;
     if (orchestratorRef.current && !orchestratorRef.current.isQueueSettled(selectedProjectId)) {
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
         await new Promise((resolve) => setTimeout(resolve, 50));
         if (orchestratorRef.current.isQueueSettled(selectedProjectId)) break;
       }
@@ -2781,10 +2863,13 @@ function PMAppRoot() {
   };
 
   const handleSwitchView = useCallback(async (targetView: 'outline' | 'visual' | 'gantt' | 'forecast') => {
+    // Entering the project from the workspace overview is still finishing:
+    // it opens this view when it completes, not the one first chosen.
+    if (pendingEntryViewRef.current !== null) pendingEntryViewRef.current = targetView;
     if (targetView === activeViewId) return;
     if (selectedProjectId && orchestratorRef.current) {
       if (!orchestratorRef.current.isQueueSettled(selectedProjectId)) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
           await new Promise((resolve) => setTimeout(resolve, 50));
           if (orchestratorRef.current.isQueueSettled(selectedProjectId)) break;
         }
@@ -3107,6 +3192,22 @@ function PMAppRoot() {
     });
   }, [domainNodes, forecastPlan, forecastChosenLevel]);
 
+  const forecastGroupTitle = useMemo(() => {
+    const byId = new Map(domainNodes.map((node) => [node.id, node] as const));
+    return (id: string): string | null => {
+      const seen = new Set<string>();
+      let parentId = byId.get(id)?.parentId ?? null;
+      while (parentId !== null && !seen.has(parentId)) {
+        seen.add(parentId);
+        const node = byId.get(parentId);
+        if (!node) return null;
+        if (node.nodeType === 'Theme' || node.nodeType === 'Component') return node.title;
+        parentId = node.parentId;
+      }
+      return null;
+    };
+  }, [domainNodes]);
+
   const forecastLevelOptions = useMemo(() => {
     const count = (t: string) => domainNodes.filter((n) => n.nodeType === t).length;
     return [
@@ -3176,7 +3277,7 @@ function PMAppRoot() {
     }
 
     if (!orchestrator.isQueueSettled(selectedProjectId)) {
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
         await new Promise((resolve) => setTimeout(resolve, 50));
         if (orchestrator.isQueueSettled(selectedProjectId)) break;
       }
@@ -3370,7 +3471,7 @@ function PMAppRoot() {
         return;
       }
       if (!orchestrator.isQueueSettled(selectedProjectId)) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < QUEUE_SETTLE_POLLS; i++) {
           await new Promise((resolve) => setTimeout(resolve, 50));
           if (orchestrator.isQueueSettled(selectedProjectId)) break;
         }
@@ -3942,6 +4043,10 @@ function PMAppRoot() {
   return createElement(
     AppShell,
     { health, bootTime },
+    createElement(DemoTour, {
+      enabled: !isNativeBridge() && !compatibilityError && viewMode === 'project' && activeViewId === 'outline' && outlineModel !== null
+        && projects.find(p => p.id === selectedProjectId)?.name === 'Lumen Trade — fictional investing app',
+    }),
     compatibilityError
       ? createElement(
           'div',
@@ -3963,11 +4068,17 @@ function PMAppRoot() {
           // Project explicitly enters that project at that view (Option A
           // interaction contract).
           if (selectedProjectId) {
+            // A second view chosen while the project is still opening is the
+            // one the user wants: remember it instead of refusing the click.
+            pendingEntryViewRef.current = v;
+            if (isSwitchingRef.current) return;
             void (async () => {
               setStatusMessage(null);
               const outcome = await switchProject(selectedProjectId);
+              const view = pendingEntryViewRef.current ?? v;
+              pendingEntryViewRef.current = null;
               if (outcome.kind === 'Switched' || outcome.kind === 'NoOp') {
-                setActiveViewId(v);
+                setActiveViewId(view);
                 setViewMode('project');
               } else if (outcome.kind === 'Blocked') {
                 setStatusMessage(outcome.cause);
@@ -4194,7 +4305,7 @@ function PMAppRoot() {
             !(outlineModel && selectedProjectId)
               ? createElement(TreeRegion, { state: { kind: 'loading' } })
               : activeViewId === 'forecast'
-                  ? createElement(ForecastWorkspace, {
+                  ? createElement(ForecastSurface, {
                       projectId: selectedProjectId as string,
                       plan: forecastPlan,
                       result: forecastResult,
@@ -4211,6 +4322,8 @@ function PMAppRoot() {
                         void handleSetNodePointsDone({ nodeId: featureId, effortPointsDone }),
                       onSetBlocker: (featureId, blocked) =>
                         void handleSetForecastBlocker(featureId, blocked),
+                      onSetSprintPlan: handleSetForecastSprintPlan,
+                      unlockEdges: outlineModel.unlockEdges ?? [],
                       eligibleFeatures: forecastRows,
                       backlogItems: forecastBacklogItems,
                       backlogWidth: forecastBacklogWidth,
@@ -4239,6 +4352,7 @@ function PMAppRoot() {
                       onApplyWhatIf: handleApplyWhatIf,
                       onSaveWhatIf: handleSaveWhatIf,
                       onCaptureWhatIfBaseline: handleCaptureWhatIfBaseline,
+                      groupTitle: forecastGroupTitle,
                     })
                   : activeViewId === 'visual'
                   ? createElement(VisualTreeView, {

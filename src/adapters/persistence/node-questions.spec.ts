@@ -76,7 +76,7 @@ describe('Story 16.1 node open questions', () => {
     // CURRENT_SCHEMA_VERSION was 7 while this one still read 5 — so it is
     // asserted here only to catch an accidental edit, and must be updated in
     // lockstep with src-tauri/src/db/schema.rs whenever a migration lands.
-    expect(PRODUCT_SCHEMA_VERSION).toBe(20);
+    expect(PRODUCT_SCHEMA_VERSION).toBe(21);
 
     const table = db?.exec({
       sql: "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'node_open_questions'",

@@ -13,9 +13,8 @@ import type { GanttGranularity, GanttRow } from '../../../contracts/gantt';
 import { projectGantt } from '../../../application/gantt/gantt.projection';
 import {
   resolveGanttVisibleScope,
-  getPixelsPerDayForGranularity,
+  horizonGanttZoom,
   fitGanttZoom,
-  type GanttFitZoom,
 } from '../../../application/gantt/gantt-scope';
 import { GanttControlBar } from './GanttControlBar';
 import { GanttHierarchyColumn } from './GanttHierarchyColumn';
@@ -161,19 +160,19 @@ export function GanttView({
 
   useEffect(() => {
     setLocalGranularity(granularity ?? null);
-  }, [granularity]);
+  }, [granularity, projectId]);
 
   useEffect(() => {
     setLocalDateWindowStart(dateWindowStart ?? null);
-  }, [dateWindowStart]);
+  }, [dateWindowStart, projectId]);
 
   useEffect(() => {
     setLocalDateWindowEnd(dateWindowEnd ?? null);
-  }, [dateWindowEnd]);
+  }, [dateWindowEnd, projectId]);
 
   useEffect(() => {
     setLocalCollapsedNodeIds(collapsedNodeIds);
-  }, [collapsedNodeIds]);
+  }, [collapsedNodeIds, projectId]);
 
   // Handles onto the two scroll roots — wired to a shared vertical offset below.
   const hierarchyScrollRef = useRef<HTMLDivElement | null>(null);
@@ -194,55 +193,65 @@ export function GanttView({
   const effectiveWindowStart = localDateWindowStart ?? dateWindowStart ?? baseProjection.minProjectDate ?? '2026-01-01';
   const effectiveWindowEnd = localDateWindowEnd ?? dateWindowEnd ?? baseProjection.maxProjectDate ?? '2026-12-31';
 
-  // Fit shows the whole window in the canvas's visible width. The fixed
-  // scales draw at a set zoom, so a long project always overflowed and a
-  // second press, with the window already at the project span, changed
-  // nothing. While fitted, the zoom follows the canvas width; choosing a
-  // scale or editing the window returns to that scale's fixed zoom. The
-  // fitted state is not persisted: the view reopens at its saved scale.
+  // Fit/manual ranges are explicit overrides; opening or selecting a scale uses its horizon.
   const [fitted, setFitted] = useState(false);
-  const [fitZoom, setFitZoom] = useState<GanttFitZoom | null>(null);
   const [fitRequest, setFitRequest] = useState(0);
-  const activeFit = fitted ? fitZoom : null;
-  const displayGranularity: GanttGranularity = activeFit?.granularity ?? effectiveGranularity;
-  const pixelsPerDay = activeFit?.pixelsPerDay ?? getPixelsPerDayForGranularity(effectiveGranularity);
+  const [viewportWidth, setViewportWidth] = useState(1);
+  const ruler = horizonGanttZoom(effectiveWindowStart, effectiveWindowEnd, viewportWidth, effectiveGranularity);
+  const axisStart = fitted ? effectiveWindowStart : ruler.dateWindowStart;
+  const axisEnd = fitted ? effectiveWindowEnd : ruler.dateWindowEnd;
+  const displayGranularity = effectiveGranularity;
+  const pixelsPerDay = fitted
+    ? fitGanttZoom(axisStart, axisEnd, viewportWidth, effectiveGranularity).pixelsPerDay
+    : ruler.pixelsPerDay;
+  const viewedDaysRef = useRef(0);
+  const zoomRef = useRef(pixelsPerDay);
+  const measuredWidthRef = useRef(viewportWidth);
 
   useLayoutEffect(() => {
-    if (!fitted) return;
     const canvas = canvasScrollRef.current;
     if (!canvas) return;
     const measure = () => {
-      const next = fitGanttZoom(
-        effectiveWindowStart,
-        effectiveWindowEnd,
-        canvas.clientWidth,
-        effectiveGranularity,
-      );
-      setFitZoom((prev) =>
-        prev && prev.pixelsPerDay === next.pixelsPerDay && prev.granularity === next.granularity ? prev : next,
-      );
+      measuredWidthRef.current = canvas.clientWidth;
+      setViewportWidth(canvas.clientWidth);
     };
     measure();
-    // Every press returns to the start of the project, even when already fitted.
-    canvas.scrollLeft = 0;
     const observer = new ResizeObserver(measure);
     observer.observe(canvas);
     return () => observer.disconnect();
-  }, [fitted, fitRequest, effectiveWindowStart, effectiveWindowEnd, effectiveGranularity]);
+  }, [baseProjection.rows.length > 0]);
+
+  useLayoutEffect(() => {
+    const canvas = canvasScrollRef.current;
+    if (!canvas) return;
+    zoomRef.current = pixelsPerDay;
+    canvas.scrollLeft = viewedDaysRef.current * pixelsPerDay;
+    viewedDaysRef.current = canvas.scrollLeft / pixelsPerDay;
+  }, [pixelsPerDay]);
+
+  useLayoutEffect(() => {
+    viewedDaysRef.current = 0;
+    if (canvasScrollRef.current) canvasScrollRef.current.scrollLeft = 0;
+  }, [fitRequest, projectId, axisStart, axisEnd]);
+
+  useEffect(() => {
+    setFitted(false);
+    setEditingRow(null);
+  }, [projectId]);
 
   // 2. Resolve visible scope (window bounds, clipping, collapse, exclusions)
   const scopedResult = useMemo(() => {
     return resolveGanttVisibleScope({
       projection: baseProjection,
       window: {
-        dateWindowStart: effectiveWindowStart,
-        dateWindowEnd: effectiveWindowEnd,
+        dateWindowStart: axisStart,
+        dateWindowEnd: axisEnd,
         granularity: displayGranularity,
       },
       collapsedNodeIds: localCollapsedNodeIds,
       pixelsPerDay,
     });
-  }, [baseProjection, effectiveWindowStart, effectiveWindowEnd, displayGranularity, pixelsPerDay, localCollapsedNodeIds]);
+  }, [baseProjection, axisStart, axisEnd, displayGranularity, pixelsPerDay, localCollapsedNodeIds]);
 
   // Keep the hierarchy column and the timeline canvas on the same vertical
   // scroll offset so a row's label and its bar never drift apart. The canvas
@@ -329,17 +338,23 @@ export function GanttView({
     dateWindowEnd?: string;
     granularity?: GanttGranularity;
   }) => {
-    setFitted(false);
+    setFitted(patch.granularity === undefined);
+    setFitRequest((n) => n + 1);
     if (patch.granularity !== undefined) {
       setLocalGranularity(patch.granularity);
     }
-    if (patch.dateWindowStart !== undefined) {
-      setLocalDateWindowStart(patch.dateWindowStart);
+    if (patch.granularity === undefined) {
+      // A manual edit starts from both displayed bounds, including horizon padding.
+      const range = {
+        dateWindowStart: patch.dateWindowStart ?? axisStart,
+        dateWindowEnd: patch.dateWindowEnd ?? axisEnd,
+      };
+      setLocalDateWindowStart(range.dateWindowStart);
+      setLocalDateWindowEnd(range.dateWindowEnd);
+      onViewStateChange?.(range);
+    } else {
+      onViewStateChange?.(patch);
     }
-    if (patch.dateWindowEnd !== undefined) {
-      setLocalDateWindowEnd(patch.dateWindowEnd);
-    }
-    onViewStateChange?.(patch);
   };
 
   const handleToggleCollapse = (nodeId: string) => {
@@ -369,10 +384,10 @@ export function GanttView({
     >
       {/* Control Bar */}
       <GanttControlBar
-        dateWindowStart={effectiveWindowStart}
-        dateWindowEnd={effectiveWindowEnd}
+        dateWindowStart={axisStart}
+        dateWindowEnd={axisEnd}
         granularity={effectiveGranularity}
-        fitted={activeFit !== null}
+        fitted={fitted}
         undatedCount={scopedResult.undatedCount}
         outOfWindowCount={scopedResult.outOfWindowCount}
         onChangeWindow={handleChangeWindow}
@@ -382,11 +397,27 @@ export function GanttView({
               dateWindowStart: baseProjection.minProjectDate,
               dateWindowEnd: baseProjection.maxProjectDate,
             });
-            setFitted(true);
-            setFitRequest((n) => n + 1);
           }
         }}
       />
+
+      <div className="pm-gantt-legend" role="group" aria-label="Timeline line legend">
+        <span className="pm-gantt-legend__heading">Lines</span>
+        <span className="pm-gantt-legend__item">
+          <svg width="36" height="16" viewBox="0 0 36 16" aria-hidden="true">
+            <path d="M 1 8 H 29" fill="none" stroke="var(--pm-border-strong)" strokeWidth="1.5" />
+            <path d="M 28 4 L 35 8 L 28 12 Z" fill="var(--pm-border-strong)" />
+          </svg>
+          <span><strong>Dependency</strong> — arrow points to the item it unlocks</span>
+        </span>
+        <span className="pm-gantt-legend__item">
+          <svg width="36" height="16" viewBox="0 0 36 16" aria-hidden="true">
+            <path d="M 1 8 H 29" fill="none" stroke="var(--pm-flag-seq)" strokeWidth="2" strokeDasharray="4 2" />
+            <path d="M 28 4 L 35 8 L 28 12 Z" fill="var(--pm-flag-seq)" />
+          </svg>
+          <span><strong>Schedule conflict</strong> — dependent item starts before its prerequisite finishes</span>
+        </span>
+      </div>
 
       {/* Split Pane: Hierarchy Column + Timeline Canvas */}
       <div
@@ -430,15 +461,21 @@ export function GanttView({
         />
         <GanttTimelineCanvas
           rows={scopedResult.visibleRows}
-          minDate={effectiveWindowStart}
-          maxDate={effectiveWindowEnd}
+          minDate={axisStart}
+          maxDate={axisEnd}
           granularity={displayGranularity}
           headerColumns={scopedResult.headerColumns}
           unlockEdges={unlockEdges}
           phases={phases}
           nodes={nodes}
           pixelsPerDay={pixelsPerDay}
-          minWidthPx={activeFit ? 0 : undefined}
+          minWidthPx={0}
+          onHorizontalScroll={(left, width) => {
+            // Ignore native clamping against the previous axis during a width change.
+            if (width === measuredWidthRef.current && width === viewportWidth) {
+              viewedDaysRef.current = left / zoomRef.current;
+            }
+          }}
           focusedNodeId={focusedNodeId}
           scrollRef={canvasScrollRef}
           onSelectNode={onSelectNode}

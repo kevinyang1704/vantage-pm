@@ -28,6 +28,8 @@ export async function setupProjectWithTwoFeatures(page: Page): Promise<void> {
   await page.goto(PRODUCT_APP_URL);
   await expect(page.getByText('Storage Available')).toBeVisible({ timeout: 30_000 });
   await page.locator('nav.pm-side-nav').getByRole('button', { name: 'New project', exact: true }).click();
+  // The new project becomes current asynchronously; wait for it before opening a view.
+  await expect(page.locator('.pm-side-nav__current-title')).toHaveText('New Project', { timeout: 30_000 });
   await page.locator('.pm-side-nav__item[aria-label="Outline"]').waitFor({ state: 'visible', timeout: 30_000 });
   await page.getByLabel('Outline').click();
   await expect(page.locator('[role="tree"]')).toBeVisible();
@@ -59,6 +61,9 @@ export async function setupProjectWithTwoFeatures(page: Page): Promise<void> {
 /** Configures initial forecast parameters matching S1 specification and saves. */
 async function configureS1ForecastPlan(page: Page): Promise<void> {
   const continueBtn = page.getByRole('button', { name: 'Continue', exact: true });
+  // Wait for the Forecast view to render one of its two first-run states
+  // before deciding: an immediate isVisible() can run before either exists.
+  await expect(continueBtn.or(page.getByLabel('Points per sprint'))).toBeVisible({ timeout: 30_000 });
   if (await continueBtn.isVisible()) {
     await continueBtn.click();
   }

@@ -9,6 +9,7 @@ import { initializeLocalFileSchema, readLocalFileStateDb, writeLocalFileStateDb,
 
 import sqlite3InitModule from '@sqlite.org/sqlite-wasm';
 import type { Database } from '@sqlite.org/sqlite-wasm';
+import { createForecastSprintPlan } from '../../domain/forecast/forecast-plan.entity';
 import { PROTOCOL_VERSION } from '../../../spikes/phase-0-durability/src/command-receipt';
 import { ProductCommandHandler } from './project-commands';
 import { PRODUCT_SCHEMA_VERSION, NewerSchemaVersionError, readUserVersion, assertWritableSchema } from './schema';
@@ -641,6 +642,10 @@ function migrateForecastSchema(target: Database): void {
   // Story 22.4 (schema v15): the per-item assignments for staffed forecasting.
   if (!names.has('assignments')) {
     target.exec("ALTER TABLE forecast_plans ADD COLUMN assignments TEXT NOT NULL DEFAULT '{}'");
+  }
+  // Delivery Board (schema v21): the hand placements and per-sprint capacities.
+  if (!names.has('sprint_plan')) {
+    target.exec("ALTER TABLE forecast_plans ADD COLUMN sprint_plan TEXT NOT NULL DEFAULT '{}'");
   }
   target.exec(`CREATE TABLE IF NOT EXISTS forecast_scenarios(
     scenario_id        TEXT    PRIMARY KEY,
@@ -1522,6 +1527,18 @@ export function queryPortableSnapshot(projectId: string): PortableProjectSnapsho
       planningLevel: plan.planningLevel,
       roster: plan.roster,
       assignments: plan.assignments,
+      // Only placements of items still in the plan travel: a leftover entry for
+      // a removed item is meaningless and the importer would not take it.
+      ...(plan.sprintPlan && (plan.sprintPlan.placements.length > 0 || Object.keys(plan.sprintPlan.capacities).length > 0)
+        ? {
+            sprintPlan: Object.freeze({
+              placements: Object.freeze(
+                plan.sprintPlan.placements.filter((placement) => plan.selectedFeatureIds.includes(placement.itemId)),
+              ),
+              capacities: plan.sprintPlan.capacities,
+            }),
+          }
+        : {}),
     });
   }
 
@@ -1731,8 +1748,8 @@ export function batchImportPortable(
         sql: `INSERT INTO forecast_plans(
                 project_id, selected_feature_ids, parallel_groups, blocked_feature_ids, points_per_sprint,
                 sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level,
-                roster, assignments
-              ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                roster, assignments, sprint_plan
+              ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         bind: [
           snapshot.projectId,
           JSON.stringify(snapshot.forecastPlan.selectedFeatureIds),
@@ -1750,6 +1767,7 @@ export function batchImportPortable(
           (snapshot.forecastPlan as { planningLevel?: string }).planningLevel ?? 'Feature',
           JSON.stringify((snapshot.forecastPlan as { roster?: readonly unknown[] }).roster ?? []),
           JSON.stringify((snapshot.forecastPlan as { assignments?: Record<string, readonly unknown[]> }).assignments ?? {}),
+          JSON.stringify(createForecastSprintPlan(snapshot.forecastPlan.sprintPlan)),
         ],
       });
     }

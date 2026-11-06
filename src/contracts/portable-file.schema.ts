@@ -27,6 +27,7 @@ import { assertUuidV7 } from '../../spikes/phase-0-durability/src/command-receip
 import { isPersistedForecastScenario, normalizePersistedForecastScenario } from '../domain/forecast/scenario';
 import { computeForecastFingerprintSync } from '../domain/forecast/forecast-canonical';
 import { forecastMaterialFacts } from '../domain/forecast/whole-set.policy';
+import { createForecastSprintPlan } from '../domain/forecast/forecast-plan.entity';
 
 /**
  * Current portable-file schema version.
@@ -42,8 +43,12 @@ import { forecastMaterialFacts } from '../domain/forecast/whole-set.policy';
  * field, read back as null ("not recorded"). Compatibility is backward only:
  * older builds reject a v9 file via the
  * `schemaVersion > PORTABLE_FILE_SCHEMA_VERSION` guard.
+ *
+ * Version 10 (Delivery Board): adds optional `forecastPlan.sprintPlan` (hand
+ * placements and per-sprint capacities). Additive; v1-v9 files import with
+ * the empty sprint plan, and older builds reject a v10 file.
  */
-export const PORTABLE_FILE_SCHEMA_VERSION = 9;
+export const PORTABLE_FILE_SCHEMA_VERSION = 10;
 /** The legacy project-only schema version (Story 1.8). */
 export const LEGACY_PORTABLE_FILE_SCHEMA_VERSION = 1;
 
@@ -160,6 +165,8 @@ export type PortableForecastPlan = Readonly<{
   /** Work item to person ID assignments map (Epic 22, Story 22.8).
    * Optional: absent in v1-v6 files, defaults to empty object on import. */
   assignments?: Readonly<Record<string, readonly string[]>>;
+  /** The Delivery Board's sprint plan. Optional: absent in v1-v9 files. */
+  sprintPlan?: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan;
 }>;
 
 /**
@@ -216,6 +223,9 @@ export type PortableForecastScenario = Readonly<{
     assignmentOverrides?: Readonly<Record<string, readonly string[]>>;
   }>;
 }>;
+
+/** The complete-project portable envelope (schema version 10, Delivery Board). */
+export type PortableFileEnvelopeV10 = Omit<PortableFileEnvelopeV9, 'schemaVersion'> & Readonly<{ schemaVersion: 10 }>;
 
 /** The complete-project portable envelope (schema version 9, Epic 26). */
 export type PortableFileEnvelopeV9 = Readonly<{
@@ -376,6 +386,7 @@ export type PortableFileEnvelopeV1 = Readonly<{
 
 /** Any supported portable envelope version. */
 export type PortableFileEnvelope =
+  | PortableFileEnvelopeV10
   | PortableFileEnvelopeV9
   | PortableFileEnvelopeV8
   | PortableFileEnvelopeV7
@@ -494,6 +505,7 @@ const KNOWN_FORECAST_PLAN_FIELDS = Object.freeze([
   'planningLevel',
   'roster',
   'assignments',
+  'sprintPlan',
 ]);
 
 // ── Active-content policy ──────────────────────────────────────────────────
@@ -838,12 +850,15 @@ function validateForecastPlan(
   featureNodeIds: ReadonlySet<string>,
   level: string = 'Feature',
   nodeEffortPoints?: ReadonlyMap<string, number | null>,
+  schemaVersion: number = PORTABLE_FILE_SCHEMA_VERSION,
 ): { ok: true; value: PortableForecastPlan } | { ok: false; error: PortableFileRejection } {
   if (typeof raw !== 'object' || raw === null) {
     return { ok: false, error: Object.freeze({ type: 'MissingRequiredField', field: 'forecastPlan' }) };
   }
   const p = raw as Record<string, unknown>;
-  const extraFields = Object.keys(p).filter((k) => !KNOWN_FORECAST_PLAN_FIELDS.includes(k));
+  const extraFields = Object.keys(p).filter(
+    (k) => !KNOWN_FORECAST_PLAN_FIELDS.includes(k) || (k === 'sprintPlan' && schemaVersion < 10),
+  );
   if (extraFields.length > 0) {
     return { ok: false, error: Object.freeze({ type: 'UnknownFieldsAtCurrentVersion', fields: Object.freeze([...extraFields]) }) };
   }
@@ -1035,6 +1050,27 @@ function validateForecastPlan(
     assignments = Object.freeze(validatedAssignments);
   }
 
+  let sprintPlan: import('../domain/forecast/forecast-plan.entity').ForecastSprintPlan | undefined;
+  if (p.sprintPlan !== undefined && p.sprintPlan !== null) {
+    try {
+      sprintPlan = createForecastSprintPlan(p.sprintPlan);
+    } catch {
+      return { ok: false, error: Object.freeze({ type: 'InvalidRelation', detail: 'forecastPlan.sprintPlan is malformed' }) };
+    }
+    const sprintPlanObject = p.sprintPlan as { placements?: unknown; capacities?: unknown };
+    if (Object.keys(sprintPlanObject).some((key) => key !== 'placements' && key !== 'capacities')) {
+      return { ok: false, error: Object.freeze({ type: 'InvalidRelation', detail: 'forecastPlan.sprintPlan has unknown fields' }) };
+    }
+    // A placement for an item that is not in the plan carries no meaning:
+    // skip it rather than refuse the whole file.
+    if (sprintPlan.placements.some((placement) => !selectedSet.has(placement.itemId))) {
+      sprintPlan = Object.freeze({
+        placements: Object.freeze(sprintPlan.placements.filter((placement) => selectedSet.has(placement.itemId))),
+        capacities: sprintPlan.capacities,
+      });
+    }
+  }
+
   return {
     ok: true,
     value: Object.freeze({
@@ -1052,6 +1088,7 @@ function validateForecastPlan(
         : {}),
       ...(roster ? { roster } : {}),
       ...(assignments ? { assignments } : {}),
+      ...(sprintPlan ? { sprintPlan } : {}),
     }),
   };
 }
@@ -1349,6 +1386,7 @@ export function validatePortableFileEnvelope(
   // v4 adds forecastPlan; v5 adds blockedFeatureIds + forecastScenarios;
   // v6 adds forecastPlan.planningLevel; v7 adds forecastPlan.roster + assignments;
   // v8 adds forecastScenarios staffing fields; v9 adds nodes[].effortPointsDone.
+  const isV10 = obj.schemaVersion === 10;
   const isV9 = obj.schemaVersion === 9;
   const isV8 = obj.schemaVersion === 8;
   const isV7 = obj.schemaVersion === 7;
@@ -1356,7 +1394,7 @@ export function validatePortableFileEnvelope(
   const isV5 = obj.schemaVersion === 5;
   const isV4 = obj.schemaVersion === 4;
   const isV3 = obj.schemaVersion === 3;
-  const knownTopFields = isV9 || isV8 || isV7 || isV6 || isV5
+  const knownTopFields = isV10 || isV9 || isV8 || isV7 || isV6 || isV5
     ? KNOWN_TOP_LEVEL_FIELDS_V5
     : isV4
       ? KNOWN_TOP_LEVEL_FIELDS_V4
@@ -1490,7 +1528,7 @@ export function validatePortableFileEnvelope(
       nodes.filter((n) => n.nodeType === level).map((n) => n.id),
     );
     const nodeEffortPoints = new Map(nodes.map((n) => [n.id, n.effortPoints] as const));
-    const planResult = validateForecastPlan(obj.forecastPlan, scopeNodeIds, level, nodeEffortPoints);
+    const planResult = validateForecastPlan(obj.forecastPlan, scopeNodeIds, level, nodeEffortPoints, obj.schemaVersion as number);
     if (!planResult.ok) return planResult;
     forecastPlan = planResult.value;
   }
@@ -1529,7 +1567,7 @@ export function validatePortableFileEnvelope(
   return {
     ok: true,
     value: Object.freeze({
-      schemaVersion: (isV9 ? 9 : isV8 ? 8 : isV7 ? 7 : isV6 ? 6 : isV5 ? 5 : isV4 ? 4 : isV3 ? 3 : 2) as 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2,
+      schemaVersion: (isV10 ? 10 : isV9 ? 9 : isV8 ? 8 : isV7 ? 7 : isV6 ? 6 : isV5 ? 5 : isV4 ? 4 : isV3 ? 3 : 2) as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2,
       exportedAt: obj.exportedAt as string,
       project: Object.freeze({ id: project.id as string, name: trimmedName }),
       phases: Object.freeze(phases),

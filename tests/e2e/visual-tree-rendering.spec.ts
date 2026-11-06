@@ -34,6 +34,7 @@ async function seedThemeAndOpenVisual(page: import('@playwright/test').Page): Pr
   await expect(dropdown).toBeVisible();
   await dropdown.locator('button:has-text("Theme")').click();
   await expect(typeTag).toHaveText('THEME');
+  await expect(dropdown).not.toBeVisible();
 
   await page.getByRole('button', { name: 'Visual Tree', exact: true }).click();
   await expect(page.locator('.pm-visual-tree-view')).toBeVisible();

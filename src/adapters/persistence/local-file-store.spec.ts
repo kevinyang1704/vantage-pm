@@ -94,4 +94,36 @@ describe('local file atomic storage', () => {
         expect(batchImportPortable(imported).ok).toBe(true);
         expect(queryPortableSnapshot(imported.projectId).nodes[0].position).toBe(precise);
     });
+    it('preserves the Delivery Board sprint plan through merge and restore', async () => {
+        const f = await fixture();
+        f.db.exec({ sql: "UPDATE nodes SET node_type='Feature' WHERE id=?", bind: [f.node] });
+        f.db.exec({
+            sql: `INSERT INTO forecast_plans(
+                    project_id, selected_feature_ids, parallel_groups, blocked_feature_ids, points_per_sprint,
+                    sprint_length_days, cadence, start_sprint_ordinal, start_date, policy_version, planning_level,
+                    roster, assignments, sprint_plan
+                  ) VALUES(?, ?, '[]', '[]', 20, 14, 'fixed-contiguous', 1, '2027-01-04', 'shared-capacity-v1', 'Feature', '[]', '{}', ?)`,
+            bind: [f.project, JSON.stringify([f.node]), JSON.stringify({ placements: [{ itemId: f.node, sprint: 1 }], capacities: { '2': 8 } })],
+        });
+        const before = f.snapshot();
+        expect(before.forecastPlan?.sprintPlan?.placements).toEqual([{ itemId: f.node, sprint: 1 }]);
+        const state = JSON.stringify(createLocalFileState(before));
+        writeLocalFileStateDb(f.db, f.project, 1, state, f.snapshot);
+        const incoming = {
+            ...before,
+            forecastPlan: Object.freeze({
+                ...before.forecastPlan!,
+                sprintPlan: Object.freeze({
+                    placements: Object.freeze([{ itemId: f.node, sprint: 2 }]),
+                    capacities: Object.freeze({ '2': 12 }),
+                }),
+            }),
+        };
+        applyLocalFileMergeDb(f.db, { operationId: createUuidV7(), projectId: f.project, expectedRevision: 1, snapshot: incoming, stateJson: state }, f.snapshot);
+        expect(f.snapshot().forecastPlan?.sprintPlan?.placements).toEqual([{ itemId: f.node, sprint: 2 }]);
+        expect(f.snapshot().forecastPlan?.sprintPlan?.capacities).toEqual({ '2': 12 });
+        restoreLocalFileMergeDb(f.db, f.project, 2, createUuidV7(), f.snapshot);
+        expect(f.snapshot().forecastPlan?.sprintPlan?.placements).toEqual([{ itemId: f.node, sprint: 1 }]);
+        expect(f.snapshot().forecastPlan?.sprintPlan?.capacities).toEqual({ '2': 8 });
+    });
 });

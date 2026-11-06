@@ -127,8 +127,8 @@ describe('Story 23.6 AC 23.6-3 — Legacy shared fixtures and historical scenari
 });
 
 describe('Story 23.6 — storage and portable versions', () => {
-  it('confirms storage schema version 20 and portable version 9 — collaboration sidecar migration', () => {
-    expect(PRODUCT_SCHEMA_VERSION).toBe(20);
-    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(9);
+  it('confirms storage schema version 21 and portable version 10 — Delivery Board sprint plan', () => {
+    expect(PRODUCT_SCHEMA_VERSION).toBe(21);
+    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(10);
   });
 });

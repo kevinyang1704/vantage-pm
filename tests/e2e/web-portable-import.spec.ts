@@ -26,7 +26,14 @@ test.describe('Web build: import a portable project', () => {
       delete (window as unknown as { showSaveFilePicker?: unknown }).showSaveFilePicker;
     });
     const downloadPromise = page.waitForEvent('download');
-    await page.getByTestId('export-project-trigger').click();
+    // A just-blurred edit may still be committing. Export deliberately refuses
+    // an unsettled snapshot; retry the user action until publication succeeds.
+    await expect(async () => {
+      await page.getByTestId('export-project-trigger').click();
+      await expect(page.locator('.pm-status-line-session')).toContainText(
+        'Portable project file created:', { timeout: 500 },
+      );
+    }).toPass({ timeout: 10_000, intervals: [100, 250, 500] });
     const exported = await (await downloadPromise).path();
 
     // Device B: a separate profile with its own storage.

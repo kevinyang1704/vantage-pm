@@ -73,7 +73,8 @@ pub fn validate_plan(plan: &RecoveryForecastPlansRow) -> Result<(), RepositoryEr
     if blocked.iter().any(|id| !scope.contains(id)) { return Err(invalid()); }
     groups(&parse(&plan.parallel_groups)?, &scope, true)?;
     let people = roster(&parse(&plan.roster)?)?;
-    assignments(&parse(&plan.assignments)?, &people, None)
+    assignments(&parse(&plan.assignments)?, &people, None)?;
+    crate::db::handler::canonical_sprint_plan(&parse(&plan.sprint_plan)?).map(|_| ()).ok_or_else(invalid)
 }
 
 pub fn validate_scenario(row: &RecoveryForecastScenariosRow, project: &str) -> Result<(), RepositoryError> {

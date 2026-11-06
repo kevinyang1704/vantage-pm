@@ -158,8 +158,8 @@ describe('scenario level round-trip and legacy normalization', () => {
 });
 
 describe('Story 21.8 AC 1 — v6 envelope carries planningLevel', () => {
-  it('PORTABLE_FILE_SCHEMA_VERSION is 9', () => {
-    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(9);
+  it('PORTABLE_FILE_SCHEMA_VERSION is 10', () => {
+    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(10);
   });
 
   it('a Theme-level plan round-trips exactly', () => {
@@ -234,16 +234,16 @@ describe('Story 21.8 AC 2 — legacy v1-v5 files normalize planningLevel to Feat
 });
 
 describe('Story 21.8 AC 3 — a future schema file is cleanly rejected', () => {
-  it('rejects schemaVersion > 9 with an actionable notice', () => {
-    const envelope = v6Envelope({ schemaVersion: 10 });
+  it('rejects schemaVersion > 10 with an actionable notice', () => {
+    const envelope = v6Envelope({ schemaVersion: 11 });
     const json = serializePortableFileEnvelope(envelope);
     const parsed = parsePortableFile(json);
     expect(parsed.ok).toBe(false);
     if (parsed.ok) return;
     expect(parsed.error.type).toBe('UnsupportedNewerSchema');
     if (parsed.error.type === 'UnsupportedNewerSchema') {
-      expect(parsed.error.found).toBe(10);
-      expect(parsed.error.supported).toBe(9);
+      expect(parsed.error.found).toBe(11);
+      expect(parsed.error.supported).toBe(10);
     }
   });
 });
@@ -972,12 +972,12 @@ describe('Story 23.5 — Transfer historical staffing scenarios with the project
     expect(v8Value.forecastScenarios![0].baseline.roster).toHaveLength(2);
 
     // Unknown schema version rejected with upgrade guidance
-    const invalidSchema = { ...v8, schemaVersion: 10 };
+    const invalidSchema = { ...v8, schemaVersion: 11 };
     const parsedInvalidSchema = parsePortableFile(serializePortableFileEnvelope(invalidSchema as any));
     expect(parsedInvalidSchema.ok).toBe(false);
     if (!parsedInvalidSchema.ok && parsedInvalidSchema.error.type === 'UnsupportedNewerSchema') {
-      expect(parsedInvalidSchema.error.found).toBe(10);
-      expect(parsedInvalidSchema.error.supported).toBe(9);
+      expect(parsedInvalidSchema.error.found).toBe(11);
+      expect(parsedInvalidSchema.error.supported).toBe(10);
     }
 
     // Unknown scenario policyVersion rejected
@@ -1169,9 +1169,9 @@ describe('Story 23.5 — Transfer historical staffing scenarios with the project
     expect(scen2.patch.orderedScope).toEqual([FEATURE]);
   });
 
-  it('AC 23.5-6: exporter emits version 9 and rejects pre-v8 schemas containing staffed scenario fields', () => {
-    // Current export schema version constant is 9 (Story 26.5)
-    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(9);
+  it('AC 23.5-6: exporter emits version 10 and rejects pre-v8 schemas containing staffed scenario fields', () => {
+    // Current export schema version constant is 10 (Delivery Board)
+    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(10);
 
     // v7 envelope containing staffed scenario rejected
     const v7Staffed = v7Envelope({

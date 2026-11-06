@@ -197,8 +197,8 @@ describe('Story 26.5 — record points done on in-progress items', () => {
     expect(model.nodes.find((n) => n.id === featureId)?.deliveryStatus).toBe('delivered');
   });
 
-  it('AC 26.5-5: portable v9 round-trips points done; the version is 9', () => {
-    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(9);
+  it('AC 26.5-5: portable v9 round-trips points done; the version is now 10', () => {
+    expect(PORTABLE_FILE_SCHEMA_VERSION).toBe(10);
   });
 
   it('AC 26.5-6: points done round-trips through export and import', async () => {
@@ -212,7 +212,7 @@ describe('Story 26.5 — record points done on in-progress items', () => {
     );
     const snapshot = await queryPortableSnapshot(projectId);
     const envelope = serializePortableFileEnvelope({
-      schemaVersion: PORTABLE_FILE_SCHEMA_VERSION as 9,
+      schemaVersion: PORTABLE_FILE_SCHEMA_VERSION as 10,
       exportedAt: '2026-09-28T00:00:00.000Z',
       project: { id: snapshot.projectId, name: snapshot.projectName },
       phases: snapshot.phases,
@@ -242,7 +242,7 @@ describe('Story 26.5 — record points done on in-progress items', () => {
       return record;
     });
     const envelope = serializePortableFileEnvelope({
-      schemaVersion: 8 as unknown as 9,
+      schemaVersion: 8 as unknown as 10,
       exportedAt: '2026-09-28T00:00:00.000Z',
       project: { id: snapshot.projectId, name: snapshot.projectName },
       phases: snapshot.phases,
