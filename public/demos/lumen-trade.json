@@ -8,17 +8,17 @@
   "phases": [
     {
       "id": "01a20000-0000-7000-8000-000000000002",
-      "name": "01 - Foundations",
+      "name": "01 · Foundations",
       "position": "1024"
     },
     {
       "id": "01a20000-0000-7000-8000-000000000003",
-      "name": "02 - Private beta",
+      "name": "02 · Private beta",
       "position": "2048"
     },
     {
       "id": "01a20000-0000-7000-8000-000000000004",
-      "name": "03 - Public launch",
+      "name": "03 · Public launch",
       "position": "3072"
     }
   ],
@@ -225,7 +225,7 @@
       "id": "01a20000-0000-7000-8000-000000000014",
       "parentId": "01a20000-0000-7000-8000-00000000000d",
       "title": "Reusable identity verification and eligibility",
-      "bodyText": "## Problem\nIdentity checks are where first-time investors abandon. Repeated document uploads and opaque pending states feel risky, especially when the customer cannot tell whether the application is still moving.\n\n## Solution\nDeliver reusable identity verification with on-device document quality checks, clear Pending / Approved / Action Needed states, and idempotent eligibility decisions consumed by funding and trading.\n\n## Scope / Non-goals\n- **In scope:** US individual cash-account identity checks and eligibility.\n- **Non-goals:** Joint accounts, custodial accounts, and international tax-residency workflows.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nIdentity checks are where first-time investors abandon. Repeated document uploads and opaque pending states feel risky, especially when the customer cannot tell whether the application is still moving.\n\n## Solution\nDeliver reusable identity verification with on-device document quality checks, clear Pending / Approved / Action Needed states, and idempotent eligibility decisions consumed by funding and trading.\n\n## Scope / Non-goals\n- **In scope:** US individual cash-account identity checks and eligibility.\n- **Non-goals:** Joint accounts, custodial accounts, and international tax-residency workflows.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. 8 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-04",
@@ -279,7 +279,7 @@
       "id": "01a20000-0000-7000-8000-000000000017",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Versioned journey events and outcome dashboard",
-      "bodyText": "## Problem\nTeams measure different funnel definitions, so activation and retention stories disagree and support cannot reconstruct the customer journey.\n\n## Solution\nDefine one versioned journey-event contract for verification, funding, first order, and week-four return, and expose a synthetic cohort dashboard built on the same events.\n\n## Scope / Non-goals\n- **In scope:** Product analytics, cohort definitions, and a redacted support timeline.\n- **Non-goals:** Personal data in analytics, ad tracking, or cross-site identity.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nTeams measure different funnel definitions, so activation and retention stories disagree and support cannot reconstruct the customer journey.\n\n## Solution\nDefine one versioned journey-event contract for verification, funding, first order, and week-four return, and expose a synthetic cohort dashboard built on the same events.\n\n## Scope / Non-goals\n- **In scope:** Product analytics, cohort definitions, and a redacted support timeline.\n- **Non-goals:** Personal data in analytics, ad tracking, or cross-site identity.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-04",
@@ -333,7 +333,7 @@
       "id": "01a20000-0000-7000-8000-00000000001a",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Double-entry cash ledger and reconciliation",
-      "bodyText": "## Problem\nCash states disagree across funding, ordering, and portfolio, so customers cannot tell what is spendable and support cannot explain a balance.\n\n## Solution\nBuild a double-entry cash ledger with replay-safe deposits, reservations, trades, withdrawals, and reconciliation. Every customer money surface reads the same ledger truth.\n\n## Scope / Non-goals\n- **In scope:** Cash deposits, buying-power reservations, executions, withdrawals, and monthly reconciliation.\n- **Non-goals:** Margin, credit, multi-currency, or tax-lot accounting.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 13 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nCash states disagree across funding, ordering, and portfolio, so customers cannot tell what is spendable and support cannot explain a balance.\n\n## Solution\nBuild a double-entry cash ledger with replay-safe deposits, reservations, trades, withdrawals, and reconciliation. Every customer money surface reads the same ledger truth.\n\n## Scope / Non-goals\n- **In scope:** Cash deposits, buying-power reservations, executions, withdrawals, and monthly reconciliation.\n- **Non-goals:** Margin, credit, multi-currency, or tax-lot accounting.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. 13 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-11",
@@ -387,7 +387,7 @@
       "id": "01a20000-0000-7000-8000-00000000001d",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Market data gateway with freshness contracts",
-      "bodyText": "## Problem\nStale or delayed quotes can look live, leading customers to confirm a price that no longer exists.\n\n## Solution\nServe a shared quote API to discovery, order preview, and portfolio screens with explicit freshness timestamps, market-session badges, and a stale-quote guardrail.\n\n## Scope / Non-goals\n- **In scope:** US stocks and broad-market ETFs, quote freshness, and market-session context.\n- **Non-goals:** Options, crypto, technical indicators, analyst ratings, or investment recommendations.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nStale or delayed quotes can look live, leading customers to confirm a price that no longer exists.\n\n## Solution\nServe a shared quote API to discovery, order preview, and portfolio screens with explicit freshness timestamps, market-session badges, and a stale-quote guardrail.\n\n## Scope / Non-goals\n- **In scope:** US stocks and broad-market ETFs, quote freshness, and market-session context.\n- **Non-goals:** Options, crypto, technical indicators, analyst ratings, or investment recommendations.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-01-18",
@@ -441,7 +441,7 @@
       "id": "01a20000-0000-7000-8000-000000000020",
       "parentId": "01a20000-0000-7000-8000-00000000000a",
       "title": "Guided account opening with resumable verification",
-      "bodyText": "## Problem\nA long identity form loses progress and forces customers to restart, often after they have already shared sensitive information.\n\n## Solution\nOffer resumable account opening with passkey access, plain-language rationale for every field, and document checks before submission.\n\n## Scope / Non-goals\n- **In scope:** Individual cash-account onboarding with resumable verification.\n- **Non-goals:** Joint onboarding or importing identity data from another broker.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nA long identity form loses progress and forces customers to restart, often after they have already shared sensitive information.\n\n## Solution\nOffer resumable account opening with passkey access, plain-language rationale for every field, and document checks before submission.\n\n## Scope / Non-goals\n- **In scope:** Individual cash-account onboarding with resumable verification.\n- **Non-goals:** Joint onboarding or importing identity data from another broker.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-18",
@@ -495,7 +495,7 @@
       "id": "01a20000-0000-7000-8000-000000000023",
       "parentId": "01a20000-0000-7000-8000-00000000000a",
       "title": "Link a bank and track a first deposit",
-      "bodyText": "## Problem\nPending ACH cash often appears as zero available, causing panic, duplicate transfers, and avoidable support contacts.\n\n## Solution\nLink a bank account with an upfront clearing timeline and explicit Initiated -> Clearing -> Settled states sourced from the ledger. Never present pending cash as spendable.\n\n## Scope / Non-goals\n- **In scope:** ACH funding, pending and settled cash states, and rejected-transfer recovery.\n- **Non-goals:** Wire transfers, debit-card top-ups, or instant provisional credit.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nPending ACH cash often appears as zero available, causing panic, duplicate transfers, and avoidable support contacts.\n\n## Solution\nLink a bank account with an upfront clearing timeline and explicit Initiated -> Clearing -> Settled states sourced from the ledger. Never present pending cash as spendable.\n\n## Scope / Non-goals\n- **In scope:** ACH funding, pending and settled cash states, and rejected-transfer recovery.\n- **Non-goals:** Wire transfers, debit-card top-ups, or instant provisional credit.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -549,7 +549,7 @@
       "id": "01a20000-0000-7000-8000-000000000026",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Search stocks and build a first watchlist",
-      "bodyText": "## Problem\nTicker-only search excludes beginners who know a company or fund category by name, while unclear quote states hide whether a price is live.\n\n## Solution\nProvide name and ticker search, a saved watchlist, quote timestamps, freshness labels, and market-session badges.\n\n## Scope / Non-goals\n- **In scope:** US stocks and ETFs, personal watchlists, and quote-age context.\n- **Non-goals:** Social sentiment, analyst ratings, or complex technical charting.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nTicker-only search excludes beginners who know a company or fund category by name, while unclear quote states hide whether a price is live.\n\n## Solution\nProvide name and ticker search, a saved watchlist, quote timestamps, freshness labels, and market-session badges.\n\n## Scope / Non-goals\n- **In scope:** US stocks and ETFs, personal watchlists, and quote-age context.\n- **Non-goals:** Social sentiment, analyst ratings, or complex technical charting.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -603,7 +603,7 @@
       "id": "01a20000-0000-7000-8000-000000000029",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Plain-language risk and cash-only order preview",
-      "bodyText": "## Problem\nOrder tickets hide fees, buying power, and market-hours behaviour until after confirmation.\n\n## Solution\nShow a pre-trade receipt with estimated share quantity, reference quote and timestamp, fees, remaining settled cash, volatility notice, and market-hours behaviour.\n\n## Scope / Non-goals\n- **In scope:** Cash-only stock and ETF orders during regular market hours.\n- **Non-goals:** Margin, options, personalised advice, or extended-hours execution.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nOrder tickets hide fees, buying power, and market-hours behaviour until after confirmation.\n\n## Solution\nShow a pre-trade receipt with estimated share quantity, reference quote and timestamp, fees, remaining settled cash, volatility notice, and market-hours behaviour.\n\n## Scope / Non-goals\n- **In scope:** Cash-only stock and ETF orders during regular market hours.\n- **Non-goals:** Margin, options, personalised advice, or extended-hours execution.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. 5 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-15",
@@ -657,7 +657,7 @@
       "id": "01a20000-0000-7000-8000-00000000002c",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Idempotent order routing and execution state",
-      "bodyText": "## Problem\nRetrying a slow request can duplicate an order, while generic pending spinners hide whether a trade filled, failed, or remains unknown.\n\n## Solution\nBuild a durable order state machine with client idempotency keys and explicit Queued -> Working -> Filled / Rejected / Cancelled states.\n\n## Scope / Non-goals\n- **In scope:** Regular-hours market orders, retry safety, and an explicit status detail view.\n- **Non-goals:** Extended hours, smart routing, or algorithmic execution.\n- **Dependency risk:** This work is explicitly blocked while the timeout and unknown-outcome behaviour is unresolved.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 13 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nRetrying a slow request can duplicate an order, while generic pending spinners hide whether a trade filled, failed, or remains unknown.\n\n## Solution\nBuild a durable order state machine with client idempotency keys and explicit Queued -> Working -> Filled / Rejected / Cancelled states.\n\n## Scope / Non-goals\n- **In scope:** Regular-hours market orders, retry safety, and an explicit status detail view.\n- **Non-goals:** Extended hours, smart routing, or algorithmic execution.\n- **Dependency risk:** This work is explicitly blocked while the timeout and unknown-outcome behaviour is unresolved.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. 13 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-02-15",
@@ -711,7 +711,7 @@
       "id": "01a20000-0000-7000-8000-00000000002f",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Place a first trade with a clear execution receipt",
-      "bodyText": "## Problem\nNewly funded customers pause because order types, settlement, and fees feel unfamiliar, and an unclear receipt weakens trust.\n\n## Solution\nOffer an optional three-card primer with live read-only examples, then guide the first order and show a receipt that distinguishes submitted, filled, and rejected orders.\n\n## Scope / Non-goals\n- **In scope:** Education and the first cash trade, including a clear execution receipt.\n- **Non-goals:** Gamified badges, required quizzes, or stock picks.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nNewly funded customers pause because order types, settlement, and fees feel unfamiliar, and an unclear receipt weakens trust.\n\n## Solution\nOffer an optional three-card primer with live read-only examples, then guide the first order and show a receipt that distinguishes submitted, filled, and rejected orders.\n\n## Scope / Non-goals\n- **In scope:** Education and the first cash trade, including a clear execution receipt.\n- **Non-goals:** Gamified badges, required quizzes, or stock picks.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-08",
@@ -765,7 +765,7 @@
       "id": "01a20000-0000-7000-8000-000000000032",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Explain holdings, cash, and daily value changes",
-      "bodyText": "## Problem\nPortfolio totals can disagree with cash and open orders, especially during settlement, and stale valuations can look authoritative.\n\n## Solution\nCombine executed positions, ledger cash, and fresh quotes into one holdings view, label stale values, and explain daily movement without conflating deposits with returns.\n\n## Scope / Non-goals\n- **In scope:** Cash equities and ETFs, holdings, cash, and daily value explanation.\n- **Non-goals:** Tax-lot optimisation, margin balances, or performance promises.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nPortfolio totals can disagree with cash and open orders, especially during settlement, and stale valuations can look authoritative.\n\n## Solution\nCombine executed positions, ledger cash, and fresh quotes into one holdings view, label stale values, and explain daily movement without conflating deposits with returns.\n\n## Scope / Non-goals\n- **In scope:** Cash equities and ETFs, holdings, cash, and daily value explanation.\n- **Non-goals:** Tax-lot optimisation, margin balances, or performance promises.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-03-08",
@@ -819,7 +819,7 @@
       "id": "01a20000-0000-7000-8000-000000000035",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Opt-in price and execution notifications",
-      "bodyText": "## Problem\nNotification opt-ins often become engagement pressure, and duplicate execution events create noise.\n\n## Solution\nUse shared events for opt-in price and execution notifications with quiet hours and at-most-once delivery per event.\n\n## Scope / Non-goals\n- **In scope:** Informational price and execution alerts with explicit opt-out.\n- **Non-goals:** Urgency prompts, promotional pushes, or social feeds.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nNotification opt-ins often become engagement pressure, and duplicate execution events create noise.\n\n## Solution\nUse shared events for opt-in price and execution notifications with quiet hours and at-most-once delivery per event.\n\n## Scope / Non-goals\n- **In scope:** Informational price and execution alerts with explicit opt-out.\n- **Non-goals:** Urgency prompts, promotional pushes, or social feeds.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-03-15",
@@ -873,7 +873,7 @@
       "id": "01a20000-0000-7000-8000-000000000038",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Download a monthly activity statement",
-      "bodyText": "## Problem\nCustomers cannot reconcile deposits, trades, fees, and ending balances from a readable record.\n\n## Solution\nGenerate a monthly activity statement from the ledger and order history with a clear cut-off, trade lines, fees, and ending cash.\n\n## Scope / Non-goals\n- **In scope:** Cash-account monthly activity statements.\n- **Non-goals:** Tax advice or consolidated brokerage documents.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nCustomers cannot reconcile deposits, trades, fees, and ending balances from a readable record.\n\n## Solution\nGenerate a monthly activity statement from the ledger and order history with a clear cut-off, trade lines, fees, and ending cash.\n\n## Scope / Non-goals\n- **In scope:** Cash-account monthly activity statements.\n- **Non-goals:** Tax advice or consolidated brokerage documents.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. 5 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-22",
@@ -927,7 +927,7 @@
       "id": "01a20000-0000-7000-8000-00000000003b",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Support timeline, audit trail, and trading kill switch",
-      "bodyText": "## Problem\nSupport and engineering lack one auditable timeline when money or orders go wrong, and stopping new orders can destroy evidence if handled carelessly.\n\n## Solution\nProvide a redacted journey timeline, an append-only audit trail, and an authorised trading kill switch that preserves all history.\n\n## Scope / Non-goals\n- **In scope:** Operational timeline, audit trail, and the trading kill switch.\n- **Non-goals:** A customer-facing admin surface or silent data deletion.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 8 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nSupport and engineering lack one auditable timeline when money or orders go wrong, and stopping new orders can destroy evidence if handled carelessly.\n\n## Solution\nProvide a redacted journey timeline, an append-only audit trail, and an authorised trading kill switch that preserves all history.\n\n## Scope / Non-goals\n- **In scope:** Operational timeline, audit trail, and the trading kill switch.\n- **Non-goals:** A customer-facing admin surface or silent data deletion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -981,7 +981,7 @@
       "id": "01a20000-0000-7000-8000-00000000003e",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Public-launch rehearsal and recovery drill",
-      "bodyText": "## Problem\nLaunch readiness depends on untested market-data outage, duplicate-execution, and cash-reconciliation failure paths.\n\n## Solution\nRun a public-launch rehearsal that exercises outage, retry, and cash-break scenarios, recording owners, evidence, and follow-ups before the fictional launch decision.\n\n## Scope / Non-goals\n- **In scope:** Synthetic outage, retry, and reconciliation drills.\n- **Non-goals:** Real customer data or production trading.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
+      "bodyText": "## Problem\nLaunch readiness depends on untested market-data outage, duplicate-execution, and cash-reconciliation failure paths.\n\n## Solution\nRun a public-launch rehearsal that exercises outage, retry, and cash-break scenarios, recording owners, evidence, and follow-ups before the fictional launch decision.\n\n## Scope / Non-goals\n- **In scope:** Synthetic outage, retry, and reconciliation drills.\n- **Non-goals:** Real customer data or production trading.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-22",
@@ -1036,7 +1036,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000014",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen - Identity & experience"
+      "fieldValue": "Avery Chen · Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000014",
@@ -1046,7 +1046,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000017",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike - Reliability & insights"
+      "fieldValue": "Jordan Pike · Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000017",
@@ -1056,7 +1056,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001a",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale - Money systems"
+      "fieldValue": "Morgan Vale · Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001a",
@@ -1066,7 +1066,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001d",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss - Trading experience"
+      "fieldValue": "Riley Moss · Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001d",
@@ -1076,7 +1076,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000020",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen - Identity & experience"
+      "fieldValue": "Avery Chen · Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000020",
@@ -1086,7 +1086,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000023",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale - Money systems"
+      "fieldValue": "Morgan Vale · Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000023",
@@ -1096,7 +1096,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000026",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss - Trading experience"
+      "fieldValue": "Riley Moss · Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000026",
@@ -1106,7 +1106,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000029",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen - Identity & experience"
+      "fieldValue": "Avery Chen · Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000029",
@@ -1116,7 +1116,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002c",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale - Money systems"
+      "fieldValue": "Morgan Vale · Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002c",
@@ -1126,7 +1126,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002f",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss - Trading experience"
+      "fieldValue": "Riley Moss · Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002f",
@@ -1136,7 +1136,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000032",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss - Trading experience"
+      "fieldValue": "Riley Moss · Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000032",
@@ -1146,7 +1146,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000035",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike - Reliability & insights"
+      "fieldValue": "Jordan Pike · Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000035",
@@ -1156,7 +1156,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000038",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale - Money systems"
+      "fieldValue": "Morgan Vale · Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000038",
@@ -1166,7 +1166,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003b",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike - Reliability & insights"
+      "fieldValue": "Jordan Pike · Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003b",
@@ -1176,7 +1176,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003e",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike - Reliability & insights"
+      "fieldValue": "Jordan Pike · Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003e",
@@ -1424,22 +1424,22 @@
     "roster": [
       {
         "id": "01a20000-0000-7000-8000-000000000010",
-        "name": "Avery Chen - Identity & experience",
+        "name": "Avery Chen · Identity & experience",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000011",
-        "name": "Morgan Vale - Money systems",
+        "name": "Morgan Vale · Money systems",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000012",
-        "name": "Riley Moss - Trading experience",
+        "name": "Riley Moss · Trading experience",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000013",
-        "name": "Jordan Pike - Reliability & insights",
+        "name": "Jordan Pike · Reliability & insights",
         "weightUnits": 75
       }
     ],
@@ -1527,7 +1527,7 @@
   "forecastScenarios": [
     {
       "scenarioId": "01a20000-0000-7000-8000-00000000005f",
-      "label": "Smaller launch - defer alerts and monthly statements",
+      "label": "Smaller launch — defer alerts and monthly statements",
       "baselineRevision": 1,
       "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
       "policyVersion": "staffed-capacity-v1",
@@ -1730,22 +1730,22 @@
         "roster": [
           {
             "id": "01a20000-0000-7000-8000-000000000010",
-            "name": "Avery Chen - Identity & experience",
+            "name": "Avery Chen · Identity & experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000011",
-            "name": "Morgan Vale - Money systems",
+            "name": "Morgan Vale · Money systems",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000012",
-            "name": "Riley Moss - Trading experience",
+            "name": "Riley Moss · Trading experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000013",
-            "name": "Jordan Pike - Reliability & insights",
+            "name": "Jordan Pike · Reliability & insights",
             "weightUnits": 75
           }
         ],
@@ -1817,7 +1817,7 @@
     },
     {
       "scenarioId": "01a20000-0000-7000-8000-000000000060",
-      "label": "More money-platform capacity - Morgan from 1.0 to 1.5",
+      "label": "More money-platform capacity — Morgan from 1.0 to 1.5",
       "baselineRevision": 1,
       "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
       "policyVersion": "staffed-capacity-v1",
@@ -2020,22 +2020,22 @@
         "roster": [
           {
             "id": "01a20000-0000-7000-8000-000000000010",
-            "name": "Avery Chen - Identity & experience",
+            "name": "Avery Chen · Identity & experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000011",
-            "name": "Morgan Vale - Money systems",
+            "name": "Morgan Vale · Money systems",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000012",
-            "name": "Riley Moss - Trading experience",
+            "name": "Riley Moss · Trading experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000013",
-            "name": "Jordan Pike - Reliability & insights",
+            "name": "Jordan Pike · Reliability & insights",
             "weightUnits": 75
           }
         ],

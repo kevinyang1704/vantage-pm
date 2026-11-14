@@ -6,7 +6,7 @@ let sequence = 0;
 const id = () => `01a20000-0000-7000-8000-${(++sequence).toString(16).padStart(12, '0')}`;
 const exportedAt = '2027-01-18T09:00:00.000Z';
 const project = { id: id(), name: 'Lumen Trade — fictional investing app' };
-const phases = ['01 - Foundations', '02 - Private beta', '03 - Public launch'].map((name, i) => ({ id: id(), name, position: String((i + 1) * 1024) }));
+const phases = ['01 · Foundations', '02 · Private beta', '03 · Public launch'].map((name, i) => ({ id: id(), name, position: String((i + 1) * 1024) }));
 const nodes = [], unlockEdges = [], openQuestions = [], nodeCustomFields = [];
 const keys = {};
 function node(key, parent, title, nodeType, bodyText, extra = {}) {
@@ -379,7 +379,7 @@ Run a public-launch rehearsal that exercises outage, retry, and cash-break scena
     ],
   },
 };
-const roster = ['Avery Chen - Identity & experience', 'Morgan Vale - Money systems', 'Riley Moss - Trading experience', 'Jordan Pike - Reliability & insights'].map((name, i) => ({ id: id(), name, weightUnits: i === 3 ? 75 : 100 }));
+const roster = ['Avery Chen · Identity & experience', 'Morgan Vale · Money systems', 'Riley Moss · Trading experience', 'Jordan Pike · Reliability & insights'].map((name, i) => ({ id: id(), name, weightUnits: i === 3 ? 75 : 100 }));
 const assignments = {};
 for (const [key, parent, title, effortPoints, phase, startDate, endDate, deliveryStatus, owner] of features) {
   const copy = featureCopy[key];
@@ -433,8 +433,8 @@ try {
   const baseline = { planningLevel: 'Feature', orderedScope: forecastPlan.selectedFeatureIds, configuration, parallelGroups: forecastPlan.parallelGroups, blockedFeatureIds: forecastPlan.blockedFeatureIds, factMap, roster, assignments };
   const baselineFingerprint = computeForecastFingerprintSync(forecastMaterialFacts({ ...forecastPlan, projectId: project.id, projectRevision: 1, estimates: Object.fromEntries(Object.entries(factMap).map(([id, f]) => [id, f.effortPoints])) }));
   for (const [label, patch] of [
-    ['Smaller launch - defer alerts and monthly statements', { orderedScope: forecastPlan.selectedFeatureIds.filter(id => ![keys.alerts, keys.statements].includes(id)) }],
-    ['More money-platform capacity - Morgan from 1.0 to 1.5', { weightOverrides: { [roster[1].id]: 150 } }],
+    ['Smaller launch — defer alerts and monthly statements', { orderedScope: forecastPlan.selectedFeatureIds.filter(id => ![keys.alerts, keys.statements].includes(id)) }],
+    ['More money-platform capacity — Morgan from 1.0 to 1.5', { weightOverrides: { [roster[1].id]: 150 } }],
   ]) envelope.forecastScenarios.push({ scenarioId: id(), label, baselineRevision: 1, baselineFingerprint, policyVersion: forecastPlan.policyVersion, createdAtISO: exportedAt, baseline, patch });
   const validated = validatePortableFileEnvelope(envelope);
   if (!validated.ok) throw new Error(JSON.stringify(validated.error));
