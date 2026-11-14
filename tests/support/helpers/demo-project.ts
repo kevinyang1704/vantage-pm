@@ -1,14 +1,17 @@
+import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, type Page } from '@playwright/test';
 import { parsePortableFile, PORTABLE_FILE_SCHEMA_VERSION } from '../../../src/contracts/portable-file.schema';
 
 const PRODUCT_APP_URL = process.env.BASE_URL ?? 'http://127.0.0.1:5173';
-const LUMEN_DEMO_PATH = resolve('public/demos/lumen-trade.json');
+export const LUMEN_DEMO_PATH = resolve('public/demos/lumen-trade.json');
+export const LUMEN_DEMO_NAME = (JSON.parse(readFileSync(LUMEN_DEMO_PATH, 'utf8')) as {
+  project: { name: string };
+}).project.name;
 
 /** Import the bundled demo through the real file chooser and select it. */
 export async function importLumenDemo(page: Page): Promise<void> {
-  const demo = JSON.parse(await readFile(LUMEN_DEMO_PATH, 'utf8')) as { project: { name: string } };
   await page.goto(PRODUCT_APP_URL);
   await expect(page.getByRole('heading', { name: 'Workspace', exact: true })).toBeVisible();
   const chooserPromise = page.waitForEvent('filechooser');
@@ -17,7 +20,7 @@ export async function importLumenDemo(page: Page): Promise<void> {
   await chooser.setFiles(LUMEN_DEMO_PATH);
   await page.getByRole('button', { name: 'Import project', exact: true }).click();
   const nav = page.locator('nav.pm-side-nav');
-  await nav.getByRole('button', { name: demo.project.name, exact: true }).click();
+  await nav.getByRole('button', { name: LUMEN_DEMO_NAME, exact: true }).click();
   // The first-visit tour can open on the demo outline; dismiss it if present.
   await page.waitForTimeout(400);
   const skip = page.getByRole('button', { name: 'Skip tour', exact: true });

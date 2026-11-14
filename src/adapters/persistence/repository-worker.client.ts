@@ -24,6 +24,7 @@ import type { UnlockEdge } from '../../domain/edge/unlock-edge.entity';
 import type { FindingDismissal, AffectedReason, AnalysisSnapshotRequest } from '../../contracts/analysis-protocol';
 import type { PortableProjectSnapshot } from '../../contracts/portable-file.schema';
 import type {
+  DemoProjectInstallResult,
   WorkerRequest,
   WorkerResponse,
 } from './repository.worker';
@@ -585,6 +586,23 @@ export class RepositoryWorkerClient {
     return mod.queryPortableSnapshot(projectId);
   }
 
+  async ensureDemoProject(snapshot: PortableProjectSnapshot): Promise<DemoProjectInstallResult> {
+    if (this.#worker) {
+      const res = await this.#sendRequest<Extract<WorkerResponse, { type: 'DemoProjectInstallResult' }>>({
+        type: 'EnsureDemoProject',
+        protocolVersion: PROTOCOL_VERSION,
+        requestId: createUuidV7(),
+        snapshot,
+      });
+      return res.result;
+    }
+
+    // Fallback path
+    const mod = await browserModule();
+    await mod.initWorkerDatabase();
+    return mod.ensureDemoProject(snapshot);
+  }
+
   async batchImportPortable(
     snapshot: PortableProjectSnapshot,
     localFileStateJson?: string,
@@ -914,6 +932,13 @@ export async function queryPortableSnapshot(projectId: string): Promise<Portable
     return queryNativePortableSnapshot(projectId);
   }
   return repositoryWorkerClient.queryPortableSnapshot(projectId);
+}
+
+export async function ensureDemoProject(snapshot: PortableProjectSnapshot): Promise<DemoProjectInstallResult> {
+  if (isNativeBridge()) {
+    return Object.freeze({ kind: 'failed' as const, code: 'DEMO_BROWSER_ONLY' });
+  }
+  return repositoryWorkerClient.ensureDemoProject(snapshot);
 }
 
 export async function batchImportPortable(

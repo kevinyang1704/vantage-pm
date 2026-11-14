@@ -48,7 +48,7 @@ The Windows desktop app uses local Rust SQLite storage and requires the Tauri bu
 
 ## Development
 
-Try the fictional [Lumen Trade demo project](docs/demo-project.md) to explore outcomes, shared platform capabilities, dependencies, forecast trade-offs, and a hand-planned delivery board. Import `public/demos/lumen-trade.json` into Vantage.
+Open Vantage with `?demo=1` to load the fictional [Lumen Trade demo project](docs/demo-project.md) automatically. It explores weighted outcomes, shared platform capabilities, dependencies, forecast trade-offs, and a hand-planned delivery board. Use **Add demo project** for another independent copy, or import `public/demos/lumen-trade.json` manually.
 
 ```sh
 npm run dev

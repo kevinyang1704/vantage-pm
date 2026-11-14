@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import type { Phase } from '../../../domain/phase/phase.entity';
 import type { OutlineNodeReadModel } from '../../../application/outline/outline-read-model';
 import { movePhaseInList, normalizePhaseName } from '../../../domain/phase/phase-position.policy';
+import { OutlineIcon } from '../outline/outline-icons';
 import './phase-manager-modal.css';
 
 export interface PhaseManagerModalProps {
@@ -93,7 +94,10 @@ export const PhaseManagerModal: React.FC<PhaseManagerModalProps> = ({
       <div className="pm-phase-modal">
         <div className="pm-phase-modal__header">
           <h2 id="phase-modal-title" className="pm-phase-modal__title">
-            <span className="pm-phase-modal__icon">🏷</span> Manage Project Phases
+            <span className="pm-phase-modal__icon">
+              <OutlineIcon name="phase" size={16} />
+            </span>{' '}
+            Manage Project Phases
           </h2>
           <button
             type="button"

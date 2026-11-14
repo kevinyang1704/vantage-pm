@@ -8,17 +8,17 @@
   "phases": [
     {
       "id": "01a20000-0000-7000-8000-000000000002",
-      "name": "01 · Foundations",
+      "name": "01 - Foundations",
       "position": "1024"
     },
     {
       "id": "01a20000-0000-7000-8000-000000000003",
-      "name": "02 · Private beta",
+      "name": "02 - Private beta",
       "position": "2048"
     },
     {
       "id": "01a20000-0000-7000-8000-000000000004",
-      "name": "03 · Public launch",
+      "name": "03 - Public launch",
       "position": "3072"
     }
   ],
@@ -27,7 +27,7 @@
       "id": "01a20000-0000-7000-8000-000000000005",
       "parentId": null,
       "title": "Make a first investment feel understandable, controlled, and trustworthy",
-      "bodyText": "# Lumen Trade\nA fictional, cash-only stock trading app for first-time investors. All names, targets, dates, decisions, and progress are invented demo data.\n\n## Product thesis\nPeople make a confident first investment when identity, funding, market information, and order handling work as one journey. Shared ledger, identity, and event capabilities support multiple customer outcomes.\n\n## Success by 31 March 2027\n- Increase verified-to-funded conversion from a fictional 38% baseline to 60%.\n- Increase funded-to-first-order conversion from 25% to 45% within seven days.\n- Increase four-week retained funded accounts from 20% to 35%.\n\n## Guardrails\nNo duplicate orders; every cash movement reconciles; show stale quotes; explain risk before confirmation. No margin, options, crypto, or investment recommendations in launch scope.\n\n## Demo route\nExplore weighted Themes, platform dependencies, briefs, Questions, Criteria, Gantt, and Forecast. Change the ledger schedule to review downstream impact. Compare a smaller launch scope and added capacity as saved scenarios.",
+      "bodyText": "> *Fictional planning demo - all personas, cohorts, and target metrics are synthetic.*\n\n## North Star\nHelp first-time investors move from curiosity to a confident first cash-only trade without hidden settlement traps, mystery fees, or portfolio math they cannot explain. Success is durable, informed participation rather than trading frequency.\n\n## Pillars\n- **Honest money clarity:** show settled cash, pending ACH holds, and exact availability dates wherever buying power appears.\n- **Transparent order mechanics:** replace blind confirmation with quote-freshness checks, itemised costs, and plain-English order states.\n- **Shared financial truth:** ground every screen in one auditable double-entry ledger, idempotent order pipeline, and eligibility service.\n- **Accessible trust and recovery:** meet WCAG AA across core journeys and give support the exact ledger and order timeline when someone asks where their money is.\n\n## Launch outcomes\n- Verified-to-funded activation: **38% -> 60%**.\n- Funded-to-first-order conversion: **25% -> 45%** within seven days.\n- Four-week retained funded accounts: **20% -> 35%**.\n- Money-status support contacts: **18 -> 7** per 1,000 funded accounts.\nAll baselines and targets are synthetic.\n\n## Boundaries\nLaunch supports cash accounts, US stocks, and broad-market ETFs. Margin, options, crypto, and social copy-trading are out of scope. Lumen Trade is fictional; nothing here is investment guidance.\n\n## Demo route\nExplore weighted Themes, platform dependencies, briefs, Questions, Criteria, Gantt, and Forecast. Change the ledger schedule to review downstream impact. Compare a smaller launch scope and added capacity as saved scenarios.",
       "position": "1024",
       "nodeType": "Vision",
       "startDate": null,
@@ -45,7 +45,7 @@
       "id": "01a20000-0000-7000-8000-000000000006",
       "parentId": "01a20000-0000-7000-8000-000000000005",
       "title": "Help 60% of verified customers fund their account",
-      "bodyText": "## Intended outcome\nVerified-to-funded conversion: 38% → 60% within seven days. Funnel events expose where customers abandon verification or deposits.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "bodyText": "## Strategic Objective\nRemove the 62% drop-off between verified identity and a funded cash balance by explaining why identity checks exist, validating documents before upload, and showing exact ACH availability before a bank link is submitted.\n\n## Persona\n**Maya Chen (29), First-Time Saver** - comfortable with mobile banking, nervous about entering identity and bank credentials into a new brokerage. She abandons a flow when a hold looks broken or unexplained.\n\n## OKRs\n- Raise verified-to-funded activation from **38% -> 60%** across synthetic beta cohorts.\n- Keep KYC document resubmission below **12%** through inline quality feedback.\n- Reach **>= 88%** comprehension of pending versus settled cash in moderated tasks.",
       "position": "1024",
       "nodeType": "Theme",
       "startDate": null,
@@ -63,7 +63,7 @@
       "id": "01a20000-0000-7000-8000-000000000007",
       "parentId": "01a20000-0000-7000-8000-000000000005",
       "title": "Help 45% of funded customers place an informed first order",
-      "bodyText": "## Intended outcome\nFunded-to-first-order conversion: 25% → 45% within seven days. Guardrails: no duplicate executions and clear cash/risk disclosures.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "bodyText": "## Strategic Objective\nTurn order discovery and execution from an intimidating leap into a transparent, verifiable interaction where the customer understands estimated cost, cash impact, and execution state before confirming.\n\n## Persona\n**Devon Brooks (34), Deliberate Beginner** - follows a handful of familiar companies and broad-market ETFs. He reads carefully before tapping Buy and backs out when a price, fee, or state is ambiguous.\n\n## OKRs\n- Raise funded-to-first-order conversion from **25% -> 45%** within seven days.\n- Keep stale-quote abandonment below **3%** of initiated order previews.\n- Ship **zero** silent duplicate orders across retry and poor-network rehearsals.",
       "position": "2048",
       "nodeType": "Theme",
       "startDate": null,
@@ -81,7 +81,7 @@
       "id": "01a20000-0000-7000-8000-000000000008",
       "parentId": "01a20000-0000-7000-8000-000000000005",
       "title": "Bring 35% of funded customers back in week four",
-      "bodyText": "## Intended outcome\nFour-week retained funded accounts: 20% → 35%. Track portfolio comprehension and repeat use, without rewarding excessive trading.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "bodyText": "## Strategic Objective\nHelp every investor reconcile every dollar - deposited, reserved in an open order, invested, or ready to withdraw - and separate their own contributions from investment performance.\n\n## Persona\n**Priya Nair (41), Goal-Oriented Indexer** - checks balances weekly, exports records at tax time, and expects total return to distinguish deposits from market gains.\n\n## OKRs\n- Raise four-week retained funded accounts from **20% -> 35%**.\n- Reach **100%** ledger-to-UI balance parity during settlement and withdrawal rehearsals.\n- Resolve the return-calculation method (transfers versus market return) before launch freeze.",
       "position": "3072",
       "nodeType": "Theme",
       "startDate": null,
@@ -99,7 +99,7 @@
       "id": "01a20000-0000-7000-8000-000000000009",
       "parentId": "01a20000-0000-7000-8000-000000000005",
       "title": "Build reusable trust and operating foundations",
-      "bodyText": "## Intended outcome\nEnabling investment rather than a separate customer conversion target. Identity, ledger, event contracts, and operations unlock work across the three customer outcomes. Trace those relationships through Unlocks.\n\n## Measurement\nSynthetic targets only. Review the fictional beta cohort weekly; segment by onboarding completion and funding state.",
+      "bodyText": "## Strategic Objective\nProvide the shared identity, ledger, event, and operational foundations every customer journey depends on, with a single authored truth for eligibility, cash, and order state.\n\n## Scope\nReusable platform capabilities owned by Lumen Trade engineering: identity and eligibility, double-entry cash and holdings, market-data freshness, durable order routing, and operational recovery tooling.\n\n## OKRs\n- One eligibility decision per customer, enforced across every money and trading surface.\n- Every synthetic cash movement balances to the ledger and survives replay.\n- Every order retry resolves to exactly one durable execution state.",
       "position": "4096",
       "nodeType": "Theme",
       "startDate": null,
@@ -117,7 +117,7 @@
       "id": "01a20000-0000-7000-8000-00000000000a",
       "parentId": "01a20000-0000-7000-8000-000000000006",
       "title": "Account opening and funding",
-      "bodyText": "## Capability\nAccount opening and funding is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nEnd-to-end account opening: passkey access, identity and eligibility checks, bank linking, first-deposit tracking, and pre-trade orientation.\n\n## Dependencies and Risks\n- Identity verification gates funding and depends on the shared **Identity and entitlement platform**.\n- First-deposit work overlaps the **Double-entry cash ledger** finish; the ledger reservation contract must be agreed before deposit status can settle.",
       "position": "1024",
       "nodeType": "Component",
       "startDate": null,
@@ -135,7 +135,7 @@
       "id": "01a20000-0000-7000-8000-00000000000b",
       "parentId": "01a20000-0000-7000-8000-000000000007",
       "title": "Understand and place a trade",
-      "bodyText": "## Capability\nUnderstand and place a trade is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nSearch, watchlists, quote inspection, plain-language risk preview, and the first-trade journey from discovery to execution receipt.\n\n## Dependencies and Risks\n- Reads quotes from the **Market data gateway** and settled cash from the **Double-entry cash ledger**.\n- Order routing is intentionally blocked while the timeout and idempotency behaviour is unresolved, so first-trade work waits in the plan.",
       "position": "1024",
       "nodeType": "Component",
       "startDate": null,
@@ -153,7 +153,7 @@
       "id": "01a20000-0000-7000-8000-00000000000c",
       "parentId": "01a20000-0000-7000-8000-000000000008",
       "title": "Portfolio understanding and habit",
-      "bodyText": "## Capability\nPortfolio understanding and habit is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nHoldings and cash explanations, daily value movement, opt-in alerts, and downloadable monthly activity statements.\n\n## Dependencies and Risks\n- Reads executed orders and ledger cash from shared platform capabilities.\n- The return-calculation decision is open: transfers must not be presented as market performance.",
       "position": "1024",
       "nodeType": "Component",
       "startDate": null,
@@ -171,7 +171,7 @@
       "id": "01a20000-0000-7000-8000-00000000000d",
       "parentId": "01a20000-0000-7000-8000-000000000009",
       "title": "Identity and entitlement platform",
-      "bodyText": "## Capability\nIdentity and entitlement platform is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nReusable identity verification, passkey access, and eligibility decisions consumed by onboarding, funding, and trading.\n\n## Dependencies and Risks\n- Verification callbacks must be idempotent; a retry cannot create a second customer or eligibility decision.\n- Identity is the earliest platform dependency for every funded journey.",
       "position": "1024",
       "nodeType": "Component",
       "startDate": null,
@@ -189,7 +189,7 @@
       "id": "01a20000-0000-7000-8000-00000000000e",
       "parentId": "01a20000-0000-7000-8000-000000000009",
       "title": "Money and order platform",
-      "bodyText": "## Capability\nMoney and order platform is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nThe double-entry cash ledger, quote-freshness gateway, and idempotent order routing shared by funding, discovery, and portfolio.\n\n## Dependencies and Risks\n- Ledger reservations must settle before buying power or withdrawal states can be trusted.\n- Order routing is explicitly blocked pending the timeout-recovery decision; downstream first-trade and launch work depends on it.",
       "position": "2048",
       "nodeType": "Component",
       "startDate": null,
@@ -207,7 +207,7 @@
       "id": "01a20000-0000-7000-8000-00000000000f",
       "parentId": "01a20000-0000-7000-8000-000000000009",
       "title": "Events, reliability, and service operations",
-      "bodyText": "## Capability\nEvents, reliability, and service operations is a reusable delivery boundary. Features below carry estimates, acceptance evidence, ownership, and release phases.\n\n## Outcome connection\nFollow cross-branch Unlocks to see how this capability supports customer outcomes.",
+      "bodyText": "## Component Scope\nVersioned journey events, support timeline and audit trail, trading kill switch, and public-launch recovery rehearsal.\n\n## Dependencies and Risks\n- Operational controls must reuse the same event and ledger contracts as customer surfaces.\n- Launch rehearsal needs the order timeout and ledger reconciliation decisions closed first.",
       "position": "3072",
       "nodeType": "Component",
       "startDate": null,
@@ -225,7 +225,7 @@
       "id": "01a20000-0000-7000-8000-000000000014",
       "parentId": "01a20000-0000-7000-8000-00000000000d",
       "title": "Reusable identity verification and eligibility",
-      "bodyText": "## Customer / platform value\nA single verification state gates deposits and orders. Retried callbacks must not create duplicate accounts.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nDuplicate verification callbacks produce one customer and one eligibility decision.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nIdentity checks are where first-time investors abandon. Repeated document uploads and opaque pending states feel risky, especially when the customer cannot tell whether the application is still moving.\n\n## Solution\nDeliver reusable identity verification with on-device document quality checks, clear Pending / Approved / Action Needed states, and idempotent eligibility decisions consumed by funding and trading.\n\n## Scope / Non-goals\n- **In scope:** US individual cash-account identity checks and eligibility.\n- **Non-goals:** Joint accounts, custodial accounts, and international tax-residency workflows.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 8 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-04",
@@ -242,7 +242,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000015",
       "parentId": "01a20000-0000-7000-8000-000000000014",
-      "title": "Duplicate verification callbacks produce one customer and one eligibility decision.",
+      "title": "Verification retries resolve to one customer and one eligibility decision.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -260,7 +260,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000016",
       "parentId": "01a20000-0000-7000-8000-000000000014",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Pending, approved, and action-needed states explain the next step and preserve the draft.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -279,7 +279,7 @@
       "id": "01a20000-0000-7000-8000-000000000017",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Versioned journey events and outcome dashboard",
-      "bodyText": "## Customer / platform value\nOne event contract measures verification, deposit settlement, first order, and week-four return. Product teams reuse the same cohort definitions.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA synthetic customer journey appears once at every funnel stage with no personal data in analytics.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nTeams measure different funnel definitions, so activation and retention stories disagree and support cannot reconstruct the customer journey.\n\n## Solution\nDefine one versioned journey-event contract for verification, funding, first order, and week-four return, and expose a synthetic cohort dashboard built on the same events.\n\n## Scope / Non-goals\n- **In scope:** Product analytics, cohort definitions, and a redacted support timeline.\n- **Non-goals:** Personal data in analytics, ad tracking, or cross-site identity.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-04",
@@ -296,7 +296,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000018",
       "parentId": "01a20000-0000-7000-8000-000000000017",
-      "title": "A synthetic customer journey appears once at every funnel stage with no personal data in analytics.",
+      "title": "A synthetic customer appears once at each funnel stage with no personal data in analytics.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -314,7 +314,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000019",
       "parentId": "01a20000-0000-7000-8000-000000000017",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Replaying an event does not duplicate the funnel count or the support timeline.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -333,7 +333,7 @@
       "id": "01a20000-0000-7000-8000-00000000001a",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Double-entry cash ledger and reconciliation",
-      "bodyText": "## Customer / platform value\nShared source of truth for deposits, buying power, trades, and portfolio cash. A delay here affects funding, ordering, and statements.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nEvery synthetic cash movement balances; replaying a deposit event does not change the balance twice.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nCash states disagree across funding, ordering, and portfolio, so customers cannot tell what is spendable and support cannot explain a balance.\n\n## Solution\nBuild a double-entry cash ledger with replay-safe deposits, reservations, trades, withdrawals, and reconciliation. Every customer money surface reads the same ledger truth.\n\n## Scope / Non-goals\n- **In scope:** Cash deposits, buying-power reservations, executions, withdrawals, and monthly reconciliation.\n- **Non-goals:** Margin, credit, multi-currency, or tax-lot accounting.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 13 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-11",
@@ -350,7 +350,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000001b",
       "parentId": "01a20000-0000-7000-8000-00000000001a",
-      "title": "Every synthetic cash movement balances; replaying a deposit event does not change the balance twice.",
+      "title": "Every synthetic cash movement balances; replaying a deposit does not change the balance twice.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -368,7 +368,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000001c",
       "parentId": "01a20000-0000-7000-8000-00000000001a",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Ledger cash equals the portfolio and statement totals at every settlement cut-off.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -387,7 +387,7 @@
       "id": "01a20000-0000-7000-8000-00000000001d",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Market data gateway with freshness contracts",
-      "bodyText": "## Customer / platform value\nServe a shared quote API to discovery, order preview, and portfolio screens. Make stale data explicit rather than presenting it as live.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA quote older than the configured threshold is visibly marked stale in every consuming screen.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nStale or delayed quotes can look live, leading customers to confirm a price that no longer exists.\n\n## Solution\nServe a shared quote API to discovery, order preview, and portfolio screens with explicit freshness timestamps, market-session badges, and a stale-quote guardrail.\n\n## Scope / Non-goals\n- **In scope:** US stocks and broad-market ETFs, quote freshness, and market-session context.\n- **Non-goals:** Options, crypto, technical indicators, analyst ratings, or investment recommendations.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-01-18",
@@ -404,7 +404,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000001e",
       "parentId": "01a20000-0000-7000-8000-00000000001d",
-      "title": "A quote older than the configured threshold is visibly marked stale in every consuming screen.",
+      "title": "A quote older than the configured threshold is visibly marked stale everywhere it appears.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -422,7 +422,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000001f",
       "parentId": "01a20000-0000-7000-8000-00000000001d",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Order preview blocks a stale quote and asks for an explicit refresh.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -441,7 +441,7 @@
       "id": "01a20000-0000-7000-8000-000000000020",
       "parentId": "01a20000-0000-7000-8000-00000000000a",
       "title": "Guided account opening with resumable verification",
-      "bodyText": "## Customer / platform value\nExplain why information is needed and resume an interrupted application. Outcome: reduce verification abandonment.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA customer can resume verification after restarting without submitting identity data again.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nA long identity form loses progress and forces customers to restart, often after they have already shared sensitive information.\n\n## Solution\nOffer resumable account opening with passkey access, plain-language rationale for every field, and document checks before submission.\n\n## Scope / Non-goals\n- **In scope:** Individual cash-account onboarding with resumable verification.\n- **Non-goals:** Joint onboarding or importing identity data from another broker.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-01-18",
@@ -458,7 +458,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000021",
       "parentId": "01a20000-0000-7000-8000-000000000020",
-      "title": "A customer can resume verification after restarting without submitting identity data again.",
+      "title": "A customer can resume after restarting without re-entering identity data.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -476,7 +476,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000022",
       "parentId": "01a20000-0000-7000-8000-000000000020",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Every requested field explains why it is needed and what happens next.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -495,7 +495,7 @@
       "id": "01a20000-0000-7000-8000-000000000023",
       "parentId": "01a20000-0000-7000-8000-00000000000a",
       "title": "Link a bank and track a first deposit",
-      "bodyText": "## Customer / platform value\nShow pending versus available cash and explain settlement. Outcome: move verified customers toward funded activation.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA pending deposit is visible but cannot be spent before the ledger marks it available.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nPending ACH cash often appears as zero available, causing panic, duplicate transfers, and avoidable support contacts.\n\n## Solution\nLink a bank account with an upfront clearing timeline and explicit Initiated -> Clearing -> Settled states sourced from the ledger. Never present pending cash as spendable.\n\n## Scope / Non-goals\n- **In scope:** ACH funding, pending and settled cash states, and rejected-transfer recovery.\n- **Non-goals:** Wire transfers, debit-card top-ups, or instant provisional credit.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -530,7 +530,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000025",
       "parentId": "01a20000-0000-7000-8000-000000000023",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "A rejected transfer explains the bank reason and retry path without creating a duplicate debit.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -549,7 +549,7 @@
       "id": "01a20000-0000-7000-8000-000000000026",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Search stocks and build a first watchlist",
-      "bodyText": "## Customer / platform value\nExplain company basics, show fresh prices, and save a watchlist. Outcome: help customers understand what they might buy.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA saved watchlist survives a restart and stale prices carry the gateway freshness label.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nTicker-only search excludes beginners who know a company or fund category by name, while unclear quote states hide whether a price is live.\n\n## Solution\nProvide name and ticker search, a saved watchlist, quote timestamps, freshness labels, and market-session badges.\n\n## Scope / Non-goals\n- **In scope:** US stocks and ETFs, personal watchlists, and quote-age context.\n- **Non-goals:** Social sentiment, analyst ratings, or complex technical charting.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 5 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -566,7 +566,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000027",
       "parentId": "01a20000-0000-7000-8000-000000000026",
-      "title": "A saved watchlist survives a restart and stale prices carry the gateway freshness label.",
+      "title": "Search matches US stocks and ETFs by company name or ticker symbol.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -584,7 +584,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000028",
       "parentId": "01a20000-0000-7000-8000-000000000026",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "A saved watchlist survives restart and labels every stale quote.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -603,7 +603,7 @@
       "id": "01a20000-0000-7000-8000-000000000029",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Plain-language risk and cash-only order preview",
-      "bodyText": "## Customer / platform value\nShow estimated cost, available buying power, volatility notice, and market-hours behavior before confirmation.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nAn order exceeding available cash is rejected with an explanation before confirmation.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Avery Chen · Identity & experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nOrder tickets hide fees, buying power, and market-hours behaviour until after confirmation.\n\n## Solution\nShow a pre-trade receipt with estimated share quantity, reference quote and timestamp, fees, remaining settled cash, volatility notice, and market-hours behaviour.\n\n## Scope / Non-goals\n- **In scope:** Cash-only stock and ETF orders during regular market hours.\n- **Non-goals:** Margin, options, personalised advice, or extended-hours execution.\n\n## Delivery notes\nOwner: Avery Chen - Identity & experience. 5 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-15",
@@ -620,7 +620,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000002a",
       "parentId": "01a20000-0000-7000-8000-000000000029",
-      "title": "An order exceeding available cash is rejected with an explanation before confirmation.",
+      "title": "An order exceeding settled cash is rejected with an explanation before confirmation.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -638,7 +638,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000002b",
       "parentId": "01a20000-0000-7000-8000-000000000029",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "The preview itemises share price, estimated total, fees, and remaining settled cash.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -657,7 +657,7 @@
       "id": "01a20000-0000-7000-8000-00000000002c",
       "parentId": "01a20000-0000-7000-8000-00000000000e",
       "title": "Idempotent order routing and execution state",
-      "bodyText": "## Customer / platform value\nReuse buying-power checks and a durable order state machine. Handle retries and out-of-order execution events safely.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nRepeated confirmation with the same idempotency key creates exactly one broker order.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nRetrying a slow request can duplicate an order, while generic pending spinners hide whether a trade filled, failed, or remains unknown.\n\n## Solution\nBuild a durable order state machine with client idempotency keys and explicit Queued -> Working -> Filled / Rejected / Cancelled states.\n\n## Scope / Non-goals\n- **In scope:** Regular-hours market orders, retry safety, and an explicit status detail view.\n- **Non-goals:** Extended hours, smart routing, or algorithmic execution.\n- **Dependency risk:** This work is explicitly blocked while the timeout and unknown-outcome behaviour is unresolved.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 13 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-02-15",
@@ -692,7 +692,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000002e",
       "parentId": "01a20000-0000-7000-8000-00000000002c",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "A timed-out confirmation resolves to an explicit state with a safe next action.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -711,7 +711,7 @@
       "id": "01a20000-0000-7000-8000-00000000002f",
       "parentId": "01a20000-0000-7000-8000-00000000000b",
       "title": "Place a first trade with a clear execution receipt",
-      "bodyText": "## Customer / platform value\nConnect discovery, risk preview, routing, and receipts. Outcome: informed first-order conversion rather than trading volume.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA customer can distinguish submitted, filled, and rejected orders and see final price and fees.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nNewly funded customers pause because order types, settlement, and fees feel unfamiliar, and an unclear receipt weakens trust.\n\n## Solution\nOffer an optional three-card primer with live read-only examples, then guide the first order and show a receipt that distinguishes submitted, filled, and rejected orders.\n\n## Scope / Non-goals\n- **In scope:** Education and the first cash trade, including a clear execution receipt.\n- **Non-goals:** Gamified badges, required quizzes, or stock picks.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-08",
@@ -728,7 +728,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000030",
       "parentId": "01a20000-0000-7000-8000-00000000002f",
-      "title": "A customer can distinguish submitted, filled, and rejected orders and see final price and fees.",
+      "title": "A customer can tell submitted, filled, and rejected orders apart and see final price and fees.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -746,7 +746,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000031",
       "parentId": "01a20000-0000-7000-8000-00000000002f",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "The primer can be skipped, paused, or resumed without blocking trade entry.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -765,7 +765,7 @@
       "id": "01a20000-0000-7000-8000-000000000032",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Explain holdings, cash, and daily value changes",
-      "bodyText": "## Customer / platform value\nCombine executed positions, ledger cash, and quotes with accessible explanations of unrealized movement.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nPortfolio totals reconcile to ledger cash and executed positions; stale valuations are labelled.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Riley Moss · Trading experience. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nPortfolio totals can disagree with cash and open orders, especially during settlement, and stale valuations can look authoritative.\n\n## Solution\nCombine executed positions, ledger cash, and fresh quotes into one holdings view, label stale values, and explain daily movement without conflating deposits with returns.\n\n## Scope / Non-goals\n- **In scope:** Cash equities and ETFs, holdings, cash, and daily value explanation.\n- **Non-goals:** Tax-lot optimisation, margin balances, or performance promises.\n\n## Delivery notes\nOwner: Riley Moss - Trading experience. 8 illustrative points, not a delivery promise.",
       "position": "1024",
       "nodeType": "Feature",
       "startDate": "2027-03-08",
@@ -782,7 +782,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000033",
       "parentId": "01a20000-0000-7000-8000-000000000032",
-      "title": "Portfolio totals reconcile to ledger cash and executed positions; stale valuations are labelled.",
+      "title": "Portfolio totals reconcile to ledger cash and executed positions.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -800,7 +800,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000034",
       "parentId": "01a20000-0000-7000-8000-000000000032",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Stale valuations are labelled and do not silently change the displayed total.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -819,7 +819,7 @@
       "id": "01a20000-0000-7000-8000-000000000035",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Opt-in price and execution notifications",
-      "bodyText": "## Customer / platform value\nUse shared events for useful notifications with quiet hours and opt-out. Outcome: purposeful return visits without urgency or pressure.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nOpting out prevents future alerts; an execution event produces at most one notification.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nNotification opt-ins often become engagement pressure, and duplicate execution events create noise.\n\n## Solution\nUse shared events for opt-in price and execution notifications with quiet hours and at-most-once delivery per event.\n\n## Scope / Non-goals\n- **In scope:** Informational price and execution alerts with explicit opt-out.\n- **Non-goals:** Urgency prompts, promotional pushes, or social feeds.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-03-15",
@@ -836,7 +836,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000036",
       "parentId": "01a20000-0000-7000-8000-000000000035",
-      "title": "Opting out prevents future alerts; an execution event produces at most one notification.",
+      "title": "Opting out prevents future alerts; one execution event produces at most one notification.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -854,7 +854,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000037",
       "parentId": "01a20000-0000-7000-8000-000000000035",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Quiet hours defer non-urgent alerts and preserve the chosen channel.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -873,7 +873,7 @@
       "id": "01a20000-0000-7000-8000-000000000038",
       "parentId": "01a20000-0000-7000-8000-00000000000c",
       "title": "Download a monthly activity statement",
-      "bodyText": "## Customer / platform value\nReuse the ledger and order history for a readable record of deposits, trades, fees, and ending balances.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nStatement closing cash equals the ledger balance for the same cut-off.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Morgan Vale · Money systems. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nCustomers cannot reconcile deposits, trades, fees, and ending balances from a readable record.\n\n## Solution\nGenerate a monthly activity statement from the ledger and order history with a clear cut-off, trade lines, fees, and ending cash.\n\n## Scope / Non-goals\n- **In scope:** Cash-account monthly activity statements.\n- **Non-goals:** Tax advice or consolidated brokerage documents.\n\n## Delivery notes\nOwner: Morgan Vale - Money systems. 5 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-22",
@@ -908,7 +908,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000003a",
       "parentId": "01a20000-0000-7000-8000-000000000038",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "Every trade line shows side, quantity, price, fees, and execution time.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -927,7 +927,7 @@
       "id": "01a20000-0000-7000-8000-00000000003b",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Support timeline, audit trail, and trading kill switch",
-      "bodyText": "## Customer / platform value\nProvide a redacted journey timeline and an audited switch to stop new order submissions while preserving history.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nAn authorized operator can halt new submissions; the actor, reason, and timestamp remain auditable.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nSupport and engineering lack one auditable timeline when money or orders go wrong, and stopping new orders can destroy evidence if handled carelessly.\n\n## Solution\nProvide a redacted journey timeline, an append-only audit trail, and an authorised trading kill switch that preserves all history.\n\n## Scope / Non-goals\n- **In scope:** Operational timeline, audit trail, and the trading kill switch.\n- **Non-goals:** A customer-facing admin surface or silent data deletion.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 8 illustrative points, not a delivery promise.",
       "position": "2048",
       "nodeType": "Feature",
       "startDate": "2027-02-01",
@@ -944,7 +944,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000003c",
       "parentId": "01a20000-0000-7000-8000-00000000003b",
-      "title": "An authorized operator can halt new submissions; the actor, reason, and timestamp remain auditable.",
+      "title": "An authorised operator can halt new submissions while existing history stays readable.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -962,7 +962,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000003d",
       "parentId": "01a20000-0000-7000-8000-00000000003b",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "The actor, reason, and timestamp of every control action remain auditable.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -981,7 +981,7 @@
       "id": "01a20000-0000-7000-8000-00000000003e",
       "parentId": "01a20000-0000-7000-8000-00000000000f",
       "title": "Public-launch rehearsal and recovery drill",
-      "bodyText": "## Customer / platform value\nExercise market-data outage, duplicate execution events, and cash reconciliation before the fictional launch decision.\n\n## Scope\nCash-only stocks in a fictional sandbox. All service providers and test accounts are simulated.\n\n## Evidence and outcome\nA synthetic outage is recovered with no duplicate orders and no unexplained cash difference.\nMeasure through the shared journey-event contract; validate correctness before interpreting conversion.\n\n## Delivery notes\nOwner: Jordan Pike · Reliability & insights. Estimates are illustrative points, not delivery promises.",
+      "bodyText": "## Problem\nLaunch readiness depends on untested market-data outage, duplicate-execution, and cash-reconciliation failure paths.\n\n## Solution\nRun a public-launch rehearsal that exercises outage, retry, and cash-break scenarios, recording owners, evidence, and follow-ups before the fictional launch decision.\n\n## Scope / Non-goals\n- **In scope:** Synthetic outage, retry, and reconciliation drills.\n- **Non-goals:** Real customer data or production trading.\n\n## Delivery notes\nOwner: Jordan Pike - Reliability & insights. 5 illustrative points, not a delivery promise.",
       "position": "3072",
       "nodeType": "Feature",
       "startDate": "2027-03-22",
@@ -998,7 +998,7 @@
     {
       "id": "01a20000-0000-7000-8000-00000000003f",
       "parentId": "01a20000-0000-7000-8000-00000000003e",
-      "title": "A synthetic outage is recovered with no duplicate orders and no unexplained cash difference.",
+      "title": "A synthetic outage recovers with no duplicate orders and no unexplained cash difference.",
       "bodyText": null,
       "position": "1024",
       "nodeType": "AcceptanceCriterion",
@@ -1016,7 +1016,7 @@
     {
       "id": "01a20000-0000-7000-8000-000000000040",
       "parentId": "01a20000-0000-7000-8000-00000000003e",
-      "title": "Keyboard and screen-reader checks pass; failure and retry paths are demonstrated",
+      "title": "The drill records owners, evidence, and follow-ups for every failed step.",
       "bodyText": null,
       "position": "2048",
       "nodeType": "AcceptanceCriterion",
@@ -1036,7 +1036,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000014",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen · Identity & experience"
+      "fieldValue": "Avery Chen - Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000014",
@@ -1046,7 +1046,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000017",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike · Reliability & insights"
+      "fieldValue": "Jordan Pike - Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000017",
@@ -1056,7 +1056,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001a",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale · Money systems"
+      "fieldValue": "Morgan Vale - Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001a",
@@ -1066,7 +1066,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001d",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss · Trading experience"
+      "fieldValue": "Riley Moss - Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000001d",
@@ -1076,47 +1076,47 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000020",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen · Identity & experience"
+      "fieldValue": "Avery Chen - Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000020",
       "fieldKey": "demo-measure",
-      "fieldValue": "Verified → funded within 7 days"
+      "fieldValue": "Verified -> funded within 7 days"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000023",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale · Money systems"
+      "fieldValue": "Morgan Vale - Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000023",
       "fieldKey": "demo-measure",
-      "fieldValue": "Verified → funded within 7 days"
+      "fieldValue": "Verified -> funded within 7 days"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000026",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss · Trading experience"
+      "fieldValue": "Riley Moss - Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000026",
       "fieldKey": "demo-measure",
-      "fieldValue": "Funded → first order within 7 days"
+      "fieldValue": "Funded -> first order within 7 days"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000029",
       "fieldKey": "demo-owner",
-      "fieldValue": "Avery Chen · Identity & experience"
+      "fieldValue": "Avery Chen - Identity & experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000029",
       "fieldKey": "demo-measure",
-      "fieldValue": "Funded → first order within 7 days"
+      "fieldValue": "Funded -> first order within 7 days"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002c",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale · Money systems"
+      "fieldValue": "Morgan Vale - Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002c",
@@ -1126,17 +1126,17 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002f",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss · Trading experience"
+      "fieldValue": "Riley Moss - Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000002f",
       "fieldKey": "demo-measure",
-      "fieldValue": "Funded → first order within 7 days"
+      "fieldValue": "Funded -> first order within 7 days"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000032",
       "fieldKey": "demo-owner",
-      "fieldValue": "Riley Moss · Trading experience"
+      "fieldValue": "Riley Moss - Trading experience"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000032",
@@ -1146,7 +1146,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000035",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike · Reliability & insights"
+      "fieldValue": "Jordan Pike - Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000035",
@@ -1156,7 +1156,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-000000000038",
       "fieldKey": "demo-owner",
-      "fieldValue": "Morgan Vale · Money systems"
+      "fieldValue": "Morgan Vale - Money systems"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-000000000038",
@@ -1166,7 +1166,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003b",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike · Reliability & insights"
+      "fieldValue": "Jordan Pike - Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003b",
@@ -1176,7 +1176,7 @@
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003e",
       "fieldKey": "demo-owner",
-      "fieldValue": "Jordan Pike · Reliability & insights"
+      "fieldValue": "Jordan Pike - Reliability & insights"
     },
     {
       "nodeId": "01a20000-0000-7000-8000-00000000003e",
@@ -1424,22 +1424,22 @@
     "roster": [
       {
         "id": "01a20000-0000-7000-8000-000000000010",
-        "name": "Avery Chen · Identity & experience",
+        "name": "Avery Chen - Identity & experience",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000011",
-        "name": "Morgan Vale · Money systems",
+        "name": "Morgan Vale - Money systems",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000012",
-        "name": "Riley Moss · Trading experience",
+        "name": "Riley Moss - Trading experience",
         "weightUnits": 100
       },
       {
         "id": "01a20000-0000-7000-8000-000000000013",
-        "name": "Jordan Pike · Reliability & insights",
+        "name": "Jordan Pike - Reliability & insights",
         "weightUnits": 75
       }
     ],
@@ -1527,7 +1527,7 @@
   "forecastScenarios": [
     {
       "scenarioId": "01a20000-0000-7000-8000-00000000005f",
-      "label": "Smaller launch — defer alerts and monthly statements",
+      "label": "Smaller launch - defer alerts and monthly statements",
       "baselineRevision": 1,
       "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
       "policyVersion": "staffed-capacity-v1",
@@ -1730,22 +1730,22 @@
         "roster": [
           {
             "id": "01a20000-0000-7000-8000-000000000010",
-            "name": "Avery Chen · Identity & experience",
+            "name": "Avery Chen - Identity & experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000011",
-            "name": "Morgan Vale · Money systems",
+            "name": "Morgan Vale - Money systems",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000012",
-            "name": "Riley Moss · Trading experience",
+            "name": "Riley Moss - Trading experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000013",
-            "name": "Jordan Pike · Reliability & insights",
+            "name": "Jordan Pike - Reliability & insights",
             "weightUnits": 75
           }
         ],
@@ -1817,7 +1817,7 @@
     },
     {
       "scenarioId": "01a20000-0000-7000-8000-000000000060",
-      "label": "More money-platform capacity — Morgan from 1.0 to 1.5",
+      "label": "More money-platform capacity - Morgan from 1.0 to 1.5",
       "baselineRevision": 1,
       "baselineFingerprint": "1da3961cf1828b51e1f35b3857c6f0632fa04ede289e4a22a753df280c10055c",
       "policyVersion": "staffed-capacity-v1",
@@ -2020,22 +2020,22 @@
         "roster": [
           {
             "id": "01a20000-0000-7000-8000-000000000010",
-            "name": "Avery Chen · Identity & experience",
+            "name": "Avery Chen - Identity & experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000011",
-            "name": "Morgan Vale · Money systems",
+            "name": "Morgan Vale - Money systems",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000012",
-            "name": "Riley Moss · Trading experience",
+            "name": "Riley Moss - Trading experience",
             "weightUnits": 100
           },
           {
             "id": "01a20000-0000-7000-8000-000000000013",
-            "name": "Jordan Pike · Reliability & insights",
+            "name": "Jordan Pike - Reliability & insights",
             "weightUnits": 75
           }
         ],

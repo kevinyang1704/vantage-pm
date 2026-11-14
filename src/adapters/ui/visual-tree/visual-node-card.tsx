@@ -4,6 +4,7 @@ import type { NodeType } from '../../../domain/tree/node.entity';
 import type { VisualNodeCardModel } from './visual-node-card.types';
 import { AcceptanceIndicator } from './ac-indicator';
 import { AcceptancePanel } from './ac-panel';
+import { OutlineIcon } from '../outline/outline-icons';
 import './visual-node-card.css';
 
 export interface VisualNodeCardProps {
@@ -260,7 +261,8 @@ export function VisualNodeCard({
             }}
             title="Add/edit schedule"
           >
-            📅{scheduleText ? ` ${scheduleText}` : ''}
+            <OutlineIcon name="schedule" size={12} />
+            {scheduleText ? <span>{scheduleText}</span> : null}
           </button>
         )}
         {model.isOrphan && (

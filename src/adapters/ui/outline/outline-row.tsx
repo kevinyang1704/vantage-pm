@@ -13,6 +13,7 @@ import { DELIVERY_STATUS_OPTIONS, deliveryStatusLabel, deliveryStatusModifier, f
 import { MarkdownViewer } from '../markdown/markdown-viewer';
 import { MarkdownEditor } from '../markdown/markdown-editor';
 import { NODE_BRIEF_TEMPLATES, templateForNodeType } from '../../../domain/templates/node-brief-templates';
+import { OutlineIcon } from './outline-icons';
 import './outline-row.css';
 
 export interface OutlineRowProps {
@@ -425,7 +426,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title="Effort Points (Click to edit)"
         >
-          ⚡ {row.effortPoints} pt
+          <OutlineIcon name="effort" size={12} /> {row.effortPoints} pt
         </button>
       )}
 
@@ -440,7 +441,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           title="Set Effort Points (Click to edit)"
           aria-label={`Set effort points for ${row.title || 'Untitled'}`}
         >
-          ⚡ + pt
+          <OutlineIcon name="effort" size={12} /> + pt
         </button>
       )}
 
@@ -454,7 +455,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title="Strategic Weight (Click to edit)"
         >
-          ⚖ {row.strategicWeight}
+          <OutlineIcon name="weight" size={12} /> {row.strategicWeight}
         </button>
       )}
 
@@ -469,7 +470,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title={`Phase: ${row.effectivePhaseName} (${row.effectivePhaseSource})`}
         >
-          🏷 {row.effectivePhaseName}
+          <OutlineIcon name="phase" size={12} /> {row.effectivePhaseName}
         </button>
       )}
 
@@ -484,7 +485,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title="Schedule span (Click to edit)"
         >
-          📅 {scheduleText}
+          <OutlineIcon name="schedule" size={12} /> {scheduleText}
         </button>
       )}
 
@@ -496,7 +497,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           className="pm-outline-row__pill pm-outline-row__pill--derived-date"
           title={`Derived span: earliest start / latest end across dated descendants`}
         >
-          📅 {derivedScheduleText} (derived)
+          <OutlineIcon name="schedule" size={12} /> {derivedScheduleText} (derived)
         </span>
       )}
 
@@ -515,7 +516,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title={`Unlocks: ${row.unlocksCount}, Unlocked by: ${row.unlockedByCount} (⌘U / click to edit)`}
         >
-          🔓 {row.unlocksCount > 0 ? `→${row.unlocksCount}` : ''}{' '}
+          <OutlineIcon name="unlocks" size={12} /> {row.unlocksCount > 0 ? `→${row.unlocksCount}` : ''}{' '}
           {row.unlockedByCount > 0 ? `←${row.unlockedByCount}` : ''}
         </button>
       )}
@@ -535,7 +536,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title="Brief (click to edit or Ctrl+E)"
         >
-          📝 Brief
+          <OutlineIcon name="brief" size={12} /> Brief
         </button>
       )}
 
@@ -552,7 +553,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           }}
           title="Open questions pending resolution (click to view/resolve)"
         >
-          ❓ {row.openQuestions.filter((q) => q.status === 'OPEN').length} Open
+          <OutlineIcon name="question" size={12} /> {row.openQuestions.filter((q) => q.status === 'OPEN').length} Open
         </button>
       )}
 
@@ -575,7 +576,7 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
           title="Brief & Inspector (Ctrl+E / Cmd+E or Shift+Enter)"
           aria-label={`Open brief for ${row.title || 'this item'}`}
         >
-          📝
+          <OutlineIcon name="brief" size={15} />
         </button>
         <button
           type="button"
@@ -585,8 +586,9 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
             onOpenScheduleEditor?.(row.nodeId);
           }}
           title="Add/edit schedule"
+          aria-label={`Add or edit schedule for ${row.title || 'this item'}`}
         >
-          📅
+          <OutlineIcon name="schedule" size={15} />
         </button>
         <button
           type="button"
@@ -600,8 +602,9 @@ export const OutlineRow = forwardRef<HTMLDivElement, OutlineRowProps>(function O
             }
           }}
           title="Unlock relationships (⌘U)"
+          aria-label={`Unlock relationships for ${row.title || 'this item'}`}
         >
-          🔓
+          <OutlineIcon name="unlocks" size={15} />
         </button>
       </span>
 

@@ -145,9 +145,9 @@ function openQuestionsCallout(section: DocumentSectionNode): Table | null {
   const lines: string[] = [];
   for (const q of section.openQuestions) {
     if (q.status === 'OPEN') {
-      lines.push(`❓ ${q.questionText}`);
+      lines.push(`Open: ${q.questionText}`);
     } else {
-      lines.push(`✅ ${q.questionText} — ${q.decisionText ?? 'Decided'}`);
+      lines.push(`Decided: ${q.questionText} - ${q.decisionText ?? 'No decision note'}`);
     }
   }
   return new Table({

@@ -13,6 +13,7 @@
 
 import { expect, test } from '../support/fixtures';
 import { openFirstProjectOutline } from '../support/helpers/outline-navigation';
+import { waitForProjectRevisionAdvance } from '../support/helpers/forecast-s1';
 import { addAcceptanceCriterionViaInspector } from '../support/helpers/acceptance-criteria';
 
 const PRODUCT_APP_URL = process.env.BASE_URL ?? 'http://127.0.0.1:5173';
@@ -54,24 +55,32 @@ test.describe('Epic 3: Progressive Tree Structuring & Planning Model', () => {
     await expect(tree).toBeVisible();
 
     const row = page.locator('.pm-outline-row').first();
-    await row.locator('input.pm-outline-row__title-input').fill('Account Opening');
+    const title = row.locator('input.pm-outline-row__title-input');
+    await title.fill('Account Opening');
+    await waitForProjectRevisionAdvance(page, () => title.blur());
 
-    // The dropdown offers Component in ladder order (Vision · Theme · Component · Feature).
+    // The dropdown offers Component in ladder order (Vision → Theme → Component → Feature).
     await row.locator('.pm-outline-row__type-tag').click();
     const options = page.locator('.pm-outline-row__type-dropdown .pm-outline-row__type-option');
     await expect(options.filter({ hasText: /^Component$/ })).toBeVisible();
-    await page.locator('.pm-outline-row__type-dropdown button:has-text("Component")').click();
+    await waitForProjectRevisionAdvance(page, () =>
+      page.locator('.pm-outline-row__type-dropdown button:has-text("Component")').click(),
+    );
     await expect(row.locator('.pm-outline-row__type-tag')).toHaveText('COMPONENT');
     await expect(row).toHaveAttribute('data-node-type', 'Component');
 
     // A Feature nests under a Component…
-    await row.locator('input.pm-outline-row__title-input').focus();
-    await page.keyboard.press('Enter');
+    await title.focus();
+    await waitForProjectRevisionAdvance(page, () => page.keyboard.press('Enter'));
     await page.keyboard.press('Tab'); // indent under Account Opening
     const child = page.locator('.pm-outline-row').nth(1);
-    await child.locator('input.pm-outline-row__title-input').fill('CB Account Opening');
+    const childTitle = child.locator('input.pm-outline-row__title-input');
+    await childTitle.fill('CB Account Opening');
+    await waitForProjectRevisionAdvance(page, () => childTitle.blur());
     await child.locator('.pm-outline-row__type-tag').click();
-    await page.locator('.pm-outline-row__type-dropdown button:has-text("Feature")').click();
+    await waitForProjectRevisionAdvance(page, () =>
+      page.locator('.pm-outline-row__type-dropdown button:has-text("Feature")').click(),
+    );
     await expect(child.locator('.pm-outline-row__type-tag')).toHaveText('FEATURE');
 
     // …but a Theme cannot (rank inversion is rejected).

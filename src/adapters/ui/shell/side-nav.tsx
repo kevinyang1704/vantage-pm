@@ -79,6 +79,10 @@ export interface SideNavProps {
   readonly shareLabel?: string;
   /** Story 27.4 (AD-20): join a shared project from an invite link. */
   readonly onJoinProject?: () => void;
+  /** Browser-only demo mode: add a fresh fictional Lumen Trade project. */
+  readonly onAddDemoProject?: () => void;
+  readonly demoProjectBusy?: boolean;
+  readonly demoProjectEnabled?: boolean;
 }
 
 /** Small inline icon set — geometric shapes, no icon-library dependency
@@ -234,6 +238,9 @@ export function SideNav({
   localFileBusy = false,
   shareLabel = 'Share',
   onJoinProject,
+  onAddDemoProject,
+  demoProjectBusy = false,
+  demoProjectEnabled = true,
 }: SideNavProps): React.ReactElement {
   const [workspaceMenuOpen, setWorkspaceMenuOpen] = useState(false);
   const workspaceTriggerRef = useRef<HTMLButtonElement>(null);
@@ -485,6 +492,20 @@ export function SideNav({
             <span className="pm-side-nav__action-icon" aria-hidden="true">{ICONS.add}</span>
             <span className="pm-side-nav__action-label" aria-hidden="true">New project</span>
           </button>
+          {onAddDemoProject && (
+            <button
+              type="button"
+              className="pm-side-nav__action pm-side-nav__action--wide"
+              aria-label="Add demo project"
+              aria-busy={demoProjectBusy}
+              disabled={demoProjectBusy || !demoProjectEnabled}
+              onClick={onAddDemoProject}
+              data-testid="add-demo-project-trigger"
+            >
+              <span className="pm-side-nav__action-icon" aria-hidden="true">{ICONS.add}</span>
+              <span className="pm-side-nav__action-label" aria-hidden="true">Add demo project</span>
+            </button>
+          )}
           {importEnabled && (
             <button type="button" className="pm-side-nav__action" aria-label="Import" onClick={onImportProject} data-testid="import-trigger">
               <span className="pm-side-nav__action-icon" aria-hidden="true">{ICONS.import}</span>

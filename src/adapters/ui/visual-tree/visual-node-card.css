@@ -185,6 +185,9 @@
 }
 
 .pm-visual-card-schedule-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-family: var(--pm-font-mono-meta-sm-family);
   font-size: var(--pm-font-mono-meta-sm-size);
   color: var(--pm-text-muted);

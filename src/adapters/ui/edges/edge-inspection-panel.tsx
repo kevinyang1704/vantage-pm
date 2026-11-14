@@ -5,6 +5,7 @@
 import React, { useState, useMemo } from 'react';
 import type { UnlockEdge } from '../../../domain/edge/unlock-edge.entity';
 import type { OutlineNodeReadModel } from '../../../application/outline/outline-read-model';
+import { OutlineIcon } from '../outline/outline-icons';
 import './edge-inspection-panel.css';
 
 export interface EdgeInspectionPanelProps {
@@ -106,7 +107,10 @@ export const EdgeInspectionPanel: React.FC<EdgeInspectionPanelProps> = ({
     <aside className="pm-edge-inspection-panel" aria-label="Unlock Edge Inspector">
       <div className="pm-edge-inspection-panel__header">
         <h2 className="pm-edge-inspection-panel__title">
-          <span className="pm-edge-inspection-panel__icon">🔓</span> Unlock Relationships
+          <span className="pm-edge-inspection-panel__icon">
+            <OutlineIcon name="unlocks" size={16} />
+          </span>{' '}
+          Unlock Relationships
         </h2>
         <button
           type="button"

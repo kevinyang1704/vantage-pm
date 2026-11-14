@@ -8,6 +8,7 @@ import type { OutlineNodeReadModel } from '../../../application/outline/outline-
 import type { ScheduleSourceMode } from '../../../domain/tree/node.entity';
 import { deriveNodeSchedule } from '../../../domain/tree/schedule.policy';
 import { parseNaturalLanguageSchedule } from './natural-language-date.adapter';
+import { OutlineIcon } from '../outline/outline-icons';
 import './schedule-editor-modal.css';
 
 export interface ScheduleEditorModalProps {
@@ -110,7 +111,10 @@ export const ScheduleEditorModal: React.FC<ScheduleEditorModalProps> = ({
       <div className="pm-schedule-modal">
         <div className="pm-schedule-modal__header">
           <h2 id="schedule-modal-title" className="pm-schedule-modal__title">
-            <span className="pm-schedule-modal__icon">📅</span> Set Schedule
+            <span className="pm-schedule-modal__icon">
+              <OutlineIcon name="schedule" size={16} />
+            </span>{' '}
+            Set Schedule
           </h2>
           <button
             type="button"

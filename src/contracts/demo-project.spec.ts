@@ -28,5 +28,24 @@ describe('Lumen Trade demo portable project', () => {
       expect(/^[1-9][0-9]*$/.test(key)).toBe(true);
       expect(Number.isSafeInteger(demo.forecastPlan.sprintPlan.capacities[key])).toBe(true);
     }
+
+    const vision = demo.nodes.find((n: { nodeType: string }) => n.nodeType === 'Vision');
+    expect(vision.bodyText).toContain('## North Star');
+    expect(vision.bodyText).toContain('## Pillars');
+    for (const theme of demo.nodes.filter((n: { nodeType: string }) => n.nodeType === 'Theme')) {
+      if (theme.strategicWeight > 0) expect(theme.bodyText).toContain('## Persona');
+      expect(theme.bodyText).toContain('## OKRs');
+    }
+    for (const component of demo.nodes.filter((n: { nodeType: string }) => n.nodeType === 'Component')) {
+      expect(component.bodyText).toContain('## Component Scope');
+      expect(component.bodyText).toContain('## Dependencies and Risks');
+    }
+    for (const featureId of demo.forecastPlan.selectedFeatureIds) {
+      const feature = demo.nodes.find((n: { id: string }) => n.id === featureId);
+      expect(feature.bodyText).toContain('## Problem');
+      expect(feature.bodyText).toContain('## Solution');
+      expect(feature.bodyText).toContain('## Scope / Non-goals');
+      expect(demo.nodes.filter((n: { parentId: string; nodeType: string }) => n.parentId === featureId && n.nodeType === 'AcceptanceCriterion')).toHaveLength(2);
+    }
   });
 });

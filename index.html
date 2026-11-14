@@ -22,10 +22,33 @@
       font-family: var(--pm-font-sans);
       -webkit-font-smoothing: antialiased;
     }
+    .pm-startup {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pm-space-3);
+      padding: var(--pm-space-5);
+      text-align: center;
+      background: var(--pm-canvas);
+      color: var(--pm-text-secondary);
+    }
+    .pm-startup__brand { color: var(--pm-text-primary); font-size: 24px; font-weight: 600; }
+    .pm-startup__title { color: var(--pm-text-primary); font-size: 18px; font-weight: 500; }
+    .pm-startup__copy { max-width: 36ch; font-size: 14px; line-height: 1.5; }
+    .pm-startup button { padding: var(--pm-space-2) var(--pm-space-4); font: inherit; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <main class="pm-startup" aria-busy="true">
+      <div class="pm-startup__brand">Vantage</div>
+      <p class="pm-startup__title" role="status">Opening your workspace…</p>
+      <p class="pm-startup__copy">Getting your projects ready. This may take a few seconds.</p>
+      <noscript>Enable JavaScript to open Vantage.</noscript>
+    </main>
+  </div>
   <script type="module" src="/src/app/main.tsx"></script>
 </body>
 </html>

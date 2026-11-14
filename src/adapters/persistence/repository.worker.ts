@@ -154,6 +154,12 @@ export type WorkerRequest =
       projectId: string;
     }>
   | Readonly<{
+      type: 'EnsureDemoProject';
+      protocolVersion: typeof PROTOCOL_VERSION;
+      requestId: string;
+      snapshot: import('../../contracts/portable-file.schema').PortableProjectSnapshot;
+    }>
+  | Readonly<{
       type: 'BatchImportPortable';
       localFileStateJson?: string;
       protocolVersion: typeof PROTOCOL_VERSION;
@@ -307,6 +313,12 @@ export type WorkerResponse =
       protocolVersion: typeof PROTOCOL_VERSION;
       requestId: string;
       snapshot: import('../../contracts/portable-file.schema').PortableProjectSnapshot;
+    }>
+  | Readonly<{
+      type: 'DemoProjectInstallResult';
+      protocolVersion: typeof PROTOCOL_VERSION;
+      requestId: string;
+      result: DemoProjectInstallResult;
     }>
   | Readonly<{
       type: 'BatchImportResult';
@@ -1578,6 +1590,26 @@ export function queryPortableSnapshot(projectId: string): PortableProjectSnapsho
   });
 }
 
+/** Stable marker: an installed demo is never recreated automatically. */
+export const DEMO_INSTALLATION_KEY = 'demo.lumen.v1.project_id';
+export type DemoProjectInstallResult =
+  | Readonly<{ kind: 'installed' | 'already-installed'; projectId: string }>
+  | Readonly<{ kind: 'failed'; code: string }>;
+
+/**
+ * Install the fictional Lumen Trade demo exactly once per storage. A marker
+ * and the complete project commit in one transaction; a failed installation
+ * leaves neither behind. Explicit later copies use `batchImportPortable`.
+ */
+export function ensureDemoProject(snapshot: PortableProjectSnapshot): DemoProjectInstallResult {
+  const result = importPortableSnapshot(snapshot, undefined, true);
+  if (!result.ok) return Object.freeze({ kind: 'failed' as const, code: result.code });
+  return Object.freeze({
+    kind: result.alreadyInstalled ? 'already-installed' as const : 'installed' as const,
+    projectId: result.projectId,
+  });
+}
+
 /**
  * Batch-imports a validated portable snapshot atomically (E13 Task 4).
  * One transaction inserts the project, phases, nodes in containment-safe
@@ -1590,6 +1622,14 @@ export function batchImportPortable(
   snapshot: PortableProjectSnapshot,
   localFileStateJson?: string,
 ): { ok: true; projectId: string; revision: number } | { ok: false; code: string; cause?: string } {
+  return importPortableSnapshot(snapshot, localFileStateJson, false);
+}
+
+function importPortableSnapshot(
+  snapshot: PortableProjectSnapshot,
+  localFileStateJson: string | undefined,
+  installDemo: boolean,
+): { ok: true; projectId: string; revision: number; alreadyInstalled?: boolean } | { ok: false; code: string; cause?: string } {
   if (!db) {
     return { ok: false, code: 'STORAGE_NOT_READY' };
   }
@@ -1604,10 +1644,6 @@ export function batchImportPortable(
       return { ok: false, code: 'UNSUPPORTED_NEWER_SCHEMA' };
     }
     throw err;
-  }
-  const existing = rowsOf(db, 'SELECT id FROM projects WHERE id = ?', [snapshot.projectId])[0];
-  if (existing) {
-    return { ok: false, code: 'DUPLICATE_PROJECT_ID', cause: snapshot.projectId };
   }
 
   // Topological order: parents before children (pre-order walk of the
@@ -1639,6 +1675,20 @@ export function batchImportPortable(
 
   try {
     db.exec('BEGIN IMMEDIATE');
+    if (installDemo) {
+      // Recheck under the write transaction, including when the original was
+      // renamed, moved or deleted. None of those actions reapply the template.
+      const installation = rowsOf(db, 'SELECT value FROM app_settings WHERE key = ?', [DEMO_INSTALLATION_KEY])[0];
+      if (installation) {
+        db.exec('COMMIT');
+        return { ok: true, projectId: String(installation.value), revision: 0, alreadyInstalled: true };
+      }
+    }
+    const existing = rowsOf(db, 'SELECT id FROM projects WHERE id = ?', [snapshot.projectId])[0];
+    if (existing) {
+      db.exec('ROLLBACK');
+      return { ok: false, code: 'DUPLICATE_PROJECT_ID', cause: snapshot.projectId };
+    }
     // An imported project joins the active workspace, like CreateProject: the
     // shelf and overview list only that workspace, so a NULL workspace_id left
     // a successful import invisible.
@@ -1809,6 +1859,9 @@ export function batchImportPortable(
       });
     }
     if(localFileStateJson!==undefined){ db.exec({sql:'INSERT INTO local_file_state(project_id,state_json) VALUES(?,?)',bind:[snapshot.projectId,localFileStateJson]}); }
+    if (installDemo) {
+      db.exec({ sql: 'INSERT INTO app_settings(key, value) VALUES(?, ?)', bind: [DEMO_INSTALLATION_KEY, snapshot.projectId] });
+    }
     db.exec('COMMIT');
   } catch (err) {
     try {
@@ -2158,6 +2211,17 @@ if (typeof self !== 'undefined' && typeof (self as any).postMessage === 'functio
           protocolVersion: PROTOCOL_VERSION,
           requestId: data.requestId,
           snapshot,
+        });
+        return;
+      }
+
+      if (data.type === 'EnsureDemoProject') {
+        await initWorkerDatabase();
+        workerScope.postMessage({
+          type: 'DemoProjectInstallResult',
+          protocolVersion: PROTOCOL_VERSION,
+          requestId: data.requestId,
+          result: ensureDemoProject(data.snapshot),
         });
         return;
       }

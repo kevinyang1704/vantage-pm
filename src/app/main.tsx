@@ -17,6 +17,7 @@ import { AppShell } from '../adapters/ui/app-shell';
 import { AppFrame } from '../adapters/ui/shell/app-frame';
 import { SideNav } from '../adapters/ui/shell/side-nav';
 import { DemoTour } from '../adapters/ui/demo-tour';
+import { isDemoMode } from '../adapters/ui/demo-mode';
 import { TreeRegion } from '../adapters/ui/shell/tree-region';
 import { StatusLine } from '../adapters/ui/shell/status-line';
 import { Breadcrumb, type Crumb } from '../adapters/ui/shell/breadcrumb';
@@ -98,6 +99,7 @@ import {
   mutateWorkspace,
   queryPortableSnapshot,
   batchImportPortable,
+  ensureDemoProject,
   isNativeBridge,
   releaseStorage,
 } from '../adapters/persistence/repository-worker.client';
@@ -333,7 +335,15 @@ function joinErrorMessage(code: string): string {
 }
 
 function PMAppRoot() {
+  const [demoMode] = useState(() => isDemoMode(window.location, isNativeBridge()));
+  const [demoProvisioning, setDemoProvisioning] = useState(demoMode);
+  const demoProvisioningRef = useRef(demoMode);
+  const [demoAdding, setDemoAdding] = useState(false);
+  const demoAddingRef = useRef(false);
+  const workspaceMutationsInFlight = useRef(0);
   const [health, setHealth] = useState<StorageHealthCategory | null>(null);
+  const [startupLoading, setStartupLoading] = useState(true);
+  const [startupError, setStartupError] = useState<string | null>(null);
   // UAT #11: capture boot time ONCE (lazy initializer). Previously recomputed
   // on every render as `performance.now() - startTime`, so "Boot: Xms" grew
   // with session elapsed time instead of staying the one-shot cold-start value.
@@ -1205,8 +1215,16 @@ function PMAppRoot() {
 
   // Initialize SQLite repository, orchestrator, and default project
   const init = useCallback(async () => {
+    setStartupLoading(true);
+    setStartupError(null);
+    let startupStep = 'open local storage';
+    if (demoMode) {
+      demoProvisioningRef.current = true;
+      setDemoProvisioning(true);
+    }
     try {
       const { isOpfs } = await initWorkerDatabase();
+      startupStep = 'read your saved projects';
       // Native composition: derive health from the native runtime status
       // instead of browser storage signals (E9-FR14, E9-UX4).
       const h = isNativeBridge()
@@ -1244,6 +1262,26 @@ function PMAppRoot() {
       undoEngineRef.current = new UndoEngine(orchestrator);
       coalescerRef.current = new ViewStateCoalescer(port);
 
+      let installedDemoId: string | null = null;
+      if (demoMode && h.capabilities.canWrite) {
+        try {
+          const { createDemoProject } = await import('./demo-project');
+          const result = await ensureDemoProject(await createDemoProject());
+          if (result.kind === 'installed' || result.kind === 'already-installed') {
+            installedDemoId = result.projectId;
+          } else if (result.kind === 'failed' && result.code === 'UNSUPPORTED_NEWER_SCHEMA') {
+            const refusal = new Error('This project data was saved by a newer version of the app. Reload to update.');
+            refusal.name = 'NewerSchemaVersionError';
+            throw refusal;
+          } else if (result.kind === 'failed') {
+            setStatusMessage('The demo project could not be loaded. Use Add demo project to try again.');
+          }
+        } catch (error) {
+          if (error instanceof Error && error.name === 'NewerSchemaVersionError') throw error;
+          setStatusMessage('The demo project could not be loaded. Use Add demo project to try again.');
+        }
+      }
+
       let currentProjects = await queryProjects();
       if (currentProjects.length === 0) {
         const defaultProjectId = createUuidV7();
@@ -1277,8 +1315,12 @@ function PMAppRoot() {
 
       setProjects(currentProjects);
       if (currentProjects.length > 0) {
-        const pId = currentProjects[0].id;
+        const demoProject = installedDemoId
+          ? currentProjects.find((project) => project.id === installedDemoId)
+          : undefined;
+        const pId = demoProject?.id ?? currentProjects[0].id;
         setSelectedProjectId(pId);
+        if (demoProject) setViewMode('project');
         const model = await queryProjectNodes(pId);
         applyOutlineModel(model);
         searchIndexRef.current.rebuildFromNodes(model.nodes);
@@ -1300,9 +1342,12 @@ function PMAppRoot() {
         }
         setAffectedReasons(await queryAffectedReasons(pId));
       }
+      await refreshWorkspaceOverview();
+      setWorkspaceRegistry(await queryWorkspaceRegistryForApp());
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      if (message.includes('saved by a newer version') || (err instanceof Error && err.name === 'NewerSchemaVersionError')) {
+      if (message.includes('saved by a newer version') || (err instanceof Error && err.name === 'NewerSchemaVersionError')
+        || (err as { code?: unknown } | null)?.code === 'UNSUPPORTED_NEWER_SCHEMA') {
         const refusalMessage = 'This project data was saved by a newer version of the app. Reload to update.';
         setHealth({
           kind: 'Denied',
@@ -1325,9 +1370,14 @@ function PMAppRoot() {
         orchestratorRef.current = new CommandQueueOrchestrator(rejectingDispatcher);
         return;
       }
-      throw err;
+      console.error('Workspace could not be opened:', err);
+      setStartupError(`We couldn’t ${startupStep}. Your workspace is unavailable. Reload to try again.`);
+    } finally {
+      setStartupLoading(false);
+      demoProvisioningRef.current = false;
+      setDemoProvisioning(false);
     }
-  }, [port, applyOutlineModel, refreshForecast]);
+  }, [port, applyOutlineModel, refreshForecast, refreshWorkspaceOverview, demoMode]);
 
   useEffect(() => {
     void init();
@@ -1343,6 +1393,7 @@ function PMAppRoot() {
   }, [init]);
 
   useEffect(() => {
+    if (startupLoading || startupError) return;
     async function updateOverview() {
       try {
         await refreshWorkspaceOverview();
@@ -1357,12 +1408,13 @@ function PMAppRoot() {
       }
     }
     void updateOverview();
-  }, [projects, refreshWorkspaceOverview]);
+  }, [projects, refreshWorkspaceOverview, startupLoading, startupError]);
 
   // Epic 17: load the workspace registry once the store is open. Keyed on
   // `projects` as well, so creating or deleting a project refreshes the
   // per-workspace counts the switcher shows.
   useEffect(() => {
+    if (startupLoading || startupError) return;
     async function updateRegistry() {
       try {
         setWorkspaceRegistry(await queryWorkspaceRegistryForApp());
@@ -1377,7 +1429,7 @@ function PMAppRoot() {
       }
     }
     void updateRegistry();
-  }, [projects]);
+  }, [projects, startupLoading, startupError]);
 
   const switchProjectInner = useCallback(
     async (targetProjectId: string): Promise<
@@ -1543,6 +1595,7 @@ function PMAppRoot() {
   }, [selectedProjectId, viewMode]);
 
   useEffect(() => {
+    if (startupLoading || startupError) return;
     if (viewMode === 'workspace') {
       void (async () => {
         try {
@@ -1560,7 +1613,7 @@ function PMAppRoot() {
         }
       })();
     }
-  }, [viewMode, refreshWorkspaceOverview]);
+  }, [viewMode, refreshWorkspaceOverview, startupLoading, startupError]);
 
   switchProjectRef.current = switchProject;
 
@@ -3909,6 +3962,57 @@ function PMAppRoot() {
     }
   }, []);
 
+  const handleAddDemoProject = useCallback(async () => {
+    if (!demoMode || demoProvisioningRef.current || demoAddingRef.current || !health?.capabilities.canWrite) return;
+    if (workspaceMutationsInFlight.current > 0) {
+      setStatusMessage('The workspace is changing. Try Add demo project again when it finishes.');
+      return;
+    }
+    demoAddingRef.current = true;
+    setDemoAdding(true);
+    setStatusMessage(null);
+    let added = false;
+    try {
+      const { createDemoProject } = await import('./demo-project');
+      const candidate = await createDemoProject();
+      // A retry after failed automatic provisioning must also record the
+      // once-only installation. Subsequent explicit requests add fresh copies.
+      const installation = await ensureDemoProject(candidate);
+      const result = installation.kind === 'installed'
+        ? Object.freeze({ ok: true as const, projectId: installation.projectId, revision: 1 })
+        : installation.kind === 'failed'
+          ? Object.freeze({ ok: false as const, code: installation.code })
+          : await batchImportPortable(candidate);
+      if (!result.ok) {
+        if (result.code === 'UNSUPPORTED_NEWER_SCHEMA') {
+          const refusal = 'This project data was saved by a newer version of the app. Reload to update.';
+          setCompatibilityError(refusal);
+          setHealth({ kind: 'Denied', cause: refusal, capabilities: Object.freeze({ canWrite: false, canPersist: false, isCertified: false }) });
+          setStatusMessage(refusal);
+          return;
+        }
+        throw new Error('Demo import failed');
+      }
+      added = true;
+      setProjects(await queryProjects());
+      const switched = await switchProject(result.projectId);
+      if (switched.kind === 'Blocked') {
+        setStatusMessage('Demo project added. Finish the pending edit, then select the new project.');
+      } else {
+        setViewMode('workspace');
+        setStatusMessage('A fresh Lumen Trade demo project is ready.');
+      }
+      await refreshWorkspaceOverview();
+    } catch {
+      setStatusMessage(added
+        ? 'Demo project added. It could not be opened yet; select it from Projects.'
+        : 'The demo project could not be added. Your existing projects are unchanged. Try Add demo project again.');
+    } finally {
+      demoAddingRef.current = false;
+      setDemoAdding(false);
+    }
+  }, [demoMode, health, switchProject, refreshWorkspaceOverview]);
+
   // ── Epic 17: workspace registry handlers ──────────────────────────────
 
   /**
@@ -3929,6 +4033,11 @@ function PMAppRoot() {
         >,
       ) => void,
     ): Promise<boolean> => {
+      if (demoProvisioningRef.current || demoAddingRef.current) {
+        setStatusMessage('The demo project is loading. Try the workspace change again when it finishes.');
+        return false;
+      }
+      workspaceMutationsInFlight.current += 1;
       setStatusMessage(null);
       try {
         const result = await mutateWorkspace(mutation);
@@ -3957,6 +4066,8 @@ function PMAppRoot() {
         }
         setStatusMessage('That workspace change could not be saved. Nothing was modified.');
         return false;
+      } finally {
+        workspaceMutationsInFlight.current -= 1;
       }
     },
     [],
@@ -4039,6 +4150,18 @@ function PMAppRoot() {
       setHealth({ kind: 'Denied', cause, capabilities: Object.freeze({ canWrite: false, canPersist: false, isCertified: false }) });
     },
   });
+
+  if (startupLoading || startupError) {
+    return createElement('main', { className: 'pm-startup', 'aria-busy': startupLoading },
+      createElement('div', { className: 'pm-startup__brand' }, 'Vantage'),
+      createElement('p', { className: 'pm-startup__title', role: startupError ? 'alert' : 'status' },
+        startupError ? 'Your workspace couldn’t be opened' : 'Opening your workspace…'),
+      createElement('p', { className: 'pm-startup__copy' }, startupError
+        ? startupError
+        : 'Getting your projects ready. This may take a few seconds.'),
+      startupError ? createElement('button', { type: 'button', onClick: () => window.location.reload() }, 'Try again') : null,
+    );
+  }
 
   return createElement(
     AppShell,
@@ -4132,6 +4255,9 @@ function PMAppRoot() {
       onShareForEditing: () => void localFiles.share(),
       onRecoverLocalMerge: localFiles.recoveryAvailable ? () => void localFiles.openRecovery() : undefined,
       localFileBusy: localFiles.busy,
+      onAddDemoProject: demoMode ? () => void handleAddDemoProject() : undefined,
+      demoProjectBusy: demoProvisioning || demoAdding,
+      demoProjectEnabled: Boolean(health?.capabilities.canWrite && workspaceRegistry && !compatibilityError),
     }),
     viewMode === 'workspace'
       ? createElement(WorkspaceOverview, {

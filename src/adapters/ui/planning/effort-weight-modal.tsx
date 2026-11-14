@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import type { OutlineNodeReadModel } from '../../../application/outline/outline-read-model';
 import type { Phase } from '../../../domain/phase/phase.entity';
 import { normalizeFieldKey } from '../../../domain/tree/field.policy';
+import { OutlineIcon } from '../outline/outline-icons';
 import './effort-weight-modal.css';
 
 export interface EffortWeightModalProps {
@@ -112,7 +113,10 @@ export const EffortWeightModal: React.FC<EffortWeightModalProps> = ({
       <div className="pm-effort-modal">
         <div className="pm-effort-modal__header">
           <h2 id="effort-modal-title" className="pm-effort-modal__title">
-            <span className="pm-effort-modal__icon">⚡</span> Planning & Metadata
+            <span className="pm-effort-modal__icon">
+              <OutlineIcon name="effort" size={16} />
+            </span>{' '}
+            Planning & Metadata
           </h2>
           <button
             type="button"
@@ -132,7 +136,7 @@ export const EffortWeightModal: React.FC<EffortWeightModalProps> = ({
           <div className="pm-effort-modal__grid">
             <div className="pm-effort-modal__field">
               <label htmlFor="effort-points-input" className="pm-effort-modal__label">
-                ⚡ Effort Points:
+                <OutlineIcon name="effort" size={13} /> Effort Points:
               </label>
               <input
                 id="effort-points-input"
@@ -149,7 +153,7 @@ export const EffortWeightModal: React.FC<EffortWeightModalProps> = ({
             {node.nodeType === 'Theme' && (
               <div className="pm-effort-modal__field">
                 <label htmlFor="strategic-weight-input" className="pm-effort-modal__label">
-                  ⚖ Strategic Weight:
+                  <OutlineIcon name="weight" size={13} /> Strategic Weight:
                 </label>
                 <input
                   id="strategic-weight-input"
@@ -167,7 +171,7 @@ export const EffortWeightModal: React.FC<EffortWeightModalProps> = ({
             <div className="pm-effort-modal__field">
               <div className="pm-effort-modal__field-header">
                 <label htmlFor="phase-select" className="pm-effort-modal__label">
-                  🏷 Project Phase:
+                  <OutlineIcon name="phase" size={13} /> Project Phase:
                 </label>
                 {onCreatePhase && !isCreatingPhase && (
                   <button
